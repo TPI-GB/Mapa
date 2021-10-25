@@ -12,8 +12,8 @@ const UserSchema = Schema(
     password: { type: String, required: true },
     email: { type: String, required: true },
     active: { type: Boolean, required: true, default: true },
-    ID: { type: String, required: true },
-    ID_Type: { type: String, required: true },
+    DNI: { type: Number, required: true },
+    DNI_Type: { type: Number, required: true },
     hasChangePassword: { type: Boolean, default: false },
   },
   {
