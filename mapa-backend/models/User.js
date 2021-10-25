@@ -13,7 +13,7 @@ const UserSchema = Schema(
     email: { type: String, required: true },
     active: { type: Boolean, required: true, default: true },
     DNI: { type: Number, required: true },
-    DNI_Type: { type: Number, required: true },
+    DNI_Type: { type: String, required: true },
     hasChangePassword: { type: Boolean, default: false },
   },
   {

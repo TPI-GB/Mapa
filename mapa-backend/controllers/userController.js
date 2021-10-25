@@ -13,6 +13,7 @@ async function registerUser(req, res) {
       active,
       DNI,
       DNI_Type,
+      hasChangePassword,
     } = req.body;
 
     if (
