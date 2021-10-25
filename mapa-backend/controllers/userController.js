@@ -11,9 +11,9 @@ async function registerUser(req, res) {
       roles,
       password,
       email,
-      status,
-      ID,
-      ID_Type,
+      active,
+      DNI,
+      DNI_Type,
       hasChangePassword,
     } = req.body;
 
@@ -25,8 +25,8 @@ async function registerUser(req, res) {
         roles &&
         password &&
         email &&
-        ID &&
-        ID_Type
+        DNI &&
+        DNI_Type
       )
     ) {
       return res.status(403).send("All fields are required");
@@ -39,9 +39,9 @@ async function registerUser(req, res) {
       roles,
       password,
       email: email.toLowerCase(),
-      status,
-      ID,
-      ID_Type,
+      active,
+      DNI,
+      DNI_Type,
       hasChangePassword,
     });
 
@@ -92,8 +92,34 @@ async function reset(req, res) {
   }
 }
 
+async function editUser(req, res) {
+  try {
+    const { first_name, last_name, nick, roles, email, DNI, DNI_Type } =
+      req.body;
+
+    const data = {
+      first_name: first_name,
+      last_name: last_name,
+      nick: nick,
+      roles: roles,
+      email: email,
+      DNI: DNI,
+      DNI_Type: DNI_Type,
+    };
+
+    await User.findByIdAndUpdate({ _id: req.params.id }, data);
+
+    const userStored = await User.findById(req.params.id);
+
+    res.status(201).send({ userStored });
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+}
+
 module.exports = {
   registerUser,
   getUsers,
   reset,
+  editUser,
 };
