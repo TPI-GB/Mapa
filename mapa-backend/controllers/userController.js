@@ -1,44 +1,63 @@
-const Users = require("./model/users");
-const bcrypt = require("bcryptjs");
+const e = require("cors");
+const User = require("../models/User");
 
-async function registerUser (req, res) {
-    try {
-      const { first_name, last_name, email, password, ID, ID_Type, nick } =
-        req.body;
-  
-      if (
-        !(email && password && first_name && last_name && nick && ID && ID_Type)
-      ) {
-        res.status(400).send("All input is required");
-      }
-  
-      const oldUser = await Users.findOne({ email });
-  
-      if (oldUser) {
-        return res.status(409).send("User Already Exist. Please Login");
-      }
-  
-      encryptedPassword = await bcrypt.hash(password, 10);
-  
-      const user = await Users.create({
-        first_name,
-        last_name,
-        email: email.toLowerCase(),
-        password: encryptedPassword,
-        nick,
-        roles: [],
-        ID,
-        ID_Type,
-        mustChangePassword: false,
-        active: true,
-      });
-  
-      res.status(201).json(user);
-    } catch (err) {
-      console.log(err);
+async function registerUser(req, res) {
+  try {
+    const {
+      first_name,
+      last_name,
+      nick,
+      roles,
+      password,
+      email,
+      status,
+      ID,
+      ID_Type,
+      hasChangePassword,
+    } = req.body;
+
+    if (
+      !(
+        first_name &&
+        last_name &&
+        nick &&
+        roles &&
+        password &&
+        email &&
+        ID &&
+        ID_Type
+      )
+    ) {
+      return res.status(403).send("All fields are required");
     }
+
+    const user = await User.create({
+      first_name,
+      last_name,
+      nick,
+      roles,
+      password,
+      email: email.toLowerCase(),
+      status,
+      ID,
+      ID_Type,
+      hasChangePassword,
+    });
+
+    const userStored = await user.save();
+
+    res.status(201).send({ userStored });
+  } catch (e) {
+    res.status(500).send({ message: e.message });
   }
-  
-  module.exports = {
-    registerUser
-  }
+}
+
+async function getUsers(req, res) {
+  const usuarios = await User.find().lean().exec();
+  res.status(200).send({ usuarios });
+}
+
+module.exports = {
+  registerUser,
+  getUsers,
+};
