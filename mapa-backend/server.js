@@ -16,4 +16,6 @@ async function initApp(appConfig, dbConfig) {
   }
 }
 
+//Arrancar la app
+
 initApp(appConfig, dbConfig);
