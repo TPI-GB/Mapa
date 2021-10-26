@@ -4,7 +4,7 @@ const {
   getUsers,
   editUser,
   reset,
-} = require("../services/userServices");
+} = require("../services/user_services");
 const api = express.Router();
 
 api.post("/", registerUser);
