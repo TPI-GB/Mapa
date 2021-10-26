@@ -1,6 +1,4 @@
-const e = require("cors");
-const User = require("../models/User");
-const nodemailer = require("nodemailer");
+const Usuario = require("../models/user_model");
 
 async function registerUser(req, res) {
   try {

@@ -1,11 +1,10 @@
 const express = require("express");
-const { reset } = require("nodemon");
-const { registerUser, getUsers } = require("../controllers/userController");
 const {
   registerUser,
   getUsers,
   editUser,
-} = require("../controllers/userController");
+  reset,
+} = require("../services/userServices");
 const api = express.Router();
 
 api.post("/", registerUser);
