@@ -1,6 +1,8 @@
 const User = require("../models/user_model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
+//Register
 async function registerUser(req, res) {
   try {
     const {
@@ -54,11 +56,59 @@ async function registerUser(req, res) {
   }
 }
 
+//GetUsers
 async function getUsers(req, res) {
   const usuarios = await User.find().lean().exec();
   res.status(200).send({ usuarios });
 }
 
+//Login
+async function login(req, res) {
+  // Our login logic starts here
+  try {
+    // Get user input
+    const authHeader = req.headers.authorization;
+
+    let email, password;
+    if (authHeader) {
+      const method = authHeader.split(" ")[0];
+      const token = authHeader.split(" ")[1];
+      if (method && method === "Basic" && token) {
+        const b = Buffer.from(token, "base64");
+        const value = b.toString().split(":");
+        email = value[0];
+        password = value[1];
+      }
+    }
+
+    // Validate user input
+    if (!(email && password)) {
+      res.status(400).send("All input is required");
+    }
+    // Validate if user exist in our database
+    const user = await User.findOne({ email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // Create token
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+
+      // user
+      return res.status(200).json({ ...user._doc, token });
+    }
+    return res.status(400).send("Invalid Credentials");
+  } catch (err) {
+    console.log(err);
+  }
+  // Our register logic ends here
+}
+
+//Reset
 async function reset(req, res) {
   try {
     const { ID } = req.params;
@@ -93,6 +143,7 @@ async function reset(req, res) {
   }
 }
 
+//EditUser
 async function editUser(req, res) {
   try {
     const { first_name, last_name, nick, roles, email, DNI, DNI_Type } =
@@ -123,4 +174,5 @@ module.exports = {
   getUsers,
   reset,
   editUser,
+  login,
 };
