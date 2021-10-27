@@ -1,4 +1,5 @@
 const User = require("../models/user_model");
+const bcrypt = require("bcrypt");
 
 async function registerUser(req, res) {
   try {
@@ -30,12 +31,14 @@ async function registerUser(req, res) {
       return res.status(403).send("All fields are required");
     }
 
+    encryptedPassword = await bcrypt.hash(password, 10);
+
     const user = await User.create({
       first_name,
       last_name,
       nick,
       roles,
-      password,
+      password: encryptedPassword,
       email: email.toLowerCase(),
       active,
       DNI,
