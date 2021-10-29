@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/system";
+import Box from "@mui/material/Box";
 import {
   TextField,
   Button,
@@ -7,10 +7,10 @@ import {
   Grid,
   Card,
   CardContent,
+  Modal,
 } from "@mui/material";
-import "./Login.scss";
 
-export default function Login() {
+export default function Reset() {
   return (
     <Stack direction="row" ml={2} mt={5}>
       <Grid container spacing={2}>
@@ -26,34 +26,25 @@ export default function Login() {
                   "&:hover": {
                     opacity: [0.9, 0.8, 0.7],
                   },
-                  "& .MuiTextField-root": { m: 2, width: "7cm" },
+                  "& .MuiTextField-root": { m: 2, width: "8cm" },
                 }}
                 noValidate
                 autoComplete="off"
               >
-                <h1>Login</h1>
+                <h4 style={{ textAlign: "justify" }}>
+                  Ingresa tu correo electronico para recuperar tu cuenta.
+                </h4>
+
                 <TextField
                   required
                   id="outlined-required"
                   label="Email"
                   defaultValue=""
                 />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Contraseña"
-                  defaultValue=""
-                />
               </Box>
+
               <Stack direction="row" ml={2}>
-                <Button variant="contained" href="/Home">
-                  Ingresar
-                </Button>
-              </Stack>
-              <Stack direction="row" ml={2} justifyContent="space-between">
-                <Button variant="text" href="/Reset">
-                  ¿Olvidaste tu contraseña?
-                </Button>
+                <Button variant="contained">Enviar</Button>
               </Stack>
             </CardContent>
           </Card>

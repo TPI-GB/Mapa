@@ -6,6 +6,7 @@ import PanelControl from "./components/ControlPanel";
 import Login from "./components/Login";
 import EditUser from "./components/EditUser";
 import Header from "./components/Header";
+import Reset from "./components/Reset/Reset";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/controlpanel" exact={true}>
             <PanelControl />
+          </Route>
+          <Route path="/reset" exact={true}>
+            <Reset />
           </Route>
         </Switch>
       </Router>

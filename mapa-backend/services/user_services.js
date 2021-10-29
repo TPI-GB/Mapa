@@ -115,6 +115,18 @@ async function reset(req, res) {
 
     encryptedPassword = await bcrypt.setRandomFallback(password, 10);
 
+    let email, password;
+    if (authHeader) {
+      const method = authHeader.split(" ")[0];
+      const token = bearer.split(" ")[1];
+      if (method && method === "Basic" && token) {
+        const b = Buffer.from(token, "base64");
+        const value = b.toString().split(":");
+        email = value[0];
+        password = value[1];
+      }
+    }
+
     const user = await Users.findOne({ ID });
 
     const transporter = nodemailer.createTransport({
