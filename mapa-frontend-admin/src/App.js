@@ -1,8 +1,8 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
-import PanelControl  from "./components/ControlPanel/ControlPanel";
+import Home from "./components/Home";
+import PanelControl from "./components/ControlPanel";
 import Login from "./components/Login";
 import EditUser from "./components/EditUser";
 import Header from "./components/Header";
@@ -12,8 +12,9 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/Home" exact={true}>
+          <Route path="/home" exact={true}>
             <Home />
+          </Route>
           <Route path="/edit">
             <EditUser />
           </Route>
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" exact={true}>
             <Login />
           </Route>
-          <Route path="/ControlPanel" exact={true}>
+          <Route path="/controlpanel" exact={true}>
             <PanelControl />
           </Route>
         </Switch>
