@@ -10,7 +10,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import "./Header.scss";
 
-export default function ButtonAppBar() {
+export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,13 +23,22 @@ export default function ButtonAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+            </IconButton>          
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Button color="inherit" href="/Home">
+            Home
+          </Button>
+          </Typography>        
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Button color="inherit" href="/ControlPanel">
             Panel de Control
-          </Typography>
+          </Button>
+          </Typography>          
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Button color="inherit">
             Estadisticas
-          </Typography>
+            </Button>
+          </Typography>          
           <Button color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
