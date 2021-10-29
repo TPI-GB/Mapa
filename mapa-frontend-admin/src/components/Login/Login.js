@@ -18,11 +18,6 @@ export default function Login() {
         <Grid item xs={4} style={{ textAlign: "center" }}>
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
-              <Stack direction="row" ml={2} mt={2}>
-                <Button variant="contained" href="/">
-                  Regresar
-                </Button>
-              </Stack>
               <Box
                 component="form"
                 sx={{
@@ -48,11 +43,10 @@ export default function Login() {
                   id="outlined-required"
                   label="Contraseña"
                   defaultValue=""
-                  value=""
                 />
               </Box>
               <Stack direction="row" ml={2}>
-                <Button variant="contained">Ingresar</Button>
+                <Button variant="contained" href="/Home">Ingresar</Button>
               </Stack>
             </CardContent>
           </Card>
