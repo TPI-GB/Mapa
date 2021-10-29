@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import SettingsIcon from '@mui/icons-material/Settings';
 import "./ControlPanel.scss";
 
 export default function ControlPanel() {
@@ -16,14 +17,14 @@ export default function ControlPanel() {
         <Grid item xs={4}></Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
           <Card  sx={{ minWidth: 275 }}>
-            <CardContent className="card">              
-              
-              <h1>Panel de Control</h1>
+            <CardContent className="card">  
+            <SettingsIcon fontSize="large"/>
+              <h1>Panel de Control</h1>              
               <Stack direction="column" ml={2} mt={2} >
-                <Button variant="contained" href="/EditUser">Editar Moderador</Button>
+                <Button variant="contained" href="/listusers">Lista de Moderadores</Button>
               </Stack>
               <Stack direction="column" ml={2} mt={2} >
-                <Button variant="contained">Editar Mapa</Button>
+                <Button variant="contained">Editar Datos</Button>
               </Stack>
               <Stack direction="column" ml={2} mt={2} >
                 <Button variant="contained" href="/Home">
