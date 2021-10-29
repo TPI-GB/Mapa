@@ -1,14 +1,10 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
+import imageexample from '../../assets/img/imageexample.png'
 
 export default function Home() {
   return (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      spacing={8}
-      mt={2}
-    ></Stack>
+    <div>
+      <img src={imageexample} alt=""/>
+    </div>
   );
 }

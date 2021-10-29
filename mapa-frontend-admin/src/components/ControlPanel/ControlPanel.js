@@ -20,10 +20,7 @@ export default function ControlPanel() {
               
               <h1>Panel de Control</h1>
               <Stack direction="column" ml={2} mt={2} >
-                <Button variant="contained">Crear Moderador</Button>
-              </Stack>
-              <Stack direction="column" ml={2} mt={2} >
-                <Button variant="contained">Editar Moderador</Button>
+                <Button variant="contained" href="/EditUser">Editar Moderador</Button>
               </Stack>
               <Stack direction="column" ml={2} mt={2} >
                 <Button variant="contained">Editar Mapa</Button>

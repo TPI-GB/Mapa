@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import PanelControl from "./components/ControlPanel";
 import Login from "./components/Login";
-import EditUser from "./components/EditUser";
+import ListUsers from "./components/ListUsers";
 import Header from "./components/Header";
 import Reset from "./components/Reset/Reset";
 
@@ -17,8 +17,8 @@ function App() {
           <Route path="/home" exact={true}>
             <Home />
           </Route>
-          <Route path="/edit">
-            <EditUser />
+          <Route path="/listusers">
+            <ListUsers />
           </Route>
           <Route path="/login">
             <Login />
