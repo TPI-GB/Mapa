@@ -17,6 +17,30 @@ export default function EditUsers() {
     setUsers(response);
   };
 
+  users.sort(function (a, b) {
+    if (a.first_name === b.first_name && a.last_name === b.last_name) {
+      if (a.DNI > b.DNI) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+
+    if (a.first_name === b.first_name) {
+      if (a.last_name > b.last_name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+
+    if (a.first_name > b.first_name) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
   return (
     <div className="ListUsers">
       <Button type="primary" style={{ background: "blue" }}>
@@ -24,7 +48,7 @@ export default function EditUsers() {
       </Button>
       <List
         itemLayout="horizontal"
-        dataSource={users}
+        dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
             <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
