@@ -19,7 +19,7 @@ export default function EditUsers() {
 
   users.sort(function (a, b) {
     if (a.first_name === b.first_name && a.last_name === b.last_name) {
-      if (a.DNI > b.DNI) {
+      if (a.nick > b.nick) {
         return 1;
       } else {
         return -1;
