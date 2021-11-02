@@ -11,9 +11,15 @@ class UserController {
     this.router.post("/", (req, res) => {
       this.registerUser(req, res);
     });
-    this.router.put("/", reset);
-    this.router.post("/edit", editUser);
-    this.router.post("/login", login);
+    this.router.put("/", (req, res) => {
+      this.reset(req, res);
+    });
+    this.router.post("/edit", (req, res) => {
+      this.editUser(req, res);
+    });
+    this.router.post("/login", (req, res) => {
+      this.login(req, res);
+    });
   }
 
   getUsers(req, res) {
@@ -38,6 +44,12 @@ class UserController {
         res.status(400).json(err);
       });
   }
+
+  reset(req, res) {}
+
+  editUser(req, res) {}
+
+  login(req, res) {}
 
   // FALTA RESET, EDIT, LOGIN.
 }
