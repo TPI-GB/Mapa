@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, List } from "antd";
+import { Link } from "react-router-dom";
 import getUsers from "../Services";
 import { useState, useEffect } from "react";
 import "./ListUsers.scss";
@@ -43,9 +44,11 @@ export default function EditUsers() {
 
   return (
     <div className="ListUsers">
-      <Button type="primary" style={{ background: "blue" }}>
-        Crear Usuario
-      </Button>
+      <Link to={`/edituser/new`}>
+        <Button type="primary" style={{ background: "blue" }}>
+          Crear Usuario
+        </Button>
+      </Link>
       <List
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
@@ -72,9 +75,11 @@ export default function EditUsers() {
             <List.Item.Meta title={user.nick}></List.Item.Meta>
             <List.Item.Meta
               title={
-                <Button type="primary" style={{ background: "goldenrod" }}>
-                  Editar Usuario
-                </Button>
+                <Link to={`/edituser/${user._id}`}>
+                  <Button type="primary" style={{ background: "goldenrod" }}>
+                    Editar Usuario
+                  </Button>
+                </Link>
               }
             ></List.Item.Meta>
           </List.Item>

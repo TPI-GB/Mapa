@@ -51,7 +51,7 @@ export default function Login() {
                 </Button>
               </Stack>
               <Stack direction="row" ml={2} justifyContent="space-between">
-                <Button variant="text" href="/Reset">
+                <Button variant="text" href="/reset">
                   ¿Olvidaste tu contraseña?
                 </Button>
               </Stack>
