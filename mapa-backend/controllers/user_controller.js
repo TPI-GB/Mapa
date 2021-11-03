@@ -47,11 +47,19 @@ class UserController {
 
   reset(req, res) {}
 
-  editUser(req, res) {}
+  editUser(req, res) {
+    const data = req.body;
+    const userPromise = this.userService.editUser(data);
+    userPromise
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
 
   login(req, res) {}
-
-  // FALTA RESET, EDIT, LOGIN.
 }
 
 module.exports = UserController;

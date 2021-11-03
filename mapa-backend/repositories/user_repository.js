@@ -13,23 +13,10 @@ class UserRepository {
       password,
       email,
       active,
-      DNI,
-      DNI_Type,
       hasChangePassword,
-    } = req.body;
+    } = data;
 
-    if (
-      !(
-        first_name &&
-        last_name &&
-        nick &&
-        rol &&
-        password &&
-        email &&
-        DNI &&
-        DNI_Type
-      )
-    ) {
+    if (!(first_name && last_name && nick && rol && password && email)) {
       return res.status(403).send("All fields are required");
     }
 
@@ -43,8 +30,6 @@ class UserRepository {
       password: encryptedPassword,
       email: email.toLowerCase(),
       active,
-      DNI,
-      DNI_Type,
       hasChangePassword,
     });
 
@@ -151,29 +136,22 @@ class UserRepository {
   }
 
   //EditUser
-  async editUser(req, res) {
-    try {
-      const { first_name, last_name, nick, roles, email, DNI, DNI_Type } =
-        req.body;
+  async editUser(data) {
+    const { first_name, last_name, nick, roles, email } = data;
 
-      const data = {
-        first_name: first_name,
-        last_name: last_name,
-        nick: nick,
-        roles: roles,
-        email: email,
-        DNI: DNI,
-        DNI_Type: DNI_Type,
-      };
+    const newData = {
+      first_name: first_name,
+      last_name: last_name,
+      nick: nick,
+      roles: roles,
+      email: email,
+    };
 
-      await User.findByIdAndUpdate({ _id: req.params.id }, data);
+    await User.findByIdAndUpdate({ _id: data.params.id }, newData);
 
-      const userStored = await User.findById(req.params.id);
+    const userStored = await User.findById(data.params.id);
 
-      res.status(201).send({ userStored });
-    } catch (e) {
-      res.status(500).send({ message: e.message });
-    }
+    return userStored;
   }
 }
 
