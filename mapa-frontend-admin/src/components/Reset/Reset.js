@@ -33,10 +33,6 @@ export default function Reset() {
                 noValidate
                 autoComplete="off"
               >
-                {/* <h4 style={{ textAlign: "justify" }} position={}>
-                  Ingresa tu correo electronico para recuperar tu cuenta.
-                </h4> */}
-
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Ingresá tu correo electrónico para recuperar tu contraseña.
                 </Typography>
