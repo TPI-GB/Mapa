@@ -27,7 +27,10 @@ class UserService {
   async reset(req, res) {}
 
   //EditUser
-  async editUser(req, res) {}
+  async editUser(data) {
+    const newUser = await userRepository.editUser();
+    return newUser;
+  }
 }
 
 module.exports = UserService;
