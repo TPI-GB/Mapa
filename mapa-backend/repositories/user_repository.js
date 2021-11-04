@@ -37,97 +37,36 @@ class UserRepository {
     return await User.find().lean().exec();
   }
 
-  //Login
-  async login(req, res) {
-    // Our login logic starts here
-    try {
-      // Get user input
-      const authHeader = req.headers.authorization;
-
-      let email, password;
-      if (authHeader) {
-        const method = authHeader.split(" ")[0];
-        const token = authHeader.split(" ")[1];
-        if (method && method === "Basic" && token) {
-          const b = Buffer.from(token, "base64");
-          const value = b.toString().split(":");
-          email = value[0];
-          password = value[1];
-        }
-      }
-
-      // Validate user input
-      if (!(email && password)) {
-        res.status(400).send("All input is required");
-      }
-      // Validate if user exist in our database
-      const user = await User.findOne({ email });
-
-      if (user && (await bcrypt.compare(password, user.password))) {
-        // Create token
-        const token = jwt.sign(
-          { user_id: user._id, email },
-          process.env.TOKEN_KEY,
-          {
-            expiresIn: "2h",
-          }
-        );
-
-        // user
-        return res.status(200).json({ ...user._doc, token });
-      }
-      return res.status(400).send("Invalid Credentials");
-    } catch (err) {
-      console.log(err);
-    }
-    // Our register logic ends here
+  async userEmail(email) {
+    return await User.findOne({ email, active: true });
+    //Ver porque no anda con active: false
   }
 
   //Reset
   async reset(req, res) {
-    try {
-      const { ID } = req.params;
+    encryptedPassword = await bcrypt.setRandomFallback(password, 10);
 
-      encryptedPassword = await bcrypt.setRandomFallback(password, 10);
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
 
-      let email, password;
-      if (authHeader) {
-        const method = authHeader.split(" ")[0];
-        const token = bearer.split(" ")[1];
-        if (method && method === "Basic" && token) {
-          const b = Buffer.from(token, "base64");
-          const value = b.toString().split(":");
-          email = value[0];
-          password = value[1];
-        }
-      }
+    const info = await transporter.sendMail({
+      from: "enzoefica@gmail.com",
+      to: user.email,
+      subject: "Hello ✔",
+      text: "Hello world?",
+      html: "<b>Hello world?</b>",
+    });
 
-      const user = await Users.findOne({ ID });
+    res.status(201).send({ info });
 
-      const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
-        },
-      });
-
-      const info = await transporter.sendMail({
-        from: "enzoefica@gmail.com",
-        to: user.email,
-        subject: "Hello ✔",
-        text: "Hello world?",
-        html: "<b>Hello world?</b>",
-      });
-
-      res.status(201).send({ info });
-
-      res.json(req.body);
-    } catch (err) {
-      console.log(err);
-    }
+    res.json(req.body);
   }
 
   //EditUser

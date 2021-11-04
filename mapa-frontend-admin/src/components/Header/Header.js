@@ -15,27 +15,18 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button color="inherit" href="/home">
-              Home
+              
             </Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button color="inherit" href="/controlpanel">
-              Panel de Control
+              
             </Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button color="inherit">Estadisticas</Button>
+            <Button color="inherit"></Button>
           </Typography>
           <Button color="inherit">Log Out</Button>
         </Toolbar>
