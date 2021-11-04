@@ -16,11 +16,7 @@ class UserRepository {
       hasChangePassword,
     } = data;
 
-    if (!(first_name && last_name && nick && rol && password && email)) {
-      return res.status(403).send("All fields are required");
-    }
-
-    encryptedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       first_name,
@@ -38,8 +34,7 @@ class UserRepository {
 
   //GetUsers
   async getUsers(req, res) {
-    const users = await User.find().lean().exec();
-    return users;
+    return await User.find().lean().exec();
   }
 
   //Login

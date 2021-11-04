@@ -10,13 +10,14 @@ class UserService {
 
   //Register
   async registerUser(data) {
-    const user = await userRepository.registerUser(data);
+    console.log(data);
+    const user = await this.userRepository.registerUser(data);
     return user;
   }
 
   //GetUsers
-  async getUsers(req, res) {
-    const users = await userRepository.getUsers();
+  async getUsers() {
+    const users = await this.userRepository.getUsers();
     return users;
   }
 

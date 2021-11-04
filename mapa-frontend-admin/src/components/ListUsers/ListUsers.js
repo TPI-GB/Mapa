@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, List } from "antd";
 import { Link } from "react-router-dom";
-import getUsers from "../Services";
+import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import "./ListUsers.scss";
 import "antd/dist/antd.css";
 
-export default function EditUsers() {
+export default function ListUsers() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -14,33 +14,9 @@ export default function EditUsers() {
   }, []);
 
   const getData = async () => {
-    const response = await getUsers();
+    const response = await petitions.getUsers();
     setUsers(response);
   };
-
-  users.sort(function (a, b) {
-    if (a.first_name === b.first_name && a.last_name === b.last_name) {
-      if (a.nick > b.nick) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-
-    if (a.first_name === b.first_name) {
-      if (a.last_name > b.last_name) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-
-    if (a.first_name > b.first_name) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
 
   return (
     <div className="ListUsers">
@@ -54,11 +30,9 @@ export default function EditUsers() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Apellido</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>DNI</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Tipo De Dni</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Nick</h5>}></List.Item.Meta>
+            <List.Item.Meta title="Nombre"></List.Item.Meta>
+            <List.Item.Meta title="Apellido"></List.Item.Meta>
+            <List.Item.Meta title="Nick"></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}
@@ -70,8 +44,6 @@ export default function EditUsers() {
           <List.Item>
             <List.Item.Meta title={user.first_name}></List.Item.Meta>
             <List.Item.Meta title={user.last_name}></List.Item.Meta>
-            <List.Item.Meta title={user.DNI}></List.Item.Meta>
-            <List.Item.Meta title={user.DNI_Type}></List.Item.Meta>
             <List.Item.Meta title={user.nick}></List.Item.Meta>
             <List.Item.Meta
               title={
