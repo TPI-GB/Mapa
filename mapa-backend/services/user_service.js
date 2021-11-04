@@ -15,7 +15,7 @@ class UserService {
   }
 
   //GetUsers
-  async getUsers(req, res) {
+  async getUsers() {
     const users = await this.userRepository.getUsers();
     return users;
   }
