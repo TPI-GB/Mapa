@@ -7,9 +7,9 @@ class UserController {
     this.userService = new UserService();
     this.router = express.Router();
     this.router.get("/", auth, (req, res) => this.getUsers(req, res));
-    this.router.post("/", (req, res) => this.registerUser(req, res));
+    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
     this.router.put("/", (req, res) => this.reset(req, res));
-    this.router.post("/edit", (req, res) => this.editUser(req, res));
+    this.router.post("/edit", auth, (req, res) => this.editUser(req, res));
     this.router.post("/login", (req, res) => this.login(req, res));
   }
 
@@ -39,9 +39,19 @@ class UserController {
 
   reset(req, res) {
     const data = req.body;
+
+    let email;
+
+    if (!email) {
+      res.status(400).send("All input is required");
+    }
+
     const userPromise = this.userService.reset(data);
     userPromise
       .then((user) => {
+        if (user) {
+          return res.status(200).json(user);
+        }
         res.json(user);
       })
       .catch((err) => {
@@ -97,5 +107,3 @@ class UserController {
 }
 
 module.exports = UserController;
-
-//Agregar auth en todos menos login y reset
