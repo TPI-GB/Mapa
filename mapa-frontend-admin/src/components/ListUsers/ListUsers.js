@@ -14,9 +14,30 @@ export default function ListUsers() {
   }, []);
 
   const getData = async () => {
-    const response = await petitions.getUsers();
+    const response = await petitions.GetUsers();
     setUsers(response);
   };
+  users.sort(function (a, b) {
+    if (a.first_name === b.first_name && a.last_name === b.last_name) {
+      if (a.nick > b.nick) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    if (a.first_name === b.first_name) {
+      if (a.last_name > b.last_name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    if (a.first_name > b.first_name) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
 
   return (
     <div className="ListUsers">

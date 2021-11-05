@@ -71,19 +71,19 @@ class UserRepository {
 
   //EditUser
   async editUser(data) {
-    const { first_name, last_name, nick, roles, email } = data;
+    const { first_name, last_name, nick, rol, email, id } = data;
 
     const newData = {
       first_name: first_name,
       last_name: last_name,
       nick: nick,
-      roles: roles,
+      rol: rol,
       email: email,
     };
 
-    await User.findByIdAndUpdate({ _id: data.params.id }, newData);
+    await User.findByIdAndUpdate({ _id: id }, newData);
 
-    const userStored = await User.findById(data.params.id);
+    const userStored = await User.findById(id);
 
     return userStored;
   }
