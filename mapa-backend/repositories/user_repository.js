@@ -71,14 +71,18 @@ class UserRepository {
 
   //EditUser
   async editUser(data) {
-    const { first_name, last_name, nick, rol, email, id } = data;
+    console.log(data);
+
+    const { first_name, last_name, nick, rol, email, id, password } = data;
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     const newData = {
       first_name: first_name,
       last_name: last_name,
       nick: nick,
+      password: encryptedPassword,
       rol: rol,
-      email: email,
+      email: email.toLowerCase(),
     };
 
     await User.findByIdAndUpdate({ _id: id }, newData);

@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import petitions from "../Petitions";
+import { useEffect, useState } from "react";
 import {
   Button,
   Stack,
@@ -88,6 +89,23 @@ function FormNewUser() {
 }
 
 function FormEditUser(id) {
+  const [user, setUser] = useState([]);
+  let estado = <b style={{ color: "green" }}>Activo</b>;
+
+  useEffect(() => {
+    getData();
+  });
+
+  const getData = async () => {
+    const response = petitions.GetUserById(id);
+    const user = await response;
+    setUser(user);
+  };
+
+  if (!user.active) {
+    estado = <b style={{ color: "red" }}>Inactivo</b>;
+  }
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => petitions.EditUser(data, id);
 
@@ -99,6 +117,22 @@ function FormEditUser(id) {
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Usuario</h1>
+              <h4>Editando: </h4>
+              <h6>
+                <b>Nombre:</b> {user.first_name}
+              </h6>
+              <h6>
+                <b>Apellido:</b> {user.last_name}
+              </h6>
+              <h6>
+                <b>Nick:</b> {user.nick}
+              </h6>
+              <h6>
+                <b>Email:</b> {user.email}
+              </h6>
+              <h6>
+                <b>Estado:</b> {estado}
+              </h6>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
@@ -106,6 +140,7 @@ function FormEditUser(id) {
                     {...register("first_name")}
                     label="Nombre"
                   />
+                  <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField

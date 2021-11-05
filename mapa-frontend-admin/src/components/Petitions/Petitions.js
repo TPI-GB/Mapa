@@ -37,12 +37,11 @@ async function RegisterUser(data) {
 async function EditUser(data, id) {
   const fullData = data;
   fullData.id = id;
-
   try {
     const response = await axios({
-      url: `${baseUrl}/edituser/`,
-      method: "POST",
-      data: fullData,
+      url: `${baseUrl}/users/edit/`,
+      method: "PUT",
+      data: data,
     });
     return response;
   } catch (error) {

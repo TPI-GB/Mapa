@@ -9,7 +9,7 @@ class UserController {
     this.router.get("/", (req, res) => this.getUsers(req, res));
     this.router.post("/", (req, res) => this.registerUser(req, res));
     this.router.put("/", (req, res) => this.reset(req, res));
-    this.router.post("/edit", (req, res) => this.editUser(req, res));
+    this.router.put("/edit", (req, res) => this.editUser(req, res));
     this.router.post("/login", (req, res) => this.login(req, res));
   }
 
@@ -80,6 +80,7 @@ class UserController {
       })
       .catch((err) => {
         res.status(400).json(err);
+        console.log(err);
       });
   }
 
