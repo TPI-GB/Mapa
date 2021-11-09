@@ -76,6 +76,11 @@ class UserService {
     const newUser = await this.userRepository.editUser(data);
     return newUser;
   }
+
+  async editUserStatus(data) {
+    const editUser = await this.userRepository.editUserStatus(data);
+    return editUser;
+  }
 }
 
 module.exports = UserService;

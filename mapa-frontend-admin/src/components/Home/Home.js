@@ -40,3 +40,19 @@ export default function Home() {
     </Grid>
   );
 }
+<<<<<<< HEAD
+=======
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
+
+>>>>>>> 91bb598bb5fb097f5ed3fec7767100334780380f

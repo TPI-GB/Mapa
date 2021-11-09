@@ -2,13 +2,16 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
-import PanelControl from "./components/ControlPanel";
 import Login from "./components/Login";
 import ListUsers from "./components/ListUsers";
 import Header from "./components/Header";
 import Reset from "./components/Reset/Reset";
 import EditUser from "./components/EditUser/EditUser";
+<<<<<<< HEAD
 import ChangePassword from "./components/CambiarContraseña/ChangePassword";
+=======
+import Lugares from "./components/Lugares/Lugares";
+>>>>>>> 91bb598bb5fb097f5ed3fec7767100334780380f
 
 function App() {
   return (
@@ -28,8 +31,8 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/controlpanel" exact={true}>
-            <PanelControl />
+          <Route path="/lugares" exact={true}>
+            <Lugares />
           </Route>
           <Route path="/reset" exact={true}>
             <Reset />

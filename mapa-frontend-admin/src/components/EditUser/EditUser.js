@@ -216,7 +216,7 @@ function buttonStatus(user) {
     <Button
       type="submit"
       style={{ background: "red" }}
-      onClick={() => unsubscribeUser()}
+      onClick={() => unsubscribeUser(user._id)}
     >
       DAR DE BAJA
     </Button>
@@ -226,7 +226,7 @@ function buttonStatus(user) {
       <Button
         type="submit"
         style={{ background: "green" }}
-        onClick={() => subscribeUser()}
+        onClick={() => subscribeUser(user._id)}
       >
         DAR DE ALTA
       </Button>
@@ -235,7 +235,7 @@ function buttonStatus(user) {
   return button;
 }
 
-function unsubscribeUser() {
+function unsubscribeUser(id) {
   return Swal.fire({
     title: "Atencion!",
     text: "Esta a punto de dar de baja un usuario. Esto implica que el mismo ya no podra ingresar al sitio. Sin embargo puede volver a darse de alta.",
@@ -247,12 +247,13 @@ function unsubscribeUser() {
     confirmButtonText: "Confirmar",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire({ icon: "success", text: "El usuario ha sido dado de baja" });
+      const data = false;
+      petitions.EditUserStatus(data, id);
     }
   });
 }
 
-function subscribeUser() {
+function subscribeUser(id) {
   return Swal.fire({
     title: "Atencion!",
     text: "Esta a punto de dar de alta un usuario. Esto implica que el mismo ya podra volver a ingresar al sitio. Puede volver a darse de baja.",
@@ -264,7 +265,8 @@ function subscribeUser() {
     confirmButtonText: "Confirmar",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire({ icon: "success", text: "El usuario ha sido dado de alta" });
+      const data = true;
+      petitions.EditUserStatus(data, id);
     }
   });
 }

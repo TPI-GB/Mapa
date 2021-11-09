@@ -53,7 +53,7 @@ async function EditUser(data, id) {
     const response = await axios({
       url: `${baseUrl}/users/edit/`,
       method: "PUT",
-      data: data,
+      data: fullData,
     });
     Swal.fire({
       title: "Hecho!",
@@ -72,11 +72,40 @@ async function EditUser(data, id) {
   }
 }
 
+async function EditUserStatus(data, id) {
+  const fullData = {
+    active: data,
+    id: id,
+  };
+  try {
+    const response = await axios({
+      url: `${baseUrl}/users/editstatus/`,
+      method: "PUT",
+      data: fullData,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El usuario ha cambiado de estado correctamente",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (error) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick ya registrado",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
   GetUserById,
   EditUser,
+  EditUserStatus,
 };
 
 export default petitions;
