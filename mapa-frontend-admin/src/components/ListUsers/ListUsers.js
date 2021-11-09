@@ -51,11 +51,11 @@ export default function ListUsers() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title="Nombre"></List.Item.Meta>
-            <List.Item.Meta title="Apellido"></List.Item.Meta>
-            <List.Item.Meta title="Nick"></List.Item.Meta>
-            <List.Item.Meta title="Rol"></List.Item.Meta>
-            <List.Item.Meta title="Estado"></List.Item.Meta>
+            <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Apellido</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Nick</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Rol</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Estado</i>}></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}

@@ -71,8 +71,6 @@ class UserRepository {
 
   //EditUser
   async editUser(data) {
-    console.log(data);
-
     const { first_name, last_name, nick, rol, email, id, password } = data;
     const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -83,6 +81,21 @@ class UserRepository {
       password: encryptedPassword,
       rol: rol,
       email: email.toLowerCase(),
+    };
+
+    await User.findByIdAndUpdate({ _id: id }, newData);
+
+    const userStored = await User.findById(id);
+
+    return userStored;
+  }
+
+  async editUserStatus(data) {
+    const { active, id } = data;
+
+    const newData = {
+      active: active,
+      id: id,
     };
 
     await User.findByIdAndUpdate({ _id: id }, newData);

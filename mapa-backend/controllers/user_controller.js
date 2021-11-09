@@ -10,6 +10,7 @@ class UserController {
     this.router.post("/", (req, res) => this.registerUser(req, res));
     this.router.put("/", (req, res) => this.reset(req, res));
     this.router.put("/edit", (req, res) => this.editUser(req, res));
+    this.router.put("/editstatus", (req, res) => this.editUserStatus(req, res));
     this.router.post("/login", (req, res) => this.login(req, res));
   }
 
@@ -74,6 +75,19 @@ class UserController {
   editUser(req, res) {
     const data = req.body;
     const userPromise = this.userService.editUser(data);
+    userPromise
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
+  editUserStatus(req, res) {
+    const data = req.body;
+    const userPromise = this.userService.editUserStatus(data);
     userPromise
       .then((user) => {
         res.json(user);
