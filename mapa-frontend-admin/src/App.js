@@ -36,6 +36,9 @@ function App() {
           <Route path="/" exact={true}>
             <Login />
           </Route>
+          <Route path="/changePassword" exact={true}>
+            <ChangePassword />
+          </Route>
         </Switch>
       </Router>
     </div>
