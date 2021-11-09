@@ -22,25 +22,34 @@ class UserService {
   //Login
   async login(email, password) {
     // Validate if user exist in our database
-    const user = await this.userRepository.userEmail(email);
+    try {
+      const user = await this.userRepository.userEmail(email);
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-      // Create token
-      const token = jwt.sign(
-        { user_id: user._id, email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
-      let first_name = user._doc.first_name;
-      let last_name = user._doc.last_name;
-      let role = user._doc.rol;
-      let mail = user._doc.email;
-      // user
-      return { first_name, last_name, role, email: mail, token };
+      if (
+        user &&
+        (await bcrypt.compare(password, user.password)) &&
+        user.active
+      ) {
+        // Create token
+        const token = jwt.sign(
+          { user_id: user._id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+        let first_name = user._doc.first_name;
+        let last_name = user._doc.last_name;
+        let rol = user._doc.rol;
+        let mail = user._doc.email;
+        // user
+        return { first_name, last_name, rol, email: mail, token };
+      } else {
+        throw new Error();
+      }
+    } catch (err) {
+      return null;
     }
-    return null;
     // Our register logic ends here
   }
 

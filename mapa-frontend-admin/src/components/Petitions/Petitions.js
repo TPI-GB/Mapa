@@ -100,12 +100,33 @@ async function EditUserStatus(data, id) {
   }
 }
 
+async function LoginUser(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/users/login`,
+      method: "POST",
+      data: data,
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Los datos son incorrectos o el usuario no esta dado de alta",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+  }
+  return [];
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
   GetUserById,
   EditUser,
   EditUserStatus,
+  LoginUser,
 };
 
 export default petitions;

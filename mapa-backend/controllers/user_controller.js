@@ -6,10 +6,10 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.get("/", (req, res) => this.getUsers(req, res));
-    this.router.post("/", (req, res) => this.registerUser(req, res));
-    this.router.put("/", (req, res) => this.reset(req, res));
-    this.router.put("/edit", (req, res) => this.editUser(req, res));
+    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
+    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+    this.router.put("/", auth, (req, res) => this.reset(req, res));
+    this.router.put("/edit", auth, (req, res) => this.editUser(req, res));
     this.router.put("/editstatus", (req, res) => this.editUserStatus(req, res));
     this.router.post("/login", (req, res) => this.login(req, res));
   }
@@ -99,31 +99,17 @@ class UserController {
   }
 
   login(req, res) {
-    const authHeader = req.headers.authorization;
-
-    let email, password;
-    if (authHeader) {
-      const method = authHeader.split(" ")[0];
-      const token = authHeader.split(" ")[1];
-      if (method && method === "Basic" && token) {
-        const b = Buffer.from(token, "base64");
-        const value = b.toString().split(":");
-        email = value[0];
-        password = value[1];
-      }
-    }
-    // Validate user input
-    if (!(email && password)) {
+    const data = req.body;
+    if (!(data.email && data.password)) {
       res.status(400).send("All input is required");
     }
 
-    const userPromise = this.userService.login(email, password);
+    const userPromise = this.userService.login(data.email, data.password);
     userPromise
       .then((user) => {
         if (user) {
           return res.status(200).json(user);
         }
-
         res.status(401);
       })
       .catch((err) => {
