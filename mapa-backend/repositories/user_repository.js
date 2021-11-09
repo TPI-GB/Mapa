@@ -42,33 +42,6 @@ class UserRepository {
     //Ver porque no anda con active: false
   }
 
-  //Reset
-  async reset(req, res) {
-    encryptedPassword = await bcrypt.setRandomFallback(password, 10);
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
-
-    const info = await transporter.sendMail({
-      from: "enzoefica@gmail.com",
-      to: user.email,
-      subject: "Hello ✔",
-      text: "Hello world?",
-      html: "<b>Hello world?</b>",
-    });
-
-    res.status(201).send({ info });
-
-    res.json(req.body);
-  }
-
   //EditUser
   async editUser(data) {
     const { first_name, last_name, nick, rol, email, id, password } = data;

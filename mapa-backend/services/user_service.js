@@ -77,7 +77,7 @@ class UserService {
       html: "<b>Hello world?</b>",
     });
 
-    return user;
+    return info;
   }
 
   //EditUser

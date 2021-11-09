@@ -11,12 +11,11 @@ export default function Header() {
             <Button color="inherit" href="/home"></Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button color="inherit" href="/controlpanel"></Button>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button color="inherit"></Button>
           </Typography>
-          <Button color="inherit">Log Out</Button>
+          <Button color="inherit" href="/">
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

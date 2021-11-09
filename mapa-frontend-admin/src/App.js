@@ -21,7 +21,7 @@ function App() {
           <Route path="/home" exact={true}>
             <Home />
           </Route>
-          <Route path="/listusers">
+          <Route path="/listusers" exact={true}>
             <ListUsers />
           </Route>
           <Route path="/login">
@@ -35,6 +35,9 @@ function App() {
           </Route>
           <Route path="/" exact={true}>
             <Login />
+          </Route>
+          <Route path="/changePassword" exact={true}>
+            <ChangePassword />
           </Route>
         </Switch>
       </Router>

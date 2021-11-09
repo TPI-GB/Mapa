@@ -12,6 +12,16 @@ async function GetUsers() {
   return [];
 }
 
+async function GetPlaces() {
+  try {
+    const response = await axios({ url: `${baseUrl}/places`, method: "GET" });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 async function GetUserById(id) {
   try {
     const response = await GetUsers();
@@ -97,7 +107,7 @@ async function EditUserStatus(data, id) {
       icon: "error",
       confirmButtonText: "Cerrar",
     });
-  }
+  }  
 }
 
 async function LoginUser(data) {
@@ -126,7 +136,11 @@ const petitions = {
   GetUserById,
   EditUser,
   EditUserStatus,
+<<<<<<< HEAD
   LoginUser,
+=======
+  GetPlaces
+>>>>>>> 313fe18dab53a9c5b68ae5e05936ec31131b8b12
 };
 
 export default petitions;

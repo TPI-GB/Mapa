@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Grid } from "@mui/material";
+import { Grid, Button, Stack } from "@mui/material";
 
 export default function Home() {
   const [value, setValue] = React.useState(0);
@@ -27,11 +27,13 @@ export default function Home() {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <LinkTab label="Usuario" href="/drafts" />
-            <LinkTab label="Categorias" href="/trash" />
-            <LinkTab label="Lugares" href="/spam" />
-            <LinkTab label="caracteristicas" href="/spam" />
-            <LinkTab label="estadisticas" href="/spam" />
+            <Stack ml={8}>
+              <Button href="/listusers">Usuarios</Button>
+            </Stack>
+            <Button href="/null">Categorias</Button>
+            <Button href="/null">Lugares</Button>
+            <Button href="/null">Caracteristicas</Button>
+            <Button href="/null">Estadisticas</Button>
           </Tabs>
         </Box>
       </Grid>
