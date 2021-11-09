@@ -55,10 +55,20 @@ async function EditUser(data, id) {
       method: "PUT",
       data: data,
     });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El usuario ha sido editado correctamente",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
     return response;
   } catch (error) {
-    console.error(error);
-    console.log(error);
+    Swal.fire({
+      title: "Error!",
+      text: "El usuario no ha podido ser editado, asegurese de haber compleato bien los campos y que el Nick no este ya registrado",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
   }
 }
 

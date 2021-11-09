@@ -54,6 +54,7 @@ export default function ListUsers() {
             <List.Item.Meta title="Nombre"></List.Item.Meta>
             <List.Item.Meta title="Apellido"></List.Item.Meta>
             <List.Item.Meta title="Nick"></List.Item.Meta>
+            <List.Item.Meta title="Rol"></List.Item.Meta>
             <List.Item.Meta title="Estado"></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
@@ -67,6 +68,7 @@ export default function ListUsers() {
             <List.Item.Meta title={user.first_name}></List.Item.Meta>
             <List.Item.Meta title={user.last_name}></List.Item.Meta>
             <List.Item.Meta title={user.nick}></List.Item.Meta>
+            <List.Item.Meta title={user.rol}></List.Item.Meta>
             <List.Item.Meta title={getStatus(user)}></List.Item.Meta>
             <List.Item.Meta
               title={
