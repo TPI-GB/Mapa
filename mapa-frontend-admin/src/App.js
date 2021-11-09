@@ -8,6 +8,7 @@ import ListUsers from "./components/ListUsers";
 import Header from "./components/Header";
 import Reset from "./components/Reset/Reset";
 import EditUser from "./components/EditUser/EditUser";
+import ChangePassword from "./components/CambiarContraseña/ChangePassword";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/" exact={true}>
             <Login />
+          </Route>
+          <Route path="/changePassword" exact={true}>
+            <ChangePassword />
           </Route>
         </Switch>
       </Router>
