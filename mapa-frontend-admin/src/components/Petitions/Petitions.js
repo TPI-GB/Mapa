@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function GetUsers() {
@@ -28,9 +29,20 @@ async function RegisterUser(data) {
       method: "POST",
       data: data,
     });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El usuario ha sido registrado correctamente",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
     return response;
   } catch (error) {
-    console.error(error);
+    Swal.fire({
+      title: "Error!",
+      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick no este ya registrado",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
   }
 }
 
