@@ -12,6 +12,16 @@ async function GetUsers() {
   return [];
 }
 
+async function GetPlaces() {
+  try {
+    const response = await axios({ url: `${baseUrl}/places`, method: "GET" });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 async function GetUserById(id) {
   try {
     const response = await GetUsers();
@@ -97,8 +107,9 @@ async function EditUserStatus(data, id) {
       icon: "error",
       confirmButtonText: "Cerrar",
     });
-  }
+  }  
 }
+
 
 const petitions = {
   RegisterUser,
@@ -106,6 +117,7 @@ const petitions = {
   GetUserById,
   EditUser,
   EditUserStatus,
+  GetPlaces
 };
 
 export default petitions;

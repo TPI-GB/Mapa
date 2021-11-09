@@ -29,7 +29,7 @@ export default function Home() {
           >
             <LinkTab label="Usuario" href="/drafts" />
             <LinkTab label="Categorias" href="/trash" />
-            <LinkTab label="Lugares" href="/spam" />
+            <LinkTab label="Lugares" href="/lugares" />
             <LinkTab label="caracteristicas" href="/spam" />
             <LinkTab label="estadisticas" href="/spam" />
           </Tabs>
