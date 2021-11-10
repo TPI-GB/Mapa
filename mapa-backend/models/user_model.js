@@ -19,5 +19,5 @@ const UserSchema = Schema(
   }
 );
 
-UserSchema.index({ DNI: 1, DNI_Type: -1 }, { unique: true });
+UserSchema.index({ nick: 1 }, { unique: true });
 module.exports = mongoose.model("Users", UserSchema);

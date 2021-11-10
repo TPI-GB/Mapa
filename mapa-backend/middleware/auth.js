@@ -5,6 +5,7 @@ const config = process.env;
 const verifyToken = (req, res, next) => {
   let token;
   const authHeader = req.headers.authorization;
+  console.log("authHeader: " + authHeader);
   if (authHeader) {
     const method = authHeader.split(" ")[0];
     token = authHeader.split(" ")[1];
@@ -14,6 +15,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
+    console.log("token: " + token);
     const decoded = jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
   } catch (err) {

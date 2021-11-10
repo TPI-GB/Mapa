@@ -1,4 +1,3 @@
-const User = require("../models/user_model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserRepository = require("../repositories/user_repository");
@@ -23,25 +22,42 @@ class UserService {
   //Login
   async login(email, password) {
     // Validate if user exist in our database
-    const user = await this.userRepository.userEmail(email);
+    try {
+      const user = await this.userRepository.userEmail(email);
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-      // Create token
-      const token = jwt.sign(
-        { user_id: user._id, email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
-      let first_name = user._doc.first_name;
-      let last_name = user._doc.last_name;
-      let role = user._doc.rol;
-      let mail = user._doc.email;
-      // user
-      return { first_name, last_name, role, email: mail, token };
+      if (
+        user &&
+        (await bcrypt.compare(password, user.password)) &&
+        user.active
+      ) {
+        // Create token
+        const token = jwt.sign(
+          { user_id: user._id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "12hs",
+          }
+        );
+        let first_name = user._doc.first_name;
+        let last_name = user._doc.last_name;
+        let rol = user._doc.rol;
+        let email = user._doc.email;
+        let expires = Date.now().addHours(12);
+        // user
+        return {
+          first_name,
+          last_name,
+          rol,
+          email: email,
+          token,
+          expires: expires,
+        };
+      } else {
+        throw new Error();
+      }
+    } catch (err) {
+      return null;
     }
-    return null;
     // Our register logic ends here
   }
 
@@ -69,13 +85,18 @@ class UserService {
       html: "<b>Hello world?</b>",
     });
 
-    return user;
+    return info;
   }
 
   //EditUser
   async editUser(data) {
-    const newUser = await this.userRepository.editUser();
+    const newUser = await this.userRepository.editUser(data);
     return newUser;
+  }
+
+  async editUserStatus(data) {
+    const editUser = await this.userRepository.editUserStatus(data);
+    return editUser;
   }
 }
 

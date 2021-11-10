@@ -1,15 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const bodyParser = require("body-parser");
 const UserController = require("./controllers/user_controller");
 
 app.use(cors());
 
-app.use(express.json());
+var bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // body en formato json
+app.use(bodyParser.urlencoded({ extended: false })); //body formulario
 
 let userController = new UserController();
 

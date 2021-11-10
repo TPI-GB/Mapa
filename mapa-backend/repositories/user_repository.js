@@ -42,48 +42,38 @@ class UserRepository {
     //Ver porque no anda con active: false
   }
 
-  //Reset
-  async reset(req, res) {
-    encryptedPassword = await bcrypt.setRandomFallback(password, 10);
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
-
-    const info = await transporter.sendMail({
-      from: "enzoefica@gmail.com",
-      to: user.email,
-      subject: "Hello ✔",
-      text: "Hello world?",
-      html: "<b>Hello world?</b>",
-    });
-
-    res.status(201).send({ info });
-
-    res.json(req.body);
-  }
-
   //EditUser
   async editUser(data) {
-    const { first_name, last_name, nick, roles, email } = data;
+    const { first_name, last_name, nick, rol, email, id, password } = data;
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     const newData = {
       first_name: first_name,
       last_name: last_name,
       nick: nick,
-      roles: roles,
-      email: email,
+      password: encryptedPassword,
+      rol: rol,
+      email: email.toLowerCase(),
     };
 
-    await User.findByIdAndUpdate({ _id: data.params.id }, newData);
+    await User.findByIdAndUpdate({ _id: id }, newData);
 
-    const userStored = await User.findById(data.params.id);
+    const userStored = await User.findById(id);
+
+    return userStored;
+  }
+
+  async editUserStatus(data) {
+    const { active, id } = data;
+
+    const newData = {
+      active: active,
+      id: id,
+    };
+
+    await User.findByIdAndUpdate({ _id: id }, newData);
+
+    const userStored = await User.findById(id);
 
     return userStored;
   }

@@ -14,9 +14,30 @@ export default function ListUsers() {
   }, []);
 
   const getData = async () => {
-    const response = await petitions.getUsers();
+    const response = await petitions.GetUsers();
     setUsers(response);
   };
+  users.sort(function (a, b) {
+    if (a.first_name === b.first_name && a.last_name === b.last_name) {
+      if (a.nick > b.nick) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    if (a.first_name === b.first_name) {
+      if (a.last_name > b.last_name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    if (a.first_name > b.first_name) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
 
   return (
     <div className="ListUsers">
@@ -30,9 +51,11 @@ export default function ListUsers() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title="Nombre"></List.Item.Meta>
-            <List.Item.Meta title="Apellido"></List.Item.Meta>
-            <List.Item.Meta title="Nick"></List.Item.Meta>
+            <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Apellido</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Nick</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Rol</i>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Estado</i>}></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}
@@ -45,6 +68,8 @@ export default function ListUsers() {
             <List.Item.Meta title={user.first_name}></List.Item.Meta>
             <List.Item.Meta title={user.last_name}></List.Item.Meta>
             <List.Item.Meta title={user.nick}></List.Item.Meta>
+            <List.Item.Meta title={user.rol}></List.Item.Meta>
+            <List.Item.Meta title={getStatus(user)}></List.Item.Meta>
             <List.Item.Meta
               title={
                 <Link to={`/edituser/${user._id}`}>
@@ -59,4 +84,12 @@ export default function ListUsers() {
       />
     </div>
   );
+}
+
+function getStatus(user) {
+  let userStatus = <b style={{ color: "green" }}>Activo</b>;
+  if (!user.active) {
+    userStatus = <b style={{ color: "red" }}>Inactivo</b>;
+  }
+  return userStatus;
 }
