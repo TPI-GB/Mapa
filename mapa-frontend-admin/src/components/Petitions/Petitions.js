@@ -137,11 +137,7 @@ const petitions = {
   EditUser,
   EditUserStatus,
   LoginUser,
-<<<<<<< Updated upstream
   GetPlaces,
-=======
-  GetPlaces
->>>>>>> Stashed changes
 };
 
 export default petitions;

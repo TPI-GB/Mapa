@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import { Grid, Button, Stack } from "@mui/material";
 
 export default function Home() {
@@ -31,25 +30,13 @@ export default function Home() {
               <Button href="/listusers">Usuarios</Button>
             </Stack>
             <Button href="/null">Categorias</Button>
-            <Button href="/null">Lugares</Button>
+            <Button href="/places">Lugares</Button>
             <Button href="/null">Caracteristicas</Button>
             <Button href="/null">Estadisticas</Button>
           </Tabs>
         </Box>
       </Grid>
     </Grid>
-  );
-}
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
   );
 }
 

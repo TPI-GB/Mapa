@@ -70,7 +70,7 @@ function FormNewUser() {
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <h6>Rol</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
@@ -81,7 +81,7 @@ function FormNewUser() {
                     </option>
                   </select>
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Cargar
                   </Button>
@@ -177,7 +177,7 @@ function FormEditUser(id) {
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <h6>Nuevo Rol</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
@@ -188,7 +188,7 @@ function FormEditUser(id) {
                     </option>
                   </select>
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Guardar Cambios
                   </Button>
