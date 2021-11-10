@@ -33,7 +33,7 @@ class UserRepository {
   }
 
   //GetUsers
-  async getUsers(req, res) {
+  async getUsers() {
     return await User.find().lean().exec();
   }
 
