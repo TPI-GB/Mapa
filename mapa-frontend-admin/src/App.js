@@ -9,6 +9,7 @@ import Reset from "./components/Reset/Reset";
 import EditUser from "./components/EditUser";
 import Places from "./components/Places";
 import ChangePassword from "./components/ChangePassword";
+import EditPlace from "./components/EditPlace";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Header />
         <Route path="/edituser/:id" exact={true}>
           <EditUser />
+        </Route>
+        <Route path="/editplace/:id" exact={true}>
+          <EditPlace />
         </Route>
         <Switch>
           <Route path="/home" exact={true} component={Home}>
@@ -28,7 +32,7 @@ function App() {
           <Route path="/login" component={Login}>
             <Login />
           </Route>
-          <Route path="/lugares" exact={true}>
+          <Route path="/places" exact={true}>
             <Places />
           </Route>
           <Route path="/reset" exact={true}>

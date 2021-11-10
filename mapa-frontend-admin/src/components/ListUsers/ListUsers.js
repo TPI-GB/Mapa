@@ -1,5 +1,7 @@
 import React from "react";
-import { Button, List } from "antd";
+import { List } from "antd";
+import { Stack, Button } from "@mui/material";
+import PersonAddTwoToneIcon from '@mui/icons-material/PersonAddTwoTone';
 import { Link } from "react-router-dom";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
@@ -41,11 +43,26 @@ export default function ListUsers() {
 
   return (
     <div className="ListUsers">
-      <Link to={`/edituser/new`}>
-        <Button type="primary" style={{ background: "blue" }}>
-          Crear Usuario
-        </Button>
-      </Link>
+      <h2>USUARIOS</h2>
+      <Stack
+        direction="row"
+        ml={5}
+        mr={5}
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={8}
+      >
+        <Link to={`/edituser/new`}>
+          <Button variant="contained" style={{ background: "blue" }}>
+            <PersonAddTwoToneIcon /> Crear Usuario
+          </Button>
+        </Link>
+        <Link to={`/home`}>
+          <Button variant="contained" style={{ background: "blue" }}>
+            Regresar
+          </Button>
+        </Link>
+      </Stack>
       <List
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}

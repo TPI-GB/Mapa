@@ -8,9 +8,15 @@ class UserController {
     this.router = express.Router();
     this.router.get("/", (req, res) => this.getUsers(req, res));
     this.router.post("/", (req, res) => this.registerUser(req, res));
+<<<<<<< HEAD
     this.router.put("/", (req, res) => this.reset(req, res));
     this.router.put("/edit", (req, res) => this.editUser(req, res));
     this.router.put("/editstatus", (req, res) => this.editUserStatus(req, res));
+=======
+    this.router.put("/password", (req, res) => this.reset(req, res));
+    this.router.put("/:id", (req, res) => this.editUser(req, res));
+    this.router.put("/:id/status", (req, res) => this.editUserStatus(req, res));
+>>>>>>> 6fb79326121d3fd3b1f9adbfe1c86086d9c70943
     this.router.post("/login", (req, res) => this.login(req, res));
   }
 
@@ -74,6 +80,9 @@ class UserController {
 
   editUser(req, res) {
     const data = req.body;
+    const { id } = req.params;
+    console.log(id);
+    data.id = id;
     const userPromise = this.userService.editUser(data);
     userPromise
       .then((user) => {
@@ -87,6 +96,9 @@ class UserController {
 
   editUserStatus(req, res) {
     const data = req.body;
+    const { id } = req.params;
+    data.id = id;
+    console.log(data);
     const userPromise = this.userService.editUserStatus(data);
     userPromise
       .then((user) => {
