@@ -9,37 +9,45 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  ListItemIcon
+  ListItemIcon,
 } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Divider from '@mui/material/Divider';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 import "./Header.scss";
-
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static"  >
-        <Toolbar >
-        <img src="C:\Users\kafu7\Desktop\Repositorio Mapa\Mapa2\Mapa\mapa-frontend-admin\src\assets\img\logo.svg"/>
-           {/* CORREGIR (NO MUESTRA IMAGEN) */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button color="inherit" href="/home"></Button>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button color="inherit" href="/controlpanel"></Button>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>             
-          </Typography>
-          <Button color="inherit"><AccountMenu/></Button>
-          <Button color="inherit" href="/">
-            Log Out
+      <AppBar position="static">
+        <Toolbar>
+          <img src="C:\Users\kafu7\Desktop\Repositorio Mapa\Mapa2\Mapa\mapa-frontend-admin\src\assets\img\logo.svg" />
+          {/* CORREGIR (NO MUESTRA IMAGEN) */}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          <Button color="inherit">
+            <AccountMenu />
           </Button>
         </Toolbar>
       </AppBar>
@@ -58,7 +66,7 @@ function AccountMenu() {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 1 }}>
             <AccountCircleIcon sx={{ width: 32, height: 32 }} />
@@ -73,44 +81,44 @@ function AccountMenu() {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
-            '& .MuiAvatar-root': {
+            "& .MuiAvatar-root": {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
-            '&:before': {
+            "&:before": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
+              display: "block",
+              position: "absolute",
               top: 0,
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem component={Link} to="/">
           <Avatar /> Profile
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem component={Link} to="/edituser/:id">
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        <MenuItem component={Link} to="/login">
+          <ListItemIcon path="/listusers">
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout

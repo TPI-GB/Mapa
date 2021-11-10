@@ -13,8 +13,8 @@ import ChangePassword from "./components/ChangePassword";
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+        <Header />
         <Route path="/edituser/:id" exact={true}>
           <EditUser />
         </Route>

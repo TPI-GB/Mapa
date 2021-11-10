@@ -40,16 +40,3 @@ export default function Home() {
     </Grid>
   );
 }
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
-
