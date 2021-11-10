@@ -57,13 +57,11 @@ async function RegisterUser(data) {
 }
 
 async function EditUser(data, id) {
-  const fullData = data;
-  fullData.id = id;
   try {
     const response = await axios({
-      url: `${baseUrl}/users/edit/`,
+      url: `${baseUrl}/users/${id}`,
       method: "PUT",
-      data: fullData,
+      data: data,
     });
     Swal.fire({
       title: "Hecho!",
@@ -83,15 +81,11 @@ async function EditUser(data, id) {
 }
 
 async function EditUserStatus(data, id) {
-  const fullData = {
-    active: data,
-    id: id,
-  };
   try {
     const response = await axios({
-      url: `${baseUrl}/users/editstatus/`,
+      url: `${baseUrl}/users/${id}/status/`,
       method: "PUT",
-      data: fullData,
+      data: { active: data },
     });
     Swal.fire({
       title: "Hecho!",

@@ -3,19 +3,19 @@ const { appConfig } = require("../config");
 
 const Schema = mongoose.Schema;
 
-const UserSchema = Schema(
+const PlaceSchema = Schema(
   {
     name: String,
     address: String,
-    longitud: String,
-    latitud: String,
-    categoria: String,
-    caracteristicas: { type: [String], required: true, default: true },
+    lactitude: String,
+    longitude: String,
+    category: String,
+    features: { type: Array, required: true, default: true },
   },
   {
     timestamps: true,
   }
 );
 
-UserSchema.index();
-module.exports = mongoose.model("Places", UserSchema);
+PlaceSchema.index();
+module.exports = mongoose.model("Places", PlaceSchema);

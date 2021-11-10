@@ -14,8 +14,8 @@ import EditPlace from "./components/EditPlace";
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+        <Header />
         <Route path="/edituser/:id" exact={true}>
           <EditUser />
         </Route>
@@ -23,13 +23,13 @@ function App() {
           <EditPlace />
         </Route>
         <Switch>
-          <Route path="/home" exact={true}>
+          <Route path="/home" exact={true} component={Home}>
             <Home />
           </Route>
           <Route path="/listusers" exact={true}>
             <ListUsers />
           </Route>
-          <Route path="/login">
+          <Route path="/login" component={Login}>
             <Login />
           </Route>
           <Route path="/places" exact={true}>

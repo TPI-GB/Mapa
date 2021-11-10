@@ -100,7 +100,7 @@ function FormEditUser(id) {
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   const getData = async () => {
     const response = petitions.GetUserById(id);
