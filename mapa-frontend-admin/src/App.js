@@ -28,7 +28,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/lugares" exact={true}>
+          <Route path="/places" exact={true}>
             <Places />
           </Route>
           <Route path="/reset" exact={true}>
