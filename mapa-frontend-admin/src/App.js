@@ -6,8 +6,9 @@ import Login from "./components/Login";
 import ListUsers from "./components/ListUsers";
 import Header from "./components/Header";
 import Reset from "./components/Reset/Reset";
-import EditUser from "./components/EditUser/EditUser";
-import Lugares from "./components/Lugares/Lugares";
+import EditUser from "./components/EditUser";
+import Places from "./components/Places";
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/lugares" exact={true}>
-            <Lugares />
+            <Places />
           </Route>
           <Route path="/reset" exact={true}>
             <Reset />

@@ -18,6 +18,7 @@ export default function Login() {
     res
       .then((response) => {
         if (response.status === 200) {
+          console.log(res);
           console.log("Guardar token en local storage");
           console.log("Ir a Home");
         }

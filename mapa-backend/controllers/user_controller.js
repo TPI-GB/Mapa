@@ -6,22 +6,11 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-<<<<<<< HEAD
     this.router.get("/", auth, (req, res) => this.getUsers(req, res));
     this.router.post("/", auth, (req, res) => this.registerUser(req, res));
     this.router.put("/", auth, (req, res) => this.reset(req, res));
     this.router.put("/edit", auth, (req, res) => this.editUser(req, res));
-=======
-    this.router.get("/", (req, res) => this.getUsers(req, res));
-    this.router.post("/", (req, res) => this.registerUser(req, res));
-    this.router.put("/", (req, res) => this.reset(req, res));
-<<<<<<< HEAD
-    this.router.post("/edit", (req, res) => this.editUser(req, res));
-=======
-    this.router.put("/edit", (req, res) => this.editUser(req, res));
->>>>>>> 313fe18dab53a9c5b68ae5e05936ec31131b8b12
     this.router.put("/editstatus", (req, res) => this.editUserStatus(req, res));
->>>>>>> 91bb598bb5fb097f5ed3fec7767100334780380f
     this.router.post("/login", (req, res) => this.login(req, res));
   }
 

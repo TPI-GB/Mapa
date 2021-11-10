@@ -35,15 +35,23 @@ class UserService {
           { user_id: user._id, email },
           process.env.TOKEN_KEY,
           {
-            expiresIn: "2h",
+            expiresIn: "12hs",
           }
         );
         let first_name = user._doc.first_name;
         let last_name = user._doc.last_name;
         let rol = user._doc.rol;
-        let mail = user._doc.email;
+        let email = user._doc.email;
+        let expires = Date.now().addHours(12);
         // user
-        return { first_name, last_name, rol, email: mail, token };
+        return {
+          first_name,
+          last_name,
+          rol,
+          email: email,
+          token,
+          expires: expires,
+        };
       } else {
         throw new Error();
       }

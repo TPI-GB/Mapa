@@ -107,7 +107,7 @@ async function EditUserStatus(data, id) {
       icon: "error",
       confirmButtonText: "Cerrar",
     });
-  }  
+  }
 }
 
 async function LoginUser(data) {
@@ -136,11 +136,8 @@ const petitions = {
   GetUserById,
   EditUser,
   EditUserStatus,
-<<<<<<< HEAD
   LoginUser,
-=======
-  GetPlaces
->>>>>>> 313fe18dab53a9c5b68ae5e05936ec31131b8b12
+  GetPlaces,
 };
 
 export default petitions;
