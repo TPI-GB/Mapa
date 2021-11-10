@@ -90,7 +90,7 @@ export default function ListUsers() {
             <List.Item.Meta
               title={
                 <Link to={`/edituser/${user._id}`}>
-                  <Button type="primary" style={{ background: "goldenrod" }}>
+                  <Button variant="contained" style={{ background: "goldenrod" }}>
                     Editar Usuario
                   </Button>
                 </Link>

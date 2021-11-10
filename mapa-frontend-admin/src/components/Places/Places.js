@@ -2,10 +2,12 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
 import "antd/dist/antd.css";
+import Swal from "sweetalert2";
 
 import AddLocationAltTwoToneIcon from "@mui/icons-material/AddLocationAltTwoTone";
 
@@ -70,10 +72,15 @@ export default function Places() {
             <List.Item.Meta
               title={
                 <Link to={`/editplace/${place._id}`}>
-                  <Button type="primary" style={{ background: "goldenrod" }}>
+                  <Button variant="contained" style={{ background: "goldenrod" }}>
                     Editar Lugar
                   </Button>
                 </Link>
+              }
+            ></List.Item.Meta>
+            <List.Item.Meta
+              title={
+                  buttonDelete(place)
               }
             ></List.Item.Meta>
           </List.Item>
@@ -81,4 +88,36 @@ export default function Places() {
       />
     </div>
   );
+}
+
+function buttonDelete(place) {
+  let button = (
+    <Button
+      type="delete"
+      style={{ background: "red" }}
+      onClick={() => deletePlace(place._id)}
+    >
+      Borrar
+    </Button>
+  ); 
+  
+  return button;
+}
+
+function deletePlace(id) {
+  return Swal.fire({
+    title: "Atencion!",
+    text: "Está a punto de eliminar el lugar de la base de datos",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "blue",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "red",
+    confirmButtonText: "Confirmar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const data = false;
+      petitions.DeletePlace(data, id);
+    }
+  });
 }
