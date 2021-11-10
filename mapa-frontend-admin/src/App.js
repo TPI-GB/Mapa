@@ -13,19 +13,19 @@ import ChangePassword from "./components/ChangePassword";
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+        <Header />
         <Route path="/edituser/:id" exact={true}>
           <EditUser />
         </Route>
         <Switch>
-          <Route path="/home" exact={true}>
+          <Route path="/home" exact={true} component={Home}>
             <Home />
           </Route>
           <Route path="/listusers" exact={true}>
             <ListUsers />
           </Route>
-          <Route path="/login">
+          <Route path="/login" component={Login}>
             <Login />
           </Route>
           <Route path="/lugares" exact={true}>

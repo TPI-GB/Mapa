@@ -6,10 +6,10 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
-    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
-    this.router.put("/", auth, (req, res) => this.reset(req, res));
-    this.router.put("/edit", auth, (req, res) => this.editUser(req, res));
+    this.router.get("/", (req, res) => this.getUsers(req, res));
+    this.router.post("/", (req, res) => this.registerUser(req, res));
+    this.router.put("/", (req, res) => this.reset(req, res));
+    this.router.put("/edit", (req, res) => this.editUser(req, res));
     this.router.put("/editstatus", (req, res) => this.editUserStatus(req, res));
     this.router.post("/login", (req, res) => this.login(req, res));
   }
@@ -110,12 +110,8 @@ class UserController {
         if (user) {
           return res.status(200).json(user);
         }
-        res.status(401);
-
-        res.status(400);
       })
       .catch((err) => {
-        console.log(err);
         res.status(400).json(err);
       });
   }

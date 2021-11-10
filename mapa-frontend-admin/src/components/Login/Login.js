@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import petitions from "../Petitions";
 import {
@@ -13,12 +14,27 @@ import "./Login.scss";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
+  const history = useHistory();
   const onSubmit = (data) => {
     const res = petitions.LoginUser(data);
     res
       .then((response) => {
         if (response.status === 200) {
-          console.log(res);
+          sessionStorage.setItem("user login token", response.data.token);
+          sessionStorage.setItem("user login expires", response.data.expires);
+
+          sessionStorage.setItem(
+            "user login first_name",
+            response.data.first_name
+          );
+          sessionStorage.setItem(
+            "user login last_name",
+            response.data.last_name
+          );
+          sessionStorage.setItem("user login nick", response.data.nick);
+          sessionStorage.setItem("user login rol", response.data.rol);
+          sessionStorage.setItem("user login email", response.data.email);
+          history.push("./home");
           console.log("Guardar token en local storage");
           console.log("Ir a Home");
         }

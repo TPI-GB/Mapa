@@ -35,20 +35,23 @@ class UserService {
           { user_id: user._id, email },
           process.env.TOKEN_KEY,
           {
-            expiresIn: "12hs",
+            expiresIn: "2h",
           }
         );
         let first_name = user._doc.first_name;
         let last_name = user._doc.last_name;
+        let nick = user._doc.nick;
         let rol = user._doc.rol;
-        let email = user._doc.email;
-        let expires = Date.now().addHours(12);
+        let mail = user._doc.email;
+        let expires = new Date(Date.now());
+        expires = expires.setHours(expires.getHours() + 12);
         // user
         return {
           first_name,
           last_name,
+          nick,
           rol,
-          email: email,
+          email: mail,
           token,
           expires: expires,
         };
@@ -56,7 +59,7 @@ class UserService {
         throw new Error();
       }
     } catch (err) {
-      return null;
+      throw new Error();
     }
     // Our register logic ends here
   }
