@@ -4,7 +4,13 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function GetUsers() {
   try {
-    const response = await axios({ url: `${baseUrl}/users`, method: "GET" });
+    const response = await axios({
+      url: `${baseUrl}/users`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
     return response.data;
   } catch (err) {
     console.error(err);
@@ -14,7 +20,13 @@ async function GetUsers() {
 
 async function GetPlaces() {
   try {
-    const response = await axios({ url: `${baseUrl}/places`, method: "GET" });
+    const response = await axios({
+      url: `${baseUrl}/places`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
     return response.data;
   } catch (err) {
     console.error(err);
@@ -40,6 +52,9 @@ async function RegisterUser(data) {
         url: `${baseUrl}/users`,
         method: "POST",
         data: data,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        },
       });
       Swal.fire({
         title: "Hecho!",
@@ -70,6 +85,9 @@ async function EditUser(data, id) {
         url: `${baseUrl}/users/${id}`,
         method: "PUT",
         data: data,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        },
       });
       Swal.fire({
         title: "Hecho!",
@@ -100,6 +118,9 @@ async function EditUserStatus(data, id) {
         url: `${baseUrl}/users/${id}/status/`,
         method: "PUT",
         data: { active: data },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        },
       });
       Swal.fire({
         title: "Hecho!",
@@ -135,6 +156,9 @@ async function LoginUser(data) {
       url: `${baseUrl}/users/login`,
       method: "POST",
       data: data,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
     });
     return response;
   } catch (err) {
