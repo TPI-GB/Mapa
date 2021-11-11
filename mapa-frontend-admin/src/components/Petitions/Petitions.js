@@ -12,16 +12,6 @@ async function GetUsers() {
   return [];
 }
 
-async function GetPlaces() {
-  try {
-    const response = await axios({ url: `${baseUrl}/places`, method: "GET" });
-    return response.data;
-  } catch (err) {
-    console.error(err);
-  }
-  return [];
-}
-
 async function GetUserById(id) {
   try {
     const response = await GetUsers();
@@ -124,6 +114,42 @@ async function LoginUser(data) {
   return [];
 }
 
+//Places
+
+async function CreatePlace(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places`,
+      method: "POST",
+      data: data,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El lugar se creó correctamente",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (error) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se pudo crear el lugar. Asegurese de haber ingresado bien los datos",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
+async function GetPlaces() {
+  try {
+    const response = await axios({ url: `${baseUrl}/places`, method: "GET" });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -131,6 +157,7 @@ const petitions = {
   EditUser,
   EditUserStatus,
   LoginUser,
+  CreatePlace,
   GetPlaces,
 };
 

@@ -10,7 +10,7 @@ class PlaceRepository {
       lactitude,
       longitude,
       category,
-      features,
+      //features,
     });
 
     return await place.save();
@@ -24,7 +24,7 @@ class PlaceRepository {
       address: address,
       lactitude: lactitude,
       longitude: longitude,
-      features: features,
+      //features: features,
     };
 
     await Place.findByIdAndUpdate({ _id: id }, newData);
@@ -38,7 +38,7 @@ class PlaceRepository {
     return await Place.find().lean().exec();
   }
 
-  async getPlace({ _id: id }) {
+  async deletePlace({ _id: id }) {
     return await Place.deleteOne(id);
   }
 }

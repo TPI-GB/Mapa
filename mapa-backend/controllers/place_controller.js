@@ -15,12 +15,14 @@ class PlaceController {
     const data = req.body;
     if (
       !(
-        data.name &&
-        data.address &&
-        data.lactitude &&
-        data.longitude &&
-        data.category &&
-        data.features
+        (
+          data.name &&
+          data.address &&
+          data.lactitude &&
+          data.longitude &&
+          data.category
+        )
+        //data.features
       )
     ) {
       return res.status(400).send("All fields are required");
@@ -31,6 +33,7 @@ class PlaceController {
         res.json(place);
       })
       .catch((err) => {
+        console.log(err);
         res.status(400).json(err);
       });
   }

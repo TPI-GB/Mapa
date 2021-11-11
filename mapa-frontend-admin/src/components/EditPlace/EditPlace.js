@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
-import petitions from "../Petitions";
+import petitions from "../Petitions/Petitions";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -27,9 +27,9 @@ export default function EditPlace() {
 
 function FormNewPlace() {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => petitions.RegisterPlace(data);
+  const onSubmit = (data) => petitions.CreatePlace(data);
 
-  return (    
+  return (
     <Stack direction="row" ml={2} mt={5}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
@@ -37,8 +37,8 @@ function FormNewPlace() {
             Volver
           </Button>
         </Grid>
-        <Grid item xs={4} style={{ textAlign: "center" }}>        
-          <Card  sx={{ minWidth: 400 }}>
+        <Grid item xs={4} style={{ textAlign: "center" }}>
+          <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Cargar Lugar</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,19 +46,31 @@ function FormNewPlace() {
                   <TextField required {...register("name")} label="Nombre" />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField required {...register("address")} label="Dirección" />
+                  <TextField
+                    required
+                    {...register("address")}
+                    label="Dirección"
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField required {...register("latitude")} label="Latitud" />
+                  <TextField
+                    required
+                    {...register("lactitude")}
+                    label="Latitud"
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField required {...register("longitude")} label="Longitud" />
-                </Stack>                
+                  <TextField
+                    required
+                    {...register("longitude")}
+                    label="Longitud"
+                  />
+                </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <h6>Categoría</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <select {...register("rol")}>
+                  <select {...register("category")}>
                     <option value="Edificio Público">Edificio Público</option>
                     <option value="Gastronomia">Gastronomia</option>
                     <option value="Educación">Educación</option>
@@ -66,6 +78,7 @@ function FormNewPlace() {
                     <option value="Salud">Salud</option>
                   </select>
                 </Stack>
+
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Cargar
@@ -73,7 +86,7 @@ function FormNewPlace() {
                 </Stack>
               </form>
             </CardContent>
-          </Card>          
+          </Card>
         </Grid>
       </Grid>
     </Stack>
@@ -116,7 +129,7 @@ function FormEditPlace(id) {
                 <b>Dirección:</b> {place.address}
               </h6>
               <h6>
-                <b>Latitud:</b> {place.latitude}
+                <b>Latitud:</b> {place.lactitude}
               </h6>
               <h6>
                 <b>Longitud:</b> {place.longitude}
@@ -124,6 +137,7 @@ function FormEditPlace(id) {
               <h6>
                 <b>Categoria:</b> {place.category}
               </h6>
+
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
@@ -143,7 +157,7 @@ function FormEditPlace(id) {
                 <Stack direction="row" ml={2}>
                   <TextField
                     required
-                    {...register("latitude")}
+                    {...register("lactitude")}
                     label="Nueva Latitud"
                   />
                 </Stack>
@@ -157,6 +171,7 @@ function FormEditPlace(id) {
                 <Stack direction="row" ml={2} mt={2}>
                   <h6>Categoría</h6>
                 </Stack>
+
                 <Stack direction="row" ml={2}>
                   <select {...register("category")}>
                     <option value="Edificio Público">Edificio Público</option>

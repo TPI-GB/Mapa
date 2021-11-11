@@ -2,7 +2,7 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
@@ -55,7 +55,6 @@ export default function Places() {
             <List.Item.Meta title={<i>Latitud</i>}></List.Item.Meta>
             <List.Item.Meta title={<i>Longitud</i>}></List.Item.Meta>
             <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
-            <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}
       />
@@ -66,23 +65,22 @@ export default function Places() {
           <List.Item>
             <List.Item.Meta title={place.name}></List.Item.Meta>
             <List.Item.Meta title={place.address}></List.Item.Meta>
-            <List.Item.Meta title={place.latitude}></List.Item.Meta>
+            <List.Item.Meta title={place.lactitude}></List.Item.Meta>
             <List.Item.Meta title={place.longitude}></List.Item.Meta>
             <List.Item.Meta title={place.category}></List.Item.Meta>
             <List.Item.Meta
               title={
                 <Link to={`/editplace/${place._id}`}>
-                  <Button variant="contained" style={{ background: "goldenrod" }}>
+                  <Button
+                    variant="contained"
+                    style={{ background: "goldenrod" }}
+                  >
                     Editar Lugar
                   </Button>
                 </Link>
               }
             ></List.Item.Meta>
-            <List.Item.Meta
-              title={
-                  buttonDelete(place)
-              }
-            ></List.Item.Meta>
+            <List.Item.Meta title={buttonDelete(place)}></List.Item.Meta>
           </List.Item>
         )}
       />
@@ -99,8 +97,8 @@ function buttonDelete(place) {
     >
       Borrar
     </Button>
-  ); 
-  
+  );
+
   return button;
 }
 
