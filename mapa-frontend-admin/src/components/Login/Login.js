@@ -35,8 +35,6 @@ export default function Login() {
           sessionStorage.setItem("user login rol", response.data.rol);
           sessionStorage.setItem("user login email", response.data.email);
           history.push("./home");
-          console.log("Guardar token en local storage");
-          console.log("Ir a Home");
         }
       })
       .catch((err) => {
@@ -61,6 +59,7 @@ export default function Login() {
                     required
                     {...register("password")}
                     label="Contraseña"
+                    type="password"
                   />
                 </Stack>
                 <Stack direction="row" ml={2}>

@@ -7,7 +7,7 @@ const UserSchema = Schema(
   {
     first_name: String,
     last_name: String,
-    nick: { type: String, unique: true },
+    nick: { type: String },
     rol: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
@@ -19,5 +19,4 @@ const UserSchema = Schema(
   }
 );
 
-UserSchema.index({ nick: 1 }, { unique: true });
 module.exports = mongoose.model("Users", UserSchema);

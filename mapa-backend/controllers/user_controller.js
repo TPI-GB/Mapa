@@ -6,12 +6,14 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.get("/", (req, res) => this.getUsers(req, res));
-    this.router.post("/", (req, res) => this.registerUser(req, res));
-    this.router.put("/password", (req, res) => this.reset(req, res));
-    this.router.put("/:id", (req, res) => this.editUser(req, res));
-    this.router.put("/:id/status", (req, res) => this.editUserStatus(req, res));
-    this.router.post("/login", (req, res) => this.login(req, res));
+    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
+    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+    this.router.put("/password", auth, (req, res) => this.reset(req, res));
+    this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
+    this.router.put("/:id/status", auth, (req, res) =>
+      this.editUserStatus(req, res)
+    );
+    this.router.post("/login", auth, (req, res) => this.login(req, res));
   }
 
   //Agregar auth despues de terminar el login.
@@ -92,7 +94,6 @@ class UserController {
     const data = req.body;
     const { id } = req.params;
     data.id = id;
-    console.log(data);
     const userPromise = this.userService.editUserStatus(data);
     userPromise
       .then((user) => {

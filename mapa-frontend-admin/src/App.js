@@ -10,39 +10,39 @@ import EditUser from "./components/EditUser";
 import Places from "./components/Places";
 import ChangePassword from "./components/ChangePassword";
 import EditPlace from "./components/EditPlace";
+import Authenticated from "./components/Authenticated";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
         <Route path="/edituser/:id" exact={true}>
-          <EditUser />
+          <Authenticated component={<EditUser />} />
         </Route>
         <Route path="/editplace/:id" exact={true}>
-          <EditPlace />
+          <Authenticated component={<EditPlace />} />
         </Route>
         <Switch>
           <Route path="/home" exact={true} component={Home}>
-            <Home />
+            <Authenticated component={<Home />} />
           </Route>
           <Route path="/listusers" exact={true}>
-            <ListUsers />
+            <Authenticated component={<ListUsers />} />
           </Route>
           <Route path="/login" component={Login}>
             <Login />
           </Route>
           <Route path="/places" exact={true}>
-            <Places />
+            <Authenticated component={<Places />} />
           </Route>
           <Route path="/reset" exact={true}>
-            <Reset />
+            <Authenticated component={<Reset />} />
           </Route>
           <Route path="/" exact={true}>
             <Login />
           </Route>
           <Route path="/changePassword" exact={true}>
-            <ChangePassword />
+            <Authenticated component={<ChangePassword />} />
           </Route>
         </Switch>
       </Router>
