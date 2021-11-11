@@ -34,46 +34,57 @@ async function GetUserById(id) {
 
 async function RegisterUser(data) {
   try {
-    const response = await axios({
-      url: `${baseUrl}/users`,
-      method: "POST",
-      data: data,
-    });
-    Swal.fire({
-      title: "Hecho!",
-      text: "El usuario ha sido registrado correctamente",
-      icon: "success",
-      confirmButtonText: "Cerrar",
-    });
-    return response;
+    const verify = await verifyUser(data);
+    if (verify) {
+      const response = await axios({
+        url: `${baseUrl}/users`,
+        method: "POST",
+        data: data,
+      });
+      Swal.fire({
+        title: "Hecho!",
+        text: "El usuario ha sido registrado correctamente",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+      return response;
+    } else {
+      throw new Error();
+    }
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick no este ya registrado",
+      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
+    console.log(error);
   }
 }
 
 async function EditUser(data, id) {
   try {
-    const response = await axios({
-      url: `${baseUrl}/users/${id}`,
-      method: "PUT",
-      data: data,
-    });
-    Swal.fire({
-      title: "Hecho!",
-      text: "El usuario ha sido editado correctamente",
-      icon: "success",
-      confirmButtonText: "Cerrar",
-    });
-    return response;
+    const verify = await verifyUser(data);
+    if (verify) {
+      const response = await axios({
+        url: `${baseUrl}/users/${id}`,
+        method: "PUT",
+        data: data,
+      });
+      Swal.fire({
+        title: "Hecho!",
+        text: "El usuario ha sido editado correctamente, actualice para ver los cambios",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+      return response;
+    } else {
+      throw new Error();
+    }
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "El usuario no ha podido ser editado, asegurese de haber compleato bien los campos y que el Nick no este ya registrado",
+      text: "El usuario no ha podido ser editado, asegurese de haber compleato bien los campos y que el Nick no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -82,26 +93,40 @@ async function EditUser(data, id) {
 
 async function EditUserStatus(data, id) {
   try {
-    const response = await axios({
-      url: `${baseUrl}/users/${id}/status/`,
-      method: "PUT",
-      data: { active: data },
-    });
-    Swal.fire({
-      title: "Hecho!",
-      text: "El usuario ha cambiado de estado correctamente",
-      icon: "success",
-      confirmButtonText: "Cerrar",
-    });
-    return response;
+    const user = await GetUserById(id);
+    const verify = await verifyUser(user);
+    if ((data && verify) || !data) {
+      const response = await axios({
+        url: `${baseUrl}/users/${id}/status/`,
+        method: "PUT",
+        data: { active: data },
+      });
+      Swal.fire({
+        title: "Hecho!",
+        text: "El usuario ha cambiado de estado correctamente, actualice para ver los cambios",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+      return response;
+    } else {
+      throw new Error();
+    }
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick ya registrado",
+      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
   }
+}
+
+async function verifyUser(data) {
+  const { nick } = data;
+  const users = await GetUsers();
+  const usersActive = users.filter((u) => u.active);
+  const allNicksActive = usersActive.map((u) => u.nick);
+  return !allNicksActive.includes(nick);
 }
 
 async function LoginUser(data) {
@@ -130,6 +155,7 @@ const petitions = {
   GetUserById,
   EditUser,
   EditUserStatus,
+  verifyUser,
   LoginUser,
   GetPlaces,
 };
