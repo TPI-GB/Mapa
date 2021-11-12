@@ -13,7 +13,7 @@ class UserController {
     this.router.put("/:id/status", auth, (req, res) =>
       this.editUserStatus(req, res)
     );
-    this.router.post("/login", auth, (req, res) => this.login(req, res));
+    this.router.post("/login", (req, res) => this.login(req, res));
   }
 
   //Agregar auth despues de terminar el login.

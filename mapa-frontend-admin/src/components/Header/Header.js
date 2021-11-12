@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  Stack,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
@@ -22,11 +23,6 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 export default function Header() {
-  const history = useHistory();
-  const logOut = () => {
-    sessionStorage.clear();
-    history.push("/login");
-  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -63,6 +59,11 @@ export default function Header() {
 }
 
 function AccountMenu() {
+  const history = useHistory();
+  const logOut = () => {
+    sessionStorage.clear();
+    history.push("/login");
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -114,21 +115,32 @@ function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem component={Link} to="/">
-          <Avatar /> Profile
+        <MenuItem>
+          <Avatar />
+          <b>
+            {sessionStorage.getItem("user login first_name") +
+              " " +
+              sessionStorage.getItem("user login last_name")}
+          </b>
+        </MenuItem>
+        <MenuItem>
+          <b>{sessionStorage.getItem("user login nick")}</b>
         </MenuItem>
         <Divider />
-        <MenuItem component={Link} to="/edituser/:id">
+        <MenuItem
+          component={Link}
+          to={`/edituser/${sessionStorage.getItem("user login id")}`}
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Editar Perfil
         </MenuItem>
-        <MenuItem component={Link} to="/login">
+        <MenuItem onClick={logOut} component={Link} to="/login">
           <ListItemIcon path="/listusers">
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Salir
         </MenuItem>
       </Menu>
     </React.Fragment>

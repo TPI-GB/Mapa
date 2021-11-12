@@ -43,6 +43,7 @@ class UserService {
         let nick = user._doc.nick;
         let rol = user._doc.rol;
         let mail = user._doc.email;
+        let id = user._doc._id;
         let expires = new Date(Date.now());
         expires = expires.setHours(expires.getHours() + 12);
         // user
@@ -54,6 +55,7 @@ class UserService {
           email: mail,
           token,
           expires: expires,
+          id: id,
         };
       } else {
         throw new Error();

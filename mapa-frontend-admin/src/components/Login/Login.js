@@ -34,6 +34,8 @@ export default function Login() {
           sessionStorage.setItem("user login nick", response.data.nick);
           sessionStorage.setItem("user login rol", response.data.rol);
           sessionStorage.setItem("user login email", response.data.email);
+          sessionStorage.setItem("user login id", response.data.id);
+
           history.push("./home");
         }
       })
