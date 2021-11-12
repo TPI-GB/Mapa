@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import ListUsers from "./components/ListUsers";
-import Header from "./components/Header";
 import Reset from "./components/Reset/Reset";
 import EditUser from "./components/EditUser";
-import Places from "./components/Places";
+import ListPlaces from "./components/ListPlaces";
 import ChangePassword from "./components/ChangePassword";
 import EditPlace from "./components/EditPlace";
 import Authenticated from "./components/Authenticated";
@@ -32,8 +31,8 @@ function App() {
           <Route path="/login" component={Login}>
             <Login />
           </Route>
-          <Route path="/places" exact={true}>
-            <Authenticated component={<Places />} />
+          <Route path="/listplaces" exact={true}>
+            <Authenticated component={<ListPlaces />} />
           </Route>
           <Route path="/reset" exact={true}>
             <Authenticated component={<Reset />} />

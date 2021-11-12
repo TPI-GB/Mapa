@@ -55,6 +55,8 @@ export default function Places() {
             <List.Item.Meta title={<i>Latitud</i>}></List.Item.Meta>
             <List.Item.Meta title={<i>Longitud</i>}></List.Item.Meta>
             <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
