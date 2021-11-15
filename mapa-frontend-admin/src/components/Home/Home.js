@@ -30,7 +30,7 @@ export default function Home() {
               <Button href="/listusers">Usuarios</Button>
             </Stack>
             <Button href="/null">Categorias</Button>
-            <Button href="/places">Lugares</Button>
+            <Button href="/listplaces">Lugares</Button>
             <Button href="/null">Caracteristicas</Button>
             <Button href="/null">Estadisticas</Button>
           </Tabs>
