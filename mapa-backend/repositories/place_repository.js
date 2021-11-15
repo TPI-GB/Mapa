@@ -17,13 +17,15 @@ class PlaceRepository {
   }
 
   async editPlace(data) {
-    const { name, address, lactitude, longitude, features, id } = data;
+    const { name, address, lactitude, longitude, category, features, id } =
+      data;
 
     const newData = {
       name: name,
       address: address,
       lactitude: lactitude,
       longitude: longitude,
+      category: category,
       //features: features,
     };
 
@@ -38,8 +40,8 @@ class PlaceRepository {
     return await Place.find().lean().exec();
   }
 
-  async deletePlace({ _id: id }) {
-    return await Place.deleteOne(id);
+  async deletePlace(id) {
+    return await Place.deleteOne({ _id: id });
   }
 }
 

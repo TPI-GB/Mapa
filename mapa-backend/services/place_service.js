@@ -20,8 +20,8 @@ class PlaceService {
     return places;
   }
 
-  async deletePlace() {
-    const place = await this.placeRepository.deletePlace();
+  async deletePlace(id) {
+    const place = await this.placeRepository.deletePlace(id);
     return place;
   }
 }

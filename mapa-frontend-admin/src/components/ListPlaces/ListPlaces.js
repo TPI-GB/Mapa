@@ -2,7 +2,6 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
@@ -116,8 +115,7 @@ function deletePlace(id) {
     confirmButtonText: "Confirmar",
   }).then((result) => {
     if (result.isConfirmed) {
-      const data = false;
-      petitions.DeletePlace(data, id);
+      petitions.DeletePlace(id);
     }
   });
 }

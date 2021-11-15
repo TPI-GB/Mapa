@@ -209,6 +209,63 @@ async function GetPlaceById(id) {
   return [];
 }
 
+async function DeletePlace(id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/`,
+      method: "DELETE",
+      data: { id: id },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El lugar se ha borrado correctamente, actualize para visualizar cambios",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error inesperado al borrar el lugar, asegurese que el lugar ya no fue borrado",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+  return [];
+}
+
+async function EditPlace(data, id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/${id}`,
+      method: "PUT",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "El lugar ha sido editado correctamente",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error al editar el lugar, asegurese de no haber ingresado una direccion ya registrada u otro dato incorrecto",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -220,6 +277,8 @@ const petitions = {
   CreatePlace,
   GetPlaces,
   GetPlaceById,
+  DeletePlace,
+  EditPlace,
 };
 
 export default petitions;

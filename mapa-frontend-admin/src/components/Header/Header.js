@@ -10,7 +10,6 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-  Stack,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
