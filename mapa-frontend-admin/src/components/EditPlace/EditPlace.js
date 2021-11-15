@@ -113,7 +113,7 @@ function FormEditPlace(id) {
     <Stack direction="row" ml={2} mt={5}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button style={{ background: "lightblue" }} href="/places">
+          <Button style={{ background: "lightblue" }} href="/listplaces">
             Volver
           </Button>
         </Grid>

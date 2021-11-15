@@ -199,6 +199,16 @@ async function GetPlaces() {
   return [];
 }
 
+async function GetPlaceById(id) {
+  try {
+    const response = await GetPlaces();
+    return response.filter((u) => u._id === id)[0];
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -209,6 +219,7 @@ const petitions = {
   LoginUser,
   CreatePlace,
   GetPlaces,
+  GetPlaceById,
 };
 
 export default petitions;
