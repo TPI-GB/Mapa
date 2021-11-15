@@ -29,7 +29,7 @@ export default function Home() {
             <Stack ml={8}>
               <Button href="/listusers">Usuarios</Button>
             </Stack>
-            <Button href="/null">Categorias</Button>
+            <Button href="/listcategories">Categorias</Button>
             <Button href="/listplaces">Lugares</Button>
             <Button href="/null">Caracteristicas</Button>
             <Button href="/null">Estadisticas</Button>

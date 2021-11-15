@@ -10,6 +10,7 @@ import ListPlaces from "./components/ListPlaces";
 import ChangePassword from "./components/ChangePassword";
 import EditPlace from "./components/EditPlace";
 import Authenticated from "./components/Authenticated";
+import ListCategories from "./components/ListCategories";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path="/login" component={Login}>
             <Login />
+          </Route>
+          <Route path="/listcategories" exact={true}>
+            <Authenticated component={<ListCategories />} />
           </Route>
           <Route path="/listplaces" exact={true}>
             <Authenticated component={<ListPlaces />} />
