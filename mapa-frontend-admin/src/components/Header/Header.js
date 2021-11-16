@@ -17,7 +17,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import "./Header.scss";
 import { Link } from "react-router-dom";
-
 import { useHistory } from "react-router-dom";
 
 export default function Header() {

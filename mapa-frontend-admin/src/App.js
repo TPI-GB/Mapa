@@ -10,7 +10,11 @@ import ListPlaces from "./components/ListPlaces";
 import ChangePassword from "./components/ChangePassword";
 import EditPlace from "./components/EditPlace";
 import Authenticated from "./components/Authenticated";
+<<<<<<< HEAD
 import EditCategory from "./components/EditCategory";
+=======
+import ListCategories from "./components/ListCategories";
+>>>>>>> 6a60f7a3dd06f88a7e279d123a0b0d1c4b607208
 
 function App() {
   return (
@@ -34,6 +38,9 @@ function App() {
           </Route>
           <Route path="/login" component={Login}>
             <Login />
+          </Route>
+          <Route path="/listcategories" exact={true}>
+            <Authenticated component={<ListCategories />} />
           </Route>
           <Route path="/listplaces" exact={true}>
             <Authenticated component={<ListPlaces />} />
