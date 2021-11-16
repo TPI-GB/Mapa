@@ -151,37 +151,23 @@ function FormEditUser(id) {
               </h6>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("first_name")}
-                    label="Nuevo Nombre"
-                  />
+                  <TextField {...register("first_name")} label="Nuevo Nombre" />
                   <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    required
                     {...register("last_name")}
                     label="Nuevo Apellido"
                   />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("nick")}
-                    label="Nuevo Nick"
-                  />
+                  <TextField {...register("nick")} label="Nuevo Nick" />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <TextField {...register("email")} label="Nuevo Email" />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    required
-                    {...register("email")}
-                    label="Nuevo Email"
-                  />
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField
-                    required
                     {...register("password")}
                     label="Nueva Contraseña"
                     type="password"

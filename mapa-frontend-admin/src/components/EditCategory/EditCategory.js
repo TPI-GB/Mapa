@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import "./EditCategory.scss";
+import petitions from "../Petitions/Petitions";
 
 export default function EditCategory() {
   const { id } = useParams();
@@ -26,7 +27,7 @@ export default function EditCategory() {
 
 function FormNewCategory() {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log("Categoria creada");
+  const onSubmit = (data) => petitions.CreateCategory(data);
 
   const infoCategory = () => {
     Swal.fire({
@@ -85,7 +86,7 @@ function FormNewCategory() {
 
 function FormEditCategory(id) {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log("Categoria editada");
+  const onSubmit = (data) => petitions.EditCategory(data, id);
 
   const infoCategory = () => {
     Swal.fire({
@@ -111,7 +112,6 @@ function FormEditCategory(id) {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    required
                     {...register("name")}
                     label="Nombre De Categoria"
                   />

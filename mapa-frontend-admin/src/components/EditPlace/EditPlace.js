@@ -46,11 +46,7 @@ function FormNewPlace() {
                   <TextField required {...register("name")} label="Nombre" />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("address")}
-                    label="Dirección"
-                  />
+                  <TextField {...register("address")} label="Dirección" />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
@@ -140,30 +136,17 @@ function FormEditPlace(id) {
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("name")}
-                    label="Nuevo Nombre"
-                  />
+                  <TextField {...register("name")} label="Nuevo Nombre" />
                   <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("address")}
-                    label="Nueva Dirección"
-                  />
+                  <TextField {...register("address")} label="Nueva Dirección" />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <TextField {...register("lactitude")} label="Nueva Latitud" />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    required
-                    {...register("lactitude")}
-                    label="Nueva Latitud"
-                  />
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField
-                    required
                     {...register("longitude")}
                     label="Nueva Longitud"
                   />

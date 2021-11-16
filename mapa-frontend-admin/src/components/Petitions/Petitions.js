@@ -266,6 +266,58 @@ async function EditPlace(data, id) {
   }
 }
 
+async function CreateCategory(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories`,
+      method: "POST",
+      data: data,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "La categoria se creó correctamente",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (error) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se pudo crear la categ0r9a. Asegurese de haber ingresado un nombre ya registrado",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
+async function EditCategory(data, id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/${id}`,
+      method: "PUT",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "La categoria ha sido editada correctamente",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error al editar la categoria, asegurese de no haber ingresado un nombre ya registrado incorrecto",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -279,6 +331,8 @@ const petitions = {
   GetPlaceById,
   DeletePlace,
   EditPlace,
+  CreateCategory,
+  EditCategory,
 };
 
 export default petitions;
