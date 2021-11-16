@@ -10,11 +10,15 @@ import ListPlaces from "./components/ListPlaces";
 import ChangePassword from "./components/ChangePassword";
 import EditPlace from "./components/EditPlace";
 import Authenticated from "./components/Authenticated";
+import EditCategory from "./components/EditCategory";
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Route path="/editcategory/:id" exact={true}>
+          <Authenticated component={<EditCategory />} />
+        </Route>
         <Route path="/edituser/:id" exact={true}>
           <Authenticated component={<EditUser />} />
         </Route>

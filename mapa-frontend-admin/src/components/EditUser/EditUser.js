@@ -15,14 +15,24 @@ import Swal from "sweetalert2";
 export default function EditUser() {
   const { id } = useParams();
 
-  let form;
+  if (sessionStorage.getItem("user login rol") === "Administrador") {
+    let form;
 
-  if (id === "new") {
-    form = FormNewUser();
+    if (id === "new") {
+      form = FormNewUser();
+    } else {
+      form = FormEditUser(id);
+    }
+    return form;
   } else {
-    form = FormEditUser(id);
+    Swal.fire({
+      title: "Error!",
+      text: "No tiene los permisos para acceder a esta pagina",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+    return null;
   }
-  return form;
 }
 
 function FormNewUser() {
@@ -183,9 +193,7 @@ function FormEditUser(id) {
                 <Stack direction="row" ml={2}>
                   <select {...register("rol")}>
                     <option value="Administrador">Administrador</option>
-                    <option value="Ingresador de datos">
-                      Ingresador de datos
-                    </option>
+                    <option value="Moderador">Moderador</option>
                   </select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>

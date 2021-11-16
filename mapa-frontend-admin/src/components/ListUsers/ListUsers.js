@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "antd";
 import { Stack, Button } from "@mui/material";
-import PersonAddTwoToneIcon from '@mui/icons-material/PersonAddTwoTone';
+import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import { Link } from "react-router-dom";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
@@ -41,6 +41,38 @@ export default function ListUsers() {
     }
   });
 
+  const ButtonEditUser = (id) => {
+    if (sessionStorage.getItem("user login rol") === "Administrador") {
+      return (
+        <Button
+          variant="contained"
+          style={{ background: "goldenrod" }}
+          href={`edituser/${id}`}
+        >
+          Editar Usuario
+        </Button>
+      );
+    } else {
+      return;
+    }
+  };
+
+  const ButtonCreateUser = () => {
+    if (sessionStorage.getItem("user login rol") === "Administrador") {
+      return (
+        <Button
+          variant="contained"
+          style={{ background: "blue" }}
+          href={`/edituser/new`}
+        >
+          <PersonAddTwoToneIcon /> Crear Usuario
+        </Button>
+      );
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="ListUsers">
       <h2>USUARIOS</h2>
@@ -52,11 +84,7 @@ export default function ListUsers() {
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/edituser/new`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            <PersonAddTwoToneIcon /> Crear Usuario
-          </Button>
-        </Link>
+        {ButtonCreateUser()}
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
             Regresar
@@ -87,15 +115,7 @@ export default function ListUsers() {
             <List.Item.Meta title={user.nick}></List.Item.Meta>
             <List.Item.Meta title={user.rol}></List.Item.Meta>
             <List.Item.Meta title={getStatus(user)}></List.Item.Meta>
-            <List.Item.Meta
-              title={
-                <Link to={`/edituser/${user._id}`}>
-                  <Button variant="contained" style={{ background: "goldenrod" }}>
-                    Editar Usuario
-                  </Button>
-                </Link>
-              }
-            ></List.Item.Meta>
+            <List.Item.Meta title={ButtonEditUser(user._id)}></List.Item.Meta>
           </List.Item>
         )}
       />

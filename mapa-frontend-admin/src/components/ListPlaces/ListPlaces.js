@@ -33,11 +33,13 @@ export default function Places() {
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/editplace/new`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            Cargar Lugar <AddLocationAltTwoToneIcon />
-          </Button>
-        </Link>
+        {
+          <Link to={`/editplace/new`}>
+            <Button variant="contained" style={{ background: "blue" }}>
+              Cargar Lugar <AddLocationAltTwoToneIcon />
+            </Button>
+          </Link>
+        }
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
             Regresar

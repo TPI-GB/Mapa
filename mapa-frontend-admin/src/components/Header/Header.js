@@ -14,7 +14,6 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import "./Header.scss";
 import { Link } from "react-router-dom";
@@ -126,15 +125,6 @@ function AccountMenu() {
           <b>{sessionStorage.getItem("user login nick")}</b>
         </MenuItem>
         <Divider />
-        <MenuItem
-          component={Link}
-          to={`/edituser/${sessionStorage.getItem("user login id")}`}
-        >
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Editar Perfil
-        </MenuItem>
         <MenuItem onClick={logOut} component={Link} to="/login">
           <ListItemIcon path="/listusers">
             <Logout fontSize="small" />
