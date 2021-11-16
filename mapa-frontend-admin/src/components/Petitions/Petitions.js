@@ -266,6 +266,22 @@ async function EditPlace(data, id) {
   }
 }
 
+async function GetCategories() {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -279,6 +295,7 @@ const petitions = {
   GetPlaceById,
   DeletePlace,
   EditPlace,
+  GetCategories,
 };
 
 export default petitions;
