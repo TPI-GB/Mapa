@@ -18,7 +18,7 @@ export default function ListCategories() {
   }, []);
 
   const getData = async () => {
-    const response = await petitions.Getcategories();
+    const response = await petitions.GetCategories();
     setcategories(response);
   };
 
@@ -33,14 +33,14 @@ export default function ListCategories() {
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/editcategory/new`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            Cargar Lugar <AddLocationAltTwoToneIcon />
-          </Button>
-        </Link>
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
             Regresar
+          </Button>
+        </Link>
+        <Link to={`/editcategory/new`}>
+          <Button variant="contained" style={{ background: "blue" }}>
+            Cargar Categoria <AddLocationAltTwoToneIcon />
           </Button>
         </Link>
       </Stack>
@@ -51,8 +51,6 @@ export default function ListCategories() {
           <List.Item>
             <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
             <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
@@ -70,7 +68,7 @@ export default function ListCategories() {
                     variant="contained"
                     style={{ background: "goldenrod" }}
                   >
-                    Editar Lugar
+                    Editar Categoria
                   </Button>
                 </Link>
               }

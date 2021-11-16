@@ -290,6 +290,21 @@ async function CreateCategory(data) {
   }
 }
 
+async function GetCategories() {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function EditCategory(data, id) {
   try {
     const response = await axios({
@@ -333,6 +348,7 @@ const petitions = {
   EditPlace,
   CreateCategory,
   EditCategory,
+  GetCategories,
 };
 
 export default petitions;
