@@ -56,7 +56,7 @@ class UserRepository {
       email: email.toLowerCase(),
     };
 
-    await User.findByIdAndUpdate({ _id: id }, newData);
+    await User.findByIdAndUpdate({ _id: id }, newDataFilter);
 
     const userStored = await User.findById(id);
 

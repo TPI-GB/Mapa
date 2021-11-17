@@ -7,7 +7,7 @@ class UserController {
     this.userService = new UserService();
     this.router = express.Router();
     this.router.get("/", auth, (req, res) => this.getUsers(req, res));
-    this.router.post("/", (req, res) => this.registerUser(req, res));
+    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
     this.router.put("/password", auth, (req, res) => this.reset(req, res));
     this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
     this.router.put("/:id/status", auth, (req, res) =>
