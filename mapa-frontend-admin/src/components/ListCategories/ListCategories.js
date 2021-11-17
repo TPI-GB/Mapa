@@ -50,7 +50,8 @@ export default function ListCategories() {
         renderItem={() => (
           <List.Item>
             <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
+            <List.Item.Meta title={""}></List.Item.Meta>
+            <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}
       />
