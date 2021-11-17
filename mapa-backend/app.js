@@ -4,6 +4,7 @@ const app = express();
 const UserController = require("./controllers/user_controller");
 const PlaceController = require("./controllers/place_controller");
 const CategoryController = require("./controllers/category_controller");
+const FeatureController = require("./controllers/feature_controller");
 
 app.use(cors());
 
@@ -15,9 +16,11 @@ app.use(bodyParser.urlencoded({ extended: false })); //body formulario
 let userController = new UserController();
 let placeController = new PlaceController();
 let categoryController = new CategoryController();
+let featureController = new FeatureController();
 
 app.use("/users", userController.router);
 app.use("/places", placeController.router);
 app.use("/categories", categoryController.router);
+app.use("/features", featureController.router);
 
 module.exports = app;
