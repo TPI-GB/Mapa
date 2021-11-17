@@ -221,7 +221,7 @@ async function DeletePlace(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "El lugar se ha borrado correctamente, actualize para visualizar cambios",
+      text: "El lugar se ha borrado correctamente, actualice para visualizar cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
     });
@@ -333,6 +333,35 @@ async function EditCategory(data, id) {
   }
 }
 
+async function DeleteCategory(id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories/`,
+      method: "DELETE",
+      data: { id: id },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "La categoria se ha borrado correctamente, actualice para visualizar cambios",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error inesperado al borrar la categoria, asegurese que la categoria no fue borrada anteriormente",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+  return [];
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -349,6 +378,7 @@ const petitions = {
   CreateCategory,
   EditCategory,
   GetCategories,
+  DeleteCategory,
 };
 
 export default petitions;

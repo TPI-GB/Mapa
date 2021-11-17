@@ -88,6 +88,7 @@ function buttonDelete(category) {
       type="delete"
       style={{ background: "red" }}
       onClick={() => deletecategory(category._id)}
+      color="inherit"
     >
       Borrar
     </Button>
@@ -99,7 +100,7 @@ function buttonDelete(category) {
 function deletecategory(id) {
   return Swal.fire({
     title: "Atencion!",
-    text: "Está a punto de eliminar el lugar de la base de datos",
+    text: "Está a punto de eliminar la categoria de la base de datos",
     icon: "warning",
     showCancelButton: true,
     cancelButtonColor: "blue",
@@ -108,7 +109,7 @@ function deletecategory(id) {
     confirmButtonText: "Confirmar",
   }).then((result) => {
     if (result.isConfirmed) {
-      petitions.Deletecategory(id);
+      petitions.DeleteCategory(id);
     }
   });
 }
