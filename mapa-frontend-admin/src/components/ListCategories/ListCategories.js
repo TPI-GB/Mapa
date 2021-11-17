@@ -33,14 +33,14 @@ export default function ListCategories() {
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            Regresar
-          </Button>
-        </Link>
         <Link to={`/editcategory/new`}>
           <Button variant="contained" style={{ background: "blue" }}>
             Cargar Categoria <AddLocationAltTwoToneIcon />
+          </Button>
+        </Link>
+        <Link to={`/home`}>
+          <Button variant="contained" style={{ background: "blue" }}>
+            Regresar
           </Button>
         </Link>
       </Stack>
@@ -50,7 +50,8 @@ export default function ListCategories() {
         renderItem={() => (
           <List.Item>
             <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
@@ -87,6 +88,7 @@ function buttonDelete(category) {
       type="delete"
       style={{ background: "red" }}
       onClick={() => deletecategory(category._id)}
+      color="inherit"
     >
       Borrar
     </Button>
@@ -98,7 +100,7 @@ function buttonDelete(category) {
 function deletecategory(id) {
   return Swal.fire({
     title: "Atencion!",
-    text: "Está a punto de eliminar el lugar de la base de datos",
+    text: "Está a punto de eliminar la categoria de la base de datos",
     icon: "warning",
     showCancelButton: true,
     cancelButtonColor: "blue",
@@ -107,7 +109,7 @@ function deletecategory(id) {
     confirmButtonText: "Confirmar",
   }).then((result) => {
     if (result.isConfirmed) {
-      petitions.Deletecategory(id);
+      petitions.DeleteCategory(id);
     }
   });
 }

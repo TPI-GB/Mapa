@@ -18,14 +18,14 @@ import Logout from "@mui/icons-material/Logout";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import logo from "../../assets/img/hol.jpg";
 
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <img src="C:\Users\kafu7\Desktop\Repositorio Mapa\Mapa2\Mapa\mapa-frontend-admin\src\assets\img\logo.svg" />
-          {/* CORREGIR (NO MUESTRA IMAGEN) */}
+        <Toolbar variant="dense">
+          <img src={logo} width="30" />
           <Typography
             variant="h6"
             component="div"

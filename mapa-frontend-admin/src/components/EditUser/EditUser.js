@@ -106,7 +106,7 @@ function FormNewUser() {
 }
 
 function FormEditUser(id) {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     getData();

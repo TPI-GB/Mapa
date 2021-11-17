@@ -221,7 +221,7 @@ async function DeletePlace(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "El lugar se ha borrado correctamente, actualize para visualizar cambios",
+      text: "El lugar se ha borrado correctamente, actualice para visualizar cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
     });
@@ -333,6 +333,36 @@ async function EditCategory(data, id) {
   }
 }
 
+async function DeleteCategory(id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories/`,
+
+      method: "DELETE",
+      data: { id: id },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "La categoría se ha borrado correctamente, actualize para visualizar los cambios",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error inesperado al borrar la categoría, asegurese que no fue borrada con anterioridad",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+  return [];
+}
+
 // Features:
 
 async function CreateFeature(data) {
@@ -389,7 +419,7 @@ async function DeleteFeature(id) {
   try {
     const response = await axios({
       url: `${baseUrl}/features/`,
-      method: "DELETE",
+          method: "DELETE",
       data: { id: id },
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
@@ -411,8 +441,8 @@ async function DeleteFeature(id) {
       confirmButtonText: "Cerrar",
     });
   }
-  return [];
 }
+
 
 const petitions = {
   RegisterUser,
@@ -433,7 +463,8 @@ const petitions = {
   CreateFeature,
   GetFeatures,
   GetFeatureById,
-  DeleteFeature
+  DeleteFeature,
+  DeleteCategory,
 };
 
 export default petitions;
