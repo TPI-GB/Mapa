@@ -33,14 +33,14 @@ export default function ListCategories() {
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            Regresar
-          </Button>
-        </Link>
         <Link to={`/editcategory/new`}>
           <Button variant="contained" style={{ background: "blue" }}>
             Cargar Categoria <AddLocationAltTwoToneIcon />
+          </Button>
+        </Link>
+        <Link to={`/home`}>
+          <Button variant="contained" style={{ background: "blue" }}>
+            Regresar
           </Button>
         </Link>
       </Stack>
@@ -50,8 +50,8 @@ export default function ListCategories() {
         renderItem={() => (
           <List.Item>
             <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={""}></List.Item.Meta>
-            <List.Item.Meta title={""}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
