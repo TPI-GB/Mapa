@@ -31,7 +31,7 @@ export default function Home() {
             </Stack>
             <Button href="/listcategories">Categorias</Button>
             <Button href="/listplaces">Lugares</Button>
-            <Button href="/null">Caracteristicas</Button>
+            <Button href="/listfeatures">Caracteristicas</Button>
             <Button href="/null">Estadisticas</Button>
           </Tabs>
         </Box>

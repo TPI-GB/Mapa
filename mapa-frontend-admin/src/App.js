@@ -12,6 +12,8 @@ import EditPlace from "./components/EditPlace";
 import Authenticated from "./components/Authenticated";
 import EditCategory from "./components/EditCategory";
 import ListCategories from "./components/ListCategories";
+import EditFeature from "./components/EditFeature/EditFeature";
+import ListFeatures from "./components/ListFeatures";
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
         </Route>
         <Route path="/editplace/:id" exact={true}>
           <Authenticated component={<EditPlace />} />
+        </Route>
+        <Route path="/editfeature/:id" exact={true}>
+          <Authenticated component={<EditFeature />} />
         </Route>
         <Switch>
           <Route path="/home" exact={true} component={Home}>
@@ -41,6 +46,9 @@ function App() {
           </Route>
           <Route path="/listplaces" exact={true}>
             <Authenticated component={<ListPlaces />} />
+          </Route>
+          <Route path="/listfeatures" exact={true}>
+            <Authenticated component={<ListFeatures />} />
           </Route>
           <Route path="/reset" exact={true}>
             <Authenticated component={<Reset />} />

@@ -9,7 +9,11 @@ import {
   Card,
   CardContent,
   TextField,
+  Autocomplete,
+  Checkbox,
 } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import "./EditPlace.scss";
 
 export default function EditPlace() {
@@ -62,17 +66,9 @@ function FormNewPlace() {
                     label="Longitud"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <h6>Categoría</h6>
-                </Stack>
+                <Stack direction="row" ml={2} mt={2}></Stack>
                 <Stack direction="row" ml={2}>
-                  <select {...register("category")}>
-                    <option value="Edificio Público">Edificio Público</option>
-                    <option value="Gastronomia">Gastronomia</option>
-                    <option value="Educación">Educación</option>
-                    <option value="Alojamiento">Alojamiento</option>
-                    <option value="Salud">Salud</option>
-                  </select>
+                  <CheckboxesTagsCategory />
                 </Stack>
 
                 <Stack direction="row" ml={2} mt={2}>
@@ -168,6 +164,9 @@ function FormEditPlace(id) {
                     ))}
                   </select>
                 </Stack>
+                <Stack>
+                  <CheckboxesTagsCategory />
+                </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Guardar Cambios
@@ -179,5 +178,42 @@ function FormEditPlace(id) {
         </Grid>
       </Grid>
     </Stack>
+  );
+}
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+function CheckboxesTagsCategory() {
+  const [categoria, setCategoria] = useState([]);
+
+  useEffect(() => {
+    petitions.GetCategories().then((y) => {
+      setCategoria(y.map((x) => x.name));
+      console.log(y.map((x) => x.name));
+    });
+  }, []);
+
+  return (
+    <Autocomplete
+      multiple
+      id="checkboxes-tags-demo"
+      options={categoria}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option}
+        </li>
+      )}
+      style={{ width: 500 }}
+      renderInput={(params) => <TextField {...params} label="Categorias" />}
+    />
   );
 }
