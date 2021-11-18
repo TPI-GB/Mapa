@@ -77,7 +77,7 @@ function FormEditCategory(id) {
         <Grid item xs={4} style={{ textAlign: "center" }}>
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
-              <h1>Cargar Categoria</h1>
+              <h1>Editar Categoria</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
@@ -87,7 +87,7 @@ function FormEditCategory(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
-                    Crear categoria
+                    Cargar Datos
                   </Button>
                 </Stack>
               </form>

@@ -91,16 +91,25 @@ function FormNewPlace() {
 
 function FormEditPlace(id) {
   const [place, setPlace] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   const getData = async () => {
-    const response = petitions.GetPlaceById(id);
-    const place = await response;
+    const responsePlace = petitions.GetPlaceById(id);
+    const responseCategories = petitions.GetCategories();
+    const place = await responsePlace;
+    const categories = await responseCategories;
     setPlace(place);
+    setCategories(categories);
   };
+
+  let categoriesNames = [];
+  categories.forEach((cat) => categoriesNames.push(cat.name));
+
+  console.log(categoriesNames);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => petitions.EditPlace(data, id);
@@ -117,38 +126,35 @@ function FormEditPlace(id) {
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Lugar</h1>
-              <h4>Editando: </h4>
-              <h6>
-                <b>Nombre:</b> {place.name}
-              </h6>
-              <h6>
-                <b>Dirección:</b> {place.address}
-              </h6>
-              <h6>
-                <b>Latitud:</b> {place.lactitude}
-              </h6>
-              <h6>
-                <b>Longitud:</b> {place.longitude}
-              </h6>
-              <h6>
-                <b>Categoria:</b> {place.category}
-              </h6>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("name")} label="Nuevo Nombre" />
+                  <TextField
+                    {...register("name")}
+                    label="Nuevo Nombre"
+                    placeholder={place.name}
+                  />
                   <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("address")} label="Nueva Dirección" />
+                  <TextField
+                    {...register("address")}
+                    label="Nueva Dirección"
+                    placeholder={place.address}
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("lactitude")} label="Nueva Latitud" />
+                  <TextField
+                    {...register("lactitude")}
+                    label="Nueva Latitud"
+                    placeholder={place.lactitude}
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
                     {...register("longitude")}
                     label="Nueva Longitud"
+                    placeholder={place.longitude}
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
@@ -156,12 +162,10 @@ function FormEditPlace(id) {
                 </Stack>
 
                 <Stack direction="row" ml={2}>
-                  <select {...register("category")}>
-                    <option value="Edificio Público">Edificio Público</option>
-                    <option value="Gastronomia">Gastronomia</option>
-                    <option value="Educación">Educación</option>
-                    <option value="Alojamiento">Alojamiento</option>
-                    <option value="Salud">Salud</option>
+                  <select value={place.category} {...register("category")}>
+                    {categoriesNames.map((c) => (
+                      <option value={c}>{c}</option>
+                    ))}
                   </select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>

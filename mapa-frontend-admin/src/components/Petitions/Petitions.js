@@ -283,7 +283,7 @@ async function CreateCategory(data) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo crear la categ0r9a. Asegurese de haber ingresado un nombre ya registrado",
+      text: "No se pudo crear la categoria. Asegurese de haber ingresado un nombre ya registrado",
       icon: "error",
       confirmButtonText: "Cerrar",
     });

@@ -22,6 +22,14 @@ export default function ListCategories() {
     setcategories(response);
   };
 
+  categories.sort(function (a, b) {
+    if (a.name > b.name) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
   return (
     <div className="categoryList">
       <h2>CATEGORIAS</h2>

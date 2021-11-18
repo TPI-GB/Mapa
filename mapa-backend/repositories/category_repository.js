@@ -14,9 +14,11 @@ class CategoryRepository {
   async editCategory(data) {
     const { name, id } = data;
 
-    const newData = {
-      name: name,
-    };
+    const newData = {};
+
+    if (name != "") {
+      newData.name = name;
+    }
 
     await Category.findByIdAndUpdate({ _id: id }, newData);
 
