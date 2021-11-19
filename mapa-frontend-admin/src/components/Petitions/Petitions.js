@@ -53,7 +53,7 @@ async function RegisterUser(data) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick no este ya registrado y dado de alta",
+      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick o Email no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
