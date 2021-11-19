@@ -87,7 +87,6 @@ function FormNewPlace() {
 
 function FormEditPlace(id) {
   const [place, setPlace] = useState([]);
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     getData();
@@ -95,17 +94,9 @@ function FormEditPlace(id) {
 
   const getData = async () => {
     const responsePlace = petitions.GetPlaceById(id);
-    const responseCategories = petitions.GetCategories();
     const place = await responsePlace;
-    const categories = await responseCategories;
     setPlace(place);
-    setCategories(categories);
   };
-
-  let categoriesNames = [];
-  categories.forEach((cat) => categoriesNames.push(cat.name));
-
-  console.log(categoriesNames);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => petitions.EditPlace(data, id);
@@ -156,14 +147,6 @@ function FormEditPlace(id) {
                 <Stack direction="row" ml={2} mt={2}>
                   <h6>Categoría</h6>
                 </Stack>
-
-                <Stack direction="row" ml={2}>
-                  <select value={place.category} {...register("category")}>
-                    {categoriesNames.map((c) => (
-                      <option value={c}>{c}</option>
-                    ))}
-                  </select>
-                </Stack>
                 <Stack>
                   <CheckboxesTagsCategory />
                 </Stack>
@@ -185,12 +168,11 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function CheckboxesTagsCategory() {
-  const [categoria, setCategoria] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     petitions.GetCategories().then((y) => {
-      setCategoria(y.map((x) => x.name));
-      console.log(y.map((x) => x.name));
+      setCategories(y.map((x) => x.name));
     });
   }, []);
 
@@ -198,7 +180,7 @@ function CheckboxesTagsCategory() {
     <Autocomplete
       multiple
       id="checkboxes-tags-demo"
-      options={categoria}
+      options={categories}
       disableCloseOnSelect
       getOptionLabel={(option) => option}
       renderOption={(props, option, { selected }) => (

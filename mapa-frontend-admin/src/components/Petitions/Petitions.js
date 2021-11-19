@@ -63,7 +63,8 @@ async function RegisterUser(data) {
 
 async function EditUser(data, id) {
   try {
-    const verify = await verifyUser(data);
+    const user = await GetUserById(id);
+    const verify = await verifyEditUser(data, user);
     if (verify) {
       const response = await axios({
         url: `${baseUrl}/users/${id}`,
@@ -86,7 +87,7 @@ async function EditUser(data, id) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "El usuario no ha podido ser editado, asegurese de haber compleato bien los campos y que el Nick no este ya registrado y dado de alta",
+      text: "El usuario no ha podido ser editado, asegurese de haber completado bien los campos y que el Nick o Email no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -119,7 +120,7 @@ async function EditUserStatus(data, id) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick ya registrado y dado de alta",
+      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick o Email ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -127,11 +128,26 @@ async function EditUserStatus(data, id) {
 }
 
 async function verifyUser(data) {
-  const { nick } = data;
+  const { email, nick } = data;
   const users = await GetUsers();
   const usersActive = users.filter((u) => u.active);
   const allNicksActive = usersActive.map((u) => u.nick);
-  return !allNicksActive.includes(nick);
+  const allEmailsActive = users.filter((u) => u.active);
+  return !allNicksActive.includes(nick) && !allEmailsActive.includes(email);
+}
+
+async function verifyEditUser(data, user) {
+  const { email, nick } = data;
+  const users = await GetUsers();
+  const usersActive = users.filter((u) => u.active);
+  const allNicksActive = usersActive.map((u) => u.nick);
+  const allEmailsActive = users.filter((u) => u.active);
+  const allNicksActiveFilter = allNicksActive.filter((n) => n !== user.nick);
+  const allEmailsActiveFilter = allEmailsActive.filter((e) => e !== user.email);
+  return (
+    !allNicksActiveFilter.includes(nick) &&
+    !allEmailsActiveFilter.includes(email)
+  );
 }
 
 async function LoginUser(data) {
@@ -419,7 +435,7 @@ async function DeleteFeature(id) {
   try {
     const response = await axios({
       url: `${baseUrl}/features/`,
-          method: "DELETE",
+      method: "DELETE",
       data: { id: id },
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
@@ -442,7 +458,6 @@ async function DeleteFeature(id) {
     });
   }
 }
-
 
 const petitions = {
   RegisterUser,
