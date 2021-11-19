@@ -132,7 +132,7 @@ async function verifyUser(data) {
   const users = await GetUsers();
   const usersActive = users.filter((u) => u.active);
   const allNicksActive = usersActive.map((u) => u.nick);
-  const allEmailsActive = users.filter((u) => u.active);
+  const allEmailsActive = usersActive.map((u) => u.email);
   return !allNicksActive.includes(nick) && !allEmailsActive.includes(email);
 }
 
@@ -141,7 +141,7 @@ async function verifyEditUser(data, user) {
   const users = await GetUsers();
   const usersActive = users.filter((u) => u.active);
   const allNicksActive = usersActive.map((u) => u.nick);
-  const allEmailsActive = users.filter((u) => u.active);
+  const allEmailsActive = usersActive.filter((u) => u.email);
   const allNicksActiveFilter = allNicksActive.filter((n) => n !== user.nick);
   const allEmailsActiveFilter = allEmailsActive.filter((e) => e !== user.email);
   return (
