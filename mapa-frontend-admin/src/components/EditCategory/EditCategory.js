@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 import {
   Button,
   Stack,
@@ -63,6 +64,17 @@ function FormNewCategory() {
 }
 
 function FormEditCategory(id) {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const response = petitions.GetCategoryById(id);
+    const category = await response;
+    setCategory(category);
+  };
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => petitions.EditCategory(data, id);
 
@@ -82,7 +94,11 @@ function FormEditCategory(id) {
                 <Stack direction="row" ml={2}>
                   <TextField
                     {...register("name")}
-                    label="Nombre De Categoria"
+                    label="Nuevo Nombre De Categoria"
+                    placeholder={category.name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>

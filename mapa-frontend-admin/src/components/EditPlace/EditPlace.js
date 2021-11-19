@@ -145,7 +145,7 @@ function FormEditPlace(id) {
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <h6>Categoría</h6>
+                  <h6>Categorías</h6>
                 </Stack>
                 <Stack>
                   <CheckboxesTagsCategory />

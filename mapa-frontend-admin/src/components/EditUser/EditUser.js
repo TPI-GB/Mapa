@@ -201,23 +201,17 @@ function FormEditUser(id) {
                   <Button type="submit" style={{ background: "black" }}>
                     Guardar Cambios
                   </Button>
-                  {buttonStatus(user)}
                 </Stack>
               </form>
+              <Stack direction="row" ml={2} mt={2}>
+                {buttonStatus(user)}
+              </Stack>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
     </Stack>
   );
-}
-
-function getStatus(user) {
-  let userStatus = <b style={{ color: "green" }}>Activo</b>;
-  if (!user.active) {
-    userStatus = <b style={{ color: "red" }}>Inactivo</b>;
-  }
-  return userStatus;
 }
 
 function buttonStatus(user) {

@@ -133,7 +133,11 @@ async function verifyUser(data) {
   const usersActive = users.filter((u) => u.active);
   const allNicksActive = usersActive.map((u) => u.nick);
   const allEmailsActive = usersActive.map((u) => u.email);
-  return !allNicksActive.includes(nick) && !allEmailsActive.includes(email);
+  return (
+    !allNicksActive.includes(nick) &&
+    !allEmailsActive.includes(email) &&
+    isValidEmail(data.email)
+  );
 }
 
 async function verifyEditUser(data, user) {
@@ -146,8 +150,15 @@ async function verifyEditUser(data, user) {
   const allEmailsActiveFilter = allEmailsActive.filter((e) => e !== user.email);
   return (
     !allNicksActiveFilter.includes(nick) &&
-    !allEmailsActiveFilter.includes(email)
+    !allEmailsActiveFilter.includes(email) &&
+    isValidEmail(data.email)
   );
+}
+
+function isValidEmail(email) {
+  const validFormat =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  return validFormat.test(email);
 }
 
 async function LoginUser(data) {
@@ -321,6 +332,16 @@ async function GetCategories() {
   }
 }
 
+async function GetCategoryById(id) {
+  try {
+    const response = await GetCategories();
+    return response.filter((u) => u._id === id)[0];
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 async function EditCategory(data, id) {
   try {
     const response = await axios({
@@ -480,6 +501,7 @@ const petitions = {
   GetFeatureById,
   DeleteFeature,
   DeleteCategory,
+  GetCategoryById,
 };
 
 export default petitions;
