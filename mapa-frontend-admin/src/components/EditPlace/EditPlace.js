@@ -120,6 +120,9 @@ function FormEditPlace(id) {
                     {...register("name")}
                     label="Nuevo Nombre"
                     placeholder={place.name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                   <Stack direction="row" ml={2} />
                 </Stack>
@@ -128,6 +131,9 @@ function FormEditPlace(id) {
                     {...register("address")}
                     label="Nueva Dirección"
                     placeholder={place.address}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2}>
@@ -135,6 +141,9 @@ function FormEditPlace(id) {
                     {...register("lactitude")}
                     label="Nueva Latitud"
                     placeholder={place.lactitude}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2}>
@@ -142,6 +151,9 @@ function FormEditPlace(id) {
                     {...register("longitude")}
                     label="Nueva Longitud"
                     placeholder={place.longitude}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>

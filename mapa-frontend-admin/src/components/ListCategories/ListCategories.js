@@ -31,7 +31,7 @@ export default function ListCategories() {
   });
 
   return (
-    <div className="categoryList">
+    <div className="ListCategories">
       <h2>CATEGORIAS</h2>
       <Stack
         direction="row"

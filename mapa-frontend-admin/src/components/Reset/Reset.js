@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import { useForm } from "react-hook-form";
 import {
   TextField,
   Button,
@@ -7,12 +7,19 @@ import {
   Grid,
   Card,
   CardContent,
-  Modal,
 } from "@mui/material";
 import "./Reset.scss";
 import Typography from "@mui/material/Typography";
+import petitions from "../Petitions";
+import Swal from "sweetalert2";
 
 export default function Reset() {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    data.numberSecurity = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
+    petitions.SendEmailReset(data);
+    NumberVerify(data);
+  };
   return (
     <Stack direction="row" ml={2} mt={5}>
       <Grid container spacing={2}>
@@ -20,32 +27,31 @@ export default function Reset() {
         <Grid item xs={4} style={{ textAlign: "center" }}>
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
-              <Box
-                component="span"
-                sx={{
-                  width: 125,
-                  height: 275,
-                  "&:hover": {
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                  "& .MuiTextField-root": { m: 6, width: "8cm", ml: 1 },
-                }}
-                noValidate
-                autoComplete="off"
-              >
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Ingresá tu correo electrónico para recuperar tu contraseña.
                 </Typography>
 
                 <TextField
-                  required
+                  required={true}
                   id="outlined-required"
                   label="Email"
                   defaultValue=""
+                  {...register("email")}
                 />
-
-                <ModalReset />
-              </Box>
+                <Stack direction="row" ml={20} mt={2}>
+                  <Button
+                    type="submit"
+                    style={{
+                      background: "lightblue",
+                      color: "black",
+                      textAlign: "center",
+                    }}
+                  >
+                    Enviar
+                  </Button>
+                </Stack>
+              </form>
             </CardContent>
           </Card>
         </Grid>
@@ -54,49 +60,11 @@ export default function Reset() {
   );
 }
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxshadow: 24,
-  p: 4,
-};
-
-function ModalReset() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  return (
-    <div className="style">
-      <Stack direction="row" ml={4}>
-        <Button variant="contained" onClick={handleOpen}>
-          Enviar
-        </Button>
-      </Stack>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        footer={null}
-        width="700px"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Tu correo electronico fue enviado con éxito.
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Revise su correo electronico para recuperar su contraseña.
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
-  );
+function NumberVerify(data) {
+  return Swal.fire({
+    title: "Info!",
+    text: "Ingrese el numero enviado",
+    icon: "info",
+    confirmButtonText: "Ok",
+  });
 }
-
-//Agregar error cuando el mail sea incorrecto

@@ -5,19 +5,20 @@ class FeatureRepository {
     const { name } = data;
 
     const feature = await Feature.create({
-      name
+      name,
     });
 
     return await feature.save();
   }
 
   async editFeature(data) {
-    const { name, id } =
-      data;
+    const { name, id } = data;
 
-    const newData = {
-      name: name
-    };
+    const newData = {};
+
+    if (name != "") {
+      newData.name = name;
+    }
 
     await Feature.findByIdAndUpdate({ _id: id }, newData);
 

@@ -51,7 +51,7 @@ function App() {
             <Authenticated component={<ListFeatures />} />
           </Route>
           <Route path="/reset" exact={true}>
-            <Authenticated component={<Reset />} />
+            <Reset />
           </Route>
           <Route path="/" exact={true}>
             <Login />

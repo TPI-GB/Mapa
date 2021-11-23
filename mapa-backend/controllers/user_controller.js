@@ -6,9 +6,9 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
+    this.router.get("/", (req, res) => this.getUsers(req, res));
     this.router.post("/", auth, (req, res) => this.registerUser(req, res));
-    this.router.put("/password", auth, (req, res) => this.reset(req, res));
+    this.router.put("/password", (req, res) => this.reset(req, res));
     this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
     this.router.put("/:id/status", auth, (req, res) =>
       this.editUserStatus(req, res)
@@ -55,13 +55,14 @@ class UserController {
   }
 
   reset(req, res) {
-    let email;
+    const data = req.body;
+    const { email } = data;
 
     if (!email) {
       res.status(400).send("All input is required");
     }
 
-    const userPromise = this.userService.reset(email);
+    const userPromise = this.userService.reset(data);
     userPromise
       .then((email) => {
         if (email) {
@@ -71,6 +72,7 @@ class UserController {
       })
       .catch((err) => {
         res.status(400).json(err);
+        console.log(err);
       });
   }
 

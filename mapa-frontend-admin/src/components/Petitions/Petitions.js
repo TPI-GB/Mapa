@@ -155,6 +155,32 @@ async function verifyEditUser(data, user) {
   );
 }
 
+async function SendEmailReset(data) {
+  const { email } = data;
+  const users = await GetUsers();
+  const usersActive = users.filter((u) => u.active);
+  const allEmailsActive = usersActive.map((u) => u.email);
+  try {
+    if (isValidEmail(email) && allEmailsActive.includes(email)) {
+      const response = await axios({
+        url: `${baseUrl}/users/password`,
+        method: "PUT",
+        data: data,
+      });
+      return response;
+    } else {
+      throw new Error();
+    }
+  } catch (err) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se ha podido enviar el email, verifique que el usuario sea correcto y que no este dado de baja",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
 function isValidEmail(email) {
   const validFormat =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -488,6 +514,7 @@ const petitions = {
   EditUserStatus,
   verifyUser,
   LoginUser,
+  SendEmailReset,
   CreatePlace,
   GetPlaces,
   GetPlaceById,
