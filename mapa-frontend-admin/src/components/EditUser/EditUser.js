@@ -86,9 +86,7 @@ function FormNewUser() {
                 <Stack direction="row" ml={2}>
                   <select {...register("rol")}>
                     <option value="Administrador">Administrador</option>
-                    <option value="Ingresador de datos">
-                      Ingresador de datos
-                    </option>
+                    <option value="Moderador">Moderador</option>
                   </select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
@@ -106,7 +104,8 @@ function FormNewUser() {
 }
 
 function FormEditUser(id) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     getData();
@@ -118,8 +117,25 @@ function FormEditUser(id) {
     setUser(user);
   };
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => petitions.EditUser(data, id);
+  const onSubmit = (data) => {
+    petitions.EditUser(data, id);
+  };
+
+  let selected = (
+    <select {...register("rol")}>
+      <option value="Administrador">Administrador</option>
+      <option value="Moderador">Moderador</option>
+    </select>
+  );
+
+  if (user.rol === "Moderador") {
+    selected = (
+      <select {...register("rol")}>
+        <option value="Moderador">Moderador</option>
+        <option value="Administrador">Administrador</option>
+      </select>
+    );
+  }
 
   return (
     <Stack direction="row" ml={2} mt={5}>
@@ -133,76 +149,69 @@ function FormEditUser(id) {
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Usuario</h1>
-              <h4>Editando: </h4>
-              <h6>
-                <b>Nombre:</b> {user.first_name}
-              </h6>
-              <h6>
-                <b>Apellido:</b> {user.last_name}
-              </h6>
-              <h6>
-                <b>Nick:</b> {user.nick}
-              </h6>
-              <h6>
-                <b>Email:</b> {user.email}
-              </h6>
-              <h6>
-                <b>Estado:</b> {getStatus(user)}
-              </h6>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("first_name")} label="Nuevo Nombre" />
+                  <TextField
+                    {...register("first_name")}
+                    label="Nuevo Nombre"
+                    placeholder={user.first_name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                   <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
                     {...register("last_name")}
                     label="Nuevo Apellido"
+                    placeholder={user.last_name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("nick")} label="Nuevo Nick" />
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField {...register("email")} label="Nuevo Email" />
+                  <TextField
+                    {...register("nick")}
+                    label="Nuevo Nick"
+                    placeholder={user.nick}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    {...register("password")}
-                    label="Nueva Contraseña"
-                    type="password"
+                    {...register("email")}
+                    label="Nuevo Email"
+                    placeholder={user.email}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <h6>Nuevo Rol</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <select {...register("rol")}>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Moderador">Moderador</option>
-                  </select>
+                  {selected}
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Guardar Cambios
                   </Button>
-                  {buttonStatus(user)}
                 </Stack>
               </form>
+              <Stack direction="row" ml={2} mt={2}>
+                {buttonStatus(user)}
+              </Stack>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
     </Stack>
   );
-}
-
-function getStatus(user) {
-  let userStatus = <b style={{ color: "green" }}>Activo</b>;
-  if (!user.active) {
-    userStatus = <b style={{ color: "red" }}>Inactivo</b>;
-  }
-  return userStatus;
 }
 
 function buttonStatus(user) {

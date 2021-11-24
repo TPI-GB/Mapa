@@ -25,7 +25,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <Button href="/header" color="inherit">
+          <Button href="/home" color="inherit">
             <HomeIcon />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

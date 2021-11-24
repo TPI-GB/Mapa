@@ -2,10 +2,10 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
@@ -45,7 +45,7 @@ export default function Features() {
         }
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
-          <KeyboardBackspaceIcon /> Regresar 
+            <KeyboardBackspaceIcon /> Regresar
           </Button>
         </Link>
       </Stack>
@@ -54,7 +54,7 @@ export default function Features() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={<h3>Descripición</h3>}></List.Item.Meta>
+            <List.Item.Meta title={<i>Descripición</i>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>

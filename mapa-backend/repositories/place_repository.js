@@ -20,14 +20,26 @@ class PlaceRepository {
     const { name, address, lactitude, longitude, category, features, id } =
       data;
 
-    const newData = {
-      name: name,
-      address: address,
-      lactitude: lactitude,
-      longitude: longitude,
-      category: category,
-      //features: features,
-    };
+    let newData = {};
+
+    if (name != "") {
+      newData.name = name;
+    }
+    if (address != "") {
+      newData.address = address;
+    }
+    if (lactitude != "") {
+      newData.lactitude = lactitude;
+    }
+    if (longitude != "") {
+      newData.longitude = longitude;
+    }
+    if (category != "") {
+      newData.category = category;
+    }
+    if (features != "") {
+      newData.features = features;
+    }
 
     await Place.findByIdAndUpdate({ _id: id }, newData);
 

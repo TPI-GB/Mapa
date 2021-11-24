@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const UserRepository = require("../repositories/user_repository");
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 class UserService {
   constructor() {
@@ -67,27 +69,23 @@ class UserService {
   }
 
   //Reset
-  async reset(email, password) {
-    const user = await this.userRepository.userEmail(email);
-
-    encryptedPassword = await bcrypt.setRandomFallback(password, 10);
+  async reset(data) {
+    const { email, numberSecurity } = data;
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
+      service: "gmail",
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
+        user: "mapaturismogb@gmail.com",
+        pass: "TurismoGB2311",
       },
     });
 
     const info = await transporter.sendMail({
-      from: "enzoefica@gmail.com",
-      to: user.email,
-      subject: "Hello ✔",
-      text: "Hello world?",
-      html: "<b>Hello world?</b>",
+      from: "mapaturismogb@gmail.com",
+      to: email,
+      subject: "Cambio de contraseña",
+      text: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
+      html: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
     });
 
     return info;

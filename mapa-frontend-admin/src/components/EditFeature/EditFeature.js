@@ -42,9 +42,13 @@ function FormNewFeature() {
               <h1>Cargar Característica</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField required {...register("name")} label="Descripción" />
+                  <TextField
+                    required
+                    {...register("name")}
+                    label="Descripción"
+                  />
                 </Stack>
-                              
+
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Cargar
@@ -87,17 +91,19 @@ function FormEditFeature(id) {
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Característica</h1>
-              <h4>Editando: </h4>
-              <h6>
-                <b>Nombre:</b> {feature.name}
-              </h6>
-              
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("name")} label="Nueva descripción" />
+                  <TextField
+                    {...register("name")}
+                    label="Nueva descripción"
+                    placeholder={feature.name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                   <Stack direction="row" ml={2} />
                 </Stack>
-                
+
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" style={{ background: "black" }}>
                     Guardar Cambios

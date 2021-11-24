@@ -33,7 +33,7 @@ function App() {
           <Authenticated component={<EditFeature />} />
         </Route>
         <Switch>
-          <Route path="/header" exact={true} component={Header}>
+          <Route path="/home" exact={true} component={Header}>
             {/*   <Authenticated component={<Header />} /> */}
           </Route>
           <Route path="/listusers" exact={true}>
@@ -52,7 +52,7 @@ function App() {
             <Authenticated component={<ListFeatures />} />
           </Route>
           <Route path="/reset" exact={true}>
-            <Authenticated component={<Reset />} />
+            <Reset />
           </Route>
           <Route path="/" exact={true}>
             <Login />

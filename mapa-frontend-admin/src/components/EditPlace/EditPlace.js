@@ -90,11 +90,11 @@ function FormEditPlace(id) {
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   const getData = async () => {
-    const response = petitions.GetPlaceById(id);
-    const place = await response;
+    const responsePlace = petitions.GetPlaceById(id);
+    const place = await responsePlace;
     setPlace(place);
   };
 
@@ -113,45 +113,53 @@ function FormEditPlace(id) {
           <Card sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Lugar</h1>
-              <h4>Editando: </h4>
-              <h6>
-                <b>Nombre:</b> {place.name}
-              </h6>
-              <h6>
-                <b>Dirección:</b> {place.address}
-              </h6>
-              <h6>
-                <b>Latitud:</b> {place.lactitude}
-              </h6>
-              <h6>
-                <b>Longitud:</b> {place.longitude}
-              </h6>
-              <h6>
-                <b>Categoria:</b> {place.category}
-              </h6>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("name")} label="Nuevo Nombre" />
+                  <TextField
+                    {...register("name")}
+                    label="Nuevo Nombre"
+                    placeholder={place.name}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                   <Stack direction="row" ml={2} />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("address")} label="Nueva Dirección" />
+                  <TextField
+                    {...register("address")}
+                    label="Nueva Dirección"
+                    placeholder={place.address}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
-                  <TextField {...register("lactitude")} label="Nueva Latitud" />
+                  <TextField
+                    {...register("lactitude")}
+                    label="Nueva Latitud"
+                    placeholder={place.lactitude}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                 </Stack>
                 <Stack direction="row" ml={2}>
                   <TextField
                     {...register("longitude")}
                     label="Nueva Longitud"
+                    placeholder={place.longitude}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <h6>Categoría</h6>
+                  <h6>Categorías</h6>
                 </Stack>
-
-                <Stack direction="row" ml={2}>
+                <Stack>
                   <CheckboxesTagsCategory />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
@@ -172,12 +180,11 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function CheckboxesTagsCategory() {
-  const [categoria, setCategoria] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     petitions.GetCategories().then((y) => {
-      setCategoria(y.map((x) => x.name));
-      console.log(y.map((x) => x.name));
+      setCategories(y.map((x) => x.name));
     });
   }, []);
 
@@ -185,7 +192,7 @@ function CheckboxesTagsCategory() {
     <Autocomplete
       multiple
       id="checkboxes-tags-demo"
-      options={categoria}
+      options={categories}
       disableCloseOnSelect
       getOptionLabel={(option) => option}
       renderOption={(props, option, { selected }) => (

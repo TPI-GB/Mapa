@@ -44,19 +44,26 @@ class UserRepository {
 
   //EditUser
   async editUser(data) {
-    const { first_name, last_name, nick, rol, email, id, password } = data;
-    const encryptedPassword = await bcrypt.hash(password, 10);
+    const { first_name, last_name, nick, rol, email, id } = data;
 
-    const newData = {
-      first_name: first_name,
-      last_name: last_name,
-      nick: nick,
-      password: encryptedPassword,
-      rol: rol,
-      email: email.toLowerCase(),
-    };
+    let newData = {};
 
-    await User.findByIdAndUpdate({ _id: id }, newDataFilter);
+    if (first_name != "") {
+      newData.first_name = first_name;
+    }
+    if (last_name != "") {
+      newData.last_name = last_name;
+    }
+    if (nick != "") {
+      newData.nick = nick;
+    }
+    if (email != "") {
+      newData.email = email;
+    }
+
+    newData.rol = rol;
+
+    await User.findByIdAndUpdate({ _id: id }, newData);
 
     const userStored = await User.findById(id);
 

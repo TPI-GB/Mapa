@@ -53,7 +53,7 @@ async function RegisterUser(data) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick no este ya registrado y dado de alta",
+      text: "No se pudo registrar el usuario. Asegurese de haber ingresado bien los datos o que el Nick o Email no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -63,7 +63,8 @@ async function RegisterUser(data) {
 
 async function EditUser(data, id) {
   try {
-    const verify = await verifyUser(data);
+    const user = await GetUserById(id);
+    const verify = await verifyEditUser(data, user);
     if (verify) {
       const response = await axios({
         url: `${baseUrl}/users/${id}`,
@@ -86,7 +87,7 @@ async function EditUser(data, id) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "El usuario no ha podido ser editado, asegurese de haber compleato bien los campos y que el Nick no este ya registrado y dado de alta",
+      text: "El usuario no ha podido ser editado, asegurese de haber completado bien los campos y que el Nick o Email no este ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -119,7 +120,7 @@ async function EditUserStatus(data, id) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick ya registrado y dado de alta",
+      text: "No se ha podido cambiar el estado del usuario, verifique si esta intentado de dar de alta un usuario con un Nick o Email ya registrado y dado de alta",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -127,11 +128,63 @@ async function EditUserStatus(data, id) {
 }
 
 async function verifyUser(data) {
-  const { nick } = data;
+  const { email, nick } = data;
   const users = await GetUsers();
   const usersActive = users.filter((u) => u.active);
   const allNicksActive = usersActive.map((u) => u.nick);
-  return !allNicksActive.includes(nick);
+  const allEmailsActive = usersActive.map((u) => u.email);
+  return (
+    !allNicksActive.includes(nick) &&
+    !allEmailsActive.includes(email) &&
+    isValidEmail(data.email)
+  );
+}
+
+async function verifyEditUser(data, user) {
+  const { email, nick } = data;
+  const users = await GetUsers();
+  const usersActive = users.filter((u) => u.active);
+  const allNicksActive = usersActive.map((u) => u.nick);
+  const allEmailsActive = usersActive.filter((u) => u.email);
+  const allNicksActiveFilter = allNicksActive.filter((n) => n !== user.nick);
+  const allEmailsActiveFilter = allEmailsActive.filter((e) => e !== user.email);
+  return (
+    !allNicksActiveFilter.includes(nick) &&
+    !allEmailsActiveFilter.includes(email) &&
+    isValidEmail(data.email)
+  );
+}
+
+async function SendEmailReset(data) {
+  const { email } = data;
+  const users = await GetUsers();
+  const usersActive = users.filter((u) => u.active);
+  const allEmailsActive = usersActive.map((u) => u.email);
+  try {
+    if (isValidEmail(email) && allEmailsActive.includes(email)) {
+      const response = await axios({
+        url: `${baseUrl}/users/password`,
+        method: "PUT",
+        data: data,
+      });
+      return response;
+    } else {
+      throw new Error();
+    }
+  } catch (err) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se ha podido enviar el email, verifique que el usuario sea correcto y que no este dado de baja",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
+function isValidEmail(email) {
+  const validFormat =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  return validFormat.test(email);
 }
 
 async function LoginUser(data) {
@@ -283,7 +336,7 @@ async function CreateCategory(data) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo crear la categ0r9a. Asegurese de haber ingresado un nombre ya registrado",
+      text: "No se pudo crear la categoria. Asegurese de haber ingresado un nombre ya registrado",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -303,6 +356,16 @@ async function GetCategories() {
   } catch (err) {
     console.log(err);
   }
+}
+
+async function GetCategoryById(id) {
+  try {
+    const response = await GetCategories();
+    return response.filter((u) => u._id === id)[0];
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
 }
 
 async function EditCategory(data, id) {
@@ -419,7 +482,7 @@ async function DeleteFeature(id) {
   try {
     const response = await axios({
       url: `${baseUrl}/features/`,
-          method: "DELETE",
+      method: "DELETE",
       data: { id: id },
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
@@ -443,7 +506,6 @@ async function DeleteFeature(id) {
   }
 }
 
-
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -452,6 +514,7 @@ const petitions = {
   EditUserStatus,
   verifyUser,
   LoginUser,
+  SendEmailReset,
   CreatePlace,
   GetPlaces,
   GetPlaceById,
@@ -465,6 +528,7 @@ const petitions = {
   GetFeatureById,
   DeleteFeature,
   DeleteCategory,
+  GetCategoryById,
 };
 
 export default petitions;

@@ -22,6 +22,14 @@ export default function Places() {
     setPlaces(response);
   };
 
+  places.sort(function (a, b) {
+    if (a.name > b.name) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
   return (
     <div className="PlaceList">
       <h2>LUGARES</h2>
