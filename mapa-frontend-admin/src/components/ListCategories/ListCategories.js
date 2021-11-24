@@ -2,6 +2,9 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "./ListCategories.scss";
@@ -35,12 +38,12 @@ export default function ListCategories() {
       >
         <Link to={`/editcategory/new`}>
           <Button variant="contained" style={{ background: "blue" }}>
-            Cargar Categoria <AddLocationAltTwoToneIcon />
+            <AddLocationAltTwoToneIcon /> Cargar Categoria
           </Button>
         </Link>
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
-            Regresar
+            <KeyboardBackspaceIcon /> Regresar
           </Button>
         </Link>
       </Stack>
@@ -49,9 +52,10 @@ export default function ListCategories() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
+            <List.Item.Meta title={"Nombre"}></List.Item.Meta>
+            <List.Item.Meta title={"categoria "}></List.Item.Meta>
+            <List.Item.Meta title={"algo"}></List.Item.Meta>
+            <List.Item.Meta title={"algo "}></List.Item.Meta>
           </List.Item>
         )}
       />
@@ -69,7 +73,7 @@ export default function ListCategories() {
                     variant="contained"
                     style={{ background: "goldenrod" }}
                   >
-                    Editar Categoria
+                    <ModeEditOutlineOutlinedIcon /> Editar Categoria
                   </Button>
                 </Link>
               }
@@ -90,7 +94,7 @@ function buttonDelete(category) {
       onClick={() => deletecategory(category._id)}
       color="inherit"
     >
-      Borrar
+      <DeleteForeverOutlinedIcon /> Borrar
     </Button>
   );
 

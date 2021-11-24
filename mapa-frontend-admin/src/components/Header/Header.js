@@ -18,34 +18,41 @@ import Logout from "@mui/icons-material/Logout";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import logo from "../../assets/img/hol.jpg";
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <img src={logo} width="30" />
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
+          <Button href="/header" color="inherit">
+            <HomeIcon />
+          </Button>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/listusers" color="inherit">
+              Usuarios
+            </Button>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/listcategories" color="inherit">
+              Categorias
+            </Button>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/listplaces" color="inherit">
+              Lugares
+            </Button>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/listfeatures" color="inherit">
+              Caracteristicas
+            </Button>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/null" color="inherit">
+              Estadisticas
+            </Button>
+          </Typography>
           <Button color="inherit">
             <AccountMenu />
           </Button>

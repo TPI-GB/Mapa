@@ -2,6 +2,8 @@ import React from "react";
 import { List } from "antd";
 import { Stack, Button } from "@mui/material";
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { Link } from "react-router-dom";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
@@ -49,7 +51,7 @@ export default function ListUsers() {
           style={{ background: "goldenrod" }}
           href={`edituser/${id}`}
         >
-          Editar Usuario
+          <ModeEditOutlineOutlinedIcon /> Editar Usuario
         </Button>
       );
     } else {
@@ -87,7 +89,7 @@ export default function ListUsers() {
         {ButtonCreateUser()}
         <Link to={`/home`}>
           <Button variant="contained" style={{ background: "blue" }}>
-            Regresar
+            <KeyboardBackspaceIcon /> Regresar
           </Button>
         </Link>
       </Stack>
