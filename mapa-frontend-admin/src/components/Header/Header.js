@@ -61,6 +61,10 @@ function AccountMenu() {
     sessionStorage.clear();
     history.push("/login");
   };
+  const ChangePassword = () => {
+    sessionStorage.clear();
+    history.push("/changepassword");
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -124,6 +128,16 @@ function AccountMenu() {
           <b>{sessionStorage.getItem("user login nick")}</b>
         </MenuItem>
         <Divider />
+        <MenuItem
+          onClick={ChangePassword}
+          component={Link}
+          to="/changepassword"
+        >
+          <ListItemIcon path="/listusers" to="/changepassword">
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Cambiar contraseña
+        </MenuItem>
         <MenuItem onClick={logOut} component={Link} to="/login">
           <ListItemIcon path="/listusers">
             <Logout fontSize="small" />

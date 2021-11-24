@@ -56,7 +56,7 @@ function App() {
           <Route path="/" exact={true}>
             <Login />
           </Route>
-          <Route path="/changePassword" exact={true}>
+          <Route path="/changepassword" exact={true}>
             <Authenticated component={<ChangePassword />} />
           </Route>
         </Switch>

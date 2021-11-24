@@ -1,6 +1,5 @@
 const User = require("../models/user_model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 class UserRepository {
   //Register
@@ -68,6 +67,33 @@ class UserRepository {
     const userStored = await User.findById(id);
 
     return userStored;
+  }
+
+  async changePassword(data) {
+    const { password, email, numberSecurity } = data;
+
+    const user = await this.userEmail(email);
+
+    const encryptedPassword = await bcrypt.hash(`${password}`, 10);
+
+    try {
+      if (user.codeReset === numberSecurity) {
+        const newData = {
+          password: encryptedPassword,
+          codeReset: "",
+        };
+
+        await User.findByIdAndUpdate({ _id: user._id }, newData);
+
+        const userStored = await User.findById(user._id);
+
+        return userStored;
+      } else {
+        throw new Error();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async editUserStatus(data) {
