@@ -130,6 +130,12 @@ function AccountMenu() {
           </ListItemIcon>
           Salir
         </MenuItem>
+        <MenuItem component={Link} to="/changePassword">
+          <ListItemIcon path="/listusers">
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Cambiar contraseña
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );

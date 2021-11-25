@@ -1,5 +1,6 @@
 const express = require("express");
 const PlaceService = require("../services/place_service");
+const upload = require("../libs/storage");
 
 class PlaceController {
   constructor() {
@@ -9,10 +10,12 @@ class PlaceController {
     this.router.put("/:id", (req, res) => this.editPlace(req, res));
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
+    this.router.post("/img", upload.single("image"), this.createPlace);
   }
 
   createPlace(req, res) {
     const data = req.body;
+    console.log(data);
     if (
       !(
         (
@@ -27,6 +30,7 @@ class PlaceController {
     ) {
       return res.status(400).send("All fields are required");
     }
+
     const placePromise = this.placeService.createPlace(data);
     placePromise
       .then((place) => {
