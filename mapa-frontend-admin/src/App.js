@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
 import Login from "./components/Login";
 import ListUsers from "./components/ListUsers";
 import Reset from "./components/Reset/Reset";
@@ -54,11 +53,11 @@ function App() {
           <Route path="/reset" exact={true}>
             <Reset />
           </Route>
+          <Route path="/changepassword/:id" exact={true}>
+            <Authenticated component={<ChangePassword />} />
+          </Route>
           <Route path="/" exact={true}>
             <Login />
-          </Route>
-          <Route path="/changepassword" exact={true}>
-            <Authenticated component={<ChangePassword />} />
           </Route>
         </Switch>
       </Router>

@@ -112,6 +112,11 @@ class UserService {
     return newUser;
   }
 
+  async changePasswordUser(data) {
+    const newUser = await this.userRepository.changePasswordUser(data);
+    return newUser;
+  }
+
   async editUserStatus(data) {
     const editUser = await this.userRepository.editUserStatus(data);
     return editUser;

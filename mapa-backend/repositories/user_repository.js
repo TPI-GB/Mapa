@@ -76,23 +76,40 @@ class UserRepository {
 
     const encryptedPassword = await bcrypt.hash(`${password}`, 10);
 
-    try {
-      if (user.codeReset === numberSecurity) {
-        const newData = {
-          password: encryptedPassword,
-          codeReset: "",
-        };
+    if (user.codeReset === numberSecurity) {
+      const newData = {
+        password: encryptedPassword,
+        codeReset: "",
+      };
 
-        await User.findByIdAndUpdate({ _id: user._id }, newData);
+      await User.findByIdAndUpdate({ _id: user._id }, newData);
 
-        const userStored = await User.findById(user._id);
+      const userStored = await User.findById(user._id);
 
-        return userStored;
-      } else {
-        throw new Error();
-      }
-    } catch (err) {
-      console.log(err);
+      return userStored;
+    } else {
+      throw new Error();
+    }
+  }
+
+  async changePasswordUser(data) {
+    const { oldpassword, newpassword, newpasswordretry, user, id } = data;
+
+    const comparePassword = await bcrypt.compare(oldpassword, user.password);
+
+    if (comparePassword && newpassword === newpasswordretry) {
+      const newEncryptedPassword = await bcrypt.hash(newpassword, 10);
+      const newData = {
+        password: newEncryptedPassword,
+      };
+
+      await User.findByIdAndUpdate({ _id: id }, newData);
+
+      const userStored = await User.findById(id);
+
+      return userStored;
+    } else {
+      throw new Error();
     }
   }
 

@@ -6,17 +6,22 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.put("/changepassword", (req, res) =>
-      this.changePassword(req, res)
+    this.router.put("/changepassworduser/:id", (req, res) =>
+      this.changePasswordUser(req, res)
     );
-    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
-    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
-    this.router.put("/password", (req, res) => this.reset(req, res));
-    this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
     this.router.put("/:id/status", auth, (req, res) =>
       this.editUserStatus(req, res)
     );
+    this.router.put("/password", (req, res) => this.reset(req, res));
+
+    this.router.put("/changepassword", (req, res) =>
+      this.changePassword(req, res)
+    );
     this.router.post("/login", (req, res) => this.login(req, res));
+    this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
+
+    this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
   }
 
   //Agregar auth despues de terminar el login.
@@ -92,10 +97,24 @@ class UserController {
       });
   }
 
+  changePasswordUser(req, res) {
+    const data = req.body;
+    const { id } = req.params;
+    data.id = id;
+    const userPromise = this.userService.changePasswordUser(data);
+    userPromise
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
   editUser(req, res) {
     const data = req.body;
     const { id } = req.params;
-    console.log(id);
     data.id = id;
     const userPromise = this.userService.editUser(data);
     userPromise

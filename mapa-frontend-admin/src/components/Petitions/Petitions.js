@@ -86,6 +86,33 @@ async function ChangePassword(data) {
   }
 }
 
+async function ChangePasswordUser(data) {
+  const user = await petitions.GetUserById(data.id);
+  data.user = user;
+  try {
+    const response = await axios({
+      url: `${baseUrl}/users/changepassworduser/${user._id}`,
+      method: "PUT",
+      data: data,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: `Su contraseña se ha actualizado con exito`,
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    Swal.fire({
+      title: "Error!",
+      text: `Su contraseña no ha podido cambiarse, revise los datos ingresados`,
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
 async function EditUser(data, id) {
   try {
     const user = await GetUserById(id);
@@ -534,6 +561,7 @@ const petitions = {
   GetUserById,
   EditUser,
   ChangePassword,
+  ChangePasswordUser,
   EditUserStatus,
   verifyUser,
   LoginUser,

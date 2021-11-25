@@ -15,6 +15,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -63,14 +64,14 @@ export default function Header() {
 }
 
 function AccountMenu() {
+  const id = sessionStorage.getItem("user login id");
   const history = useHistory();
   const logOut = () => {
     sessionStorage.clear();
     history.push("/login");
   };
   const ChangePassword = () => {
-    sessionStorage.clear();
-    history.push("/changepassword");
+    history.push(`/changepassword/${id}`);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -138,15 +139,15 @@ function AccountMenu() {
         <MenuItem
           onClick={ChangePassword}
           component={Link}
-          to="/changepassword"
+          to={`/changepassword/${id}`}
         >
-          <ListItemIcon path="/listusers" to="/changepassword">
-            <Logout fontSize="small" />
+          <ListItemIcon>
+            <SettingsIcon fontSize="small" />
           </ListItemIcon>
           Cambiar contraseña
         </MenuItem>
         <MenuItem onClick={logOut} component={Link} to="/login">
-          <ListItemIcon path="/listusers">
+          <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Salir
