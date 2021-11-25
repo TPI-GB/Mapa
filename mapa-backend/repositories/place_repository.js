@@ -13,6 +13,11 @@ class PlaceRepository {
       //features,
     });
 
+    if (req.file) {
+      const { filename } = req.file;
+      place.setImgUrl(filename);
+    }
+
     return await place.save();
   }
 
