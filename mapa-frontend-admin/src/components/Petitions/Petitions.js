@@ -61,6 +61,31 @@ async function RegisterUser(data) {
   }
 }
 
+async function ChangePassword(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/users/changepassword`,
+      method: "PUT",
+      data: data,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: `Su contraseña para ingresar es ${data.password}, puede cambiarla desde la configuracion de usuario`,
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    Swal.fire({
+      title: "Error!",
+      text: `Su contraseña no ha podido cambiarse, quizas su usario este dado de baja o no este registrado`,
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
 async function EditUser(data, id) {
   try {
     const user = await GetUserById(id);
@@ -157,11 +182,8 @@ async function verifyEditUser(data, user) {
 
 async function SendEmailReset(data) {
   const { email } = data;
-  const users = await GetUsers();
-  const usersActive = users.filter((u) => u.active);
-  const allEmailsActive = usersActive.map((u) => u.email);
   try {
-    if (isValidEmail(email) && allEmailsActive.includes(email)) {
+    if (isValidEmail(email)) {
       const response = await axios({
         url: `${baseUrl}/users/password`,
         method: "PUT",
@@ -284,7 +306,7 @@ async function DeletePlace(id) {
     console.error(err);
     Swal.fire({
       title: "Error!",
-      text: "Error inesperado al borrar el lugar, asegurese que el lugar ya no fue borrado",
+      text: "Error inesperado, asegurese que el lugar ya no fue borrado",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -512,6 +534,7 @@ const petitions = {
   GetUsers,
   GetUserById,
   EditUser,
+  ChangePassword,
   EditUserStatus,
   verifyUser,
   LoginUser,

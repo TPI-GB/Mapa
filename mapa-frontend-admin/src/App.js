@@ -14,6 +14,7 @@ import EditCategory from "./components/EditCategory";
 import ListCategories from "./components/ListCategories";
 import EditFeature from "./components/EditFeature/EditFeature";
 import ListFeatures from "./components/ListFeatures";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -32,8 +33,8 @@ function App() {
           <Authenticated component={<EditFeature />} />
         </Route>
         <Switch>
-          <Route path="/home" exact={true} component={Home}>
-            <Authenticated component={<Home />} />
+          <Route path="/home" exact={true} component={Header}>
+            {/*   <Authenticated component={<Header />} /> */}
           </Route>
           <Route path="/listusers" exact={true}>
             <Authenticated component={<ListUsers />} />
@@ -56,7 +57,7 @@ function App() {
           <Route path="/" exact={true}>
             <Login />
           </Route>
-          <Route path="/changePassword" exact={true}>
+          <Route path="/changepassword" exact={true}>
             <Authenticated component={<ChangePassword />} />
           </Route>
         </Switch>

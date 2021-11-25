@@ -6,7 +6,10 @@ class UserController {
   constructor() {
     this.userService = new UserService();
     this.router = express.Router();
-    this.router.get("/", (req, res) => this.getUsers(req, res));
+    this.router.put("/changepassword", (req, res) =>
+      this.changePassword(req, res)
+    );
+    this.router.get("/", auth, (req, res) => this.getUsers(req, res));
     this.router.post("/", auth, (req, res) => this.registerUser(req, res));
     this.router.put("/password", (req, res) => this.reset(req, res));
     this.router.put("/:id", auth, (req, res) => this.editUser(req, res));
@@ -69,6 +72,19 @@ class UserController {
           return res.status(200).json(email);
         }
         res.json(email);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
+  changePassword(req, res) {
+    const data = req.body;
+    const userPromise = this.userService.changePassword(data);
+    userPromise
+      .then((user) => {
+        res.json(user);
       })
       .catch((err) => {
         res.status(400).json(err);
