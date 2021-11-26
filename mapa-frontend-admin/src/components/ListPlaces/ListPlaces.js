@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddLocationAltTwoToneIcon from "@mui/icons-material/AddLocationAltTwoTone";
+import LabelImportantTwoToneIcon from "@mui/icons-material/LabelImportantTwoTone";
 
 export default function Places() {
   const [places, setPlaces] = useState([]);
@@ -51,7 +52,7 @@ export default function Places() {
           </Link>
         }
       </Stack>
-      <List         
+      <List
         style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
@@ -77,7 +78,14 @@ export default function Places() {
             <List.Item.Meta title={place.address}></List.Item.Meta>
             <List.Item.Meta title={place.lactitude}></List.Item.Meta>
             <List.Item.Meta title={place.longitude}></List.Item.Meta>
-            <List.Item.Meta title={place.category}></List.Item.Meta>
+            <List.Item.Meta
+              title={place.categories.map((c) => (
+                <p>
+                  {<LabelImportantTwoToneIcon />}
+                  {`${c}`}
+                </p>
+              ))}
+            ></List.Item.Meta>
             <List.Item.Meta
               title={
                 <Link to={`/editplace/${place._id}`}>
@@ -105,7 +113,7 @@ function buttonDelete(place) {
       type="delete"
       size="small"
       variant="contained"
-      style={{ background: "#AC0D0D"}}
+      style={{ background: "#AC0D0D" }}
       onClick={() => deletePlace(place._id)}
     >
       <DeleteForeverOutlinedIcon /> Borrar

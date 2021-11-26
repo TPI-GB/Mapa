@@ -7,22 +7,17 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 export default function CategorySelect({
-  options = [],
-  renderInput,
-  getOptionLabel,
   onChangeProp,
   control,
   defaultValue,
-  name,
-  renderOption,
 }) {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     petitions.GetCategories().then((y) => {
-      setCategory(y.map((x) => x.name));
+      setCategories(y.map((x) => x.name));
     });
   }, []);
 
@@ -32,7 +27,7 @@ export default function CategorySelect({
         <Autocomplete
           multiple
           id="checkboxes-tags-demo"
-          options={category}
+          options={categories}
           disableCloseOnSelect
           getOptionLabel={(option) => option}
           renderOption={(props, option, { selected }) => (
@@ -54,7 +49,7 @@ export default function CategorySelect({
       )}
       onChange={([, data]) => data}
       defaultValue={defaultValue}
-      name="category"
+      name="categories"
       control={control}
     />
   );

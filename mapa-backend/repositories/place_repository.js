@@ -2,19 +2,19 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
-    const { name, address, lactitude, longitude, category, features } = data;
+    const { name, address, lactitude, longitude, categories, features } = data;
 
     const place = await Place.create({
       name,
       address,
       lactitude,
       longitude,
-      category,
+      categories,
       //features,
     });
 
-    if (req.file) {
-      const { filename } = req.file;
+    if (data.file) {
+      const { filename } = data.file;
       place.setImgUrl(filename);
     }
 
@@ -22,7 +22,7 @@ class PlaceRepository {
   }
 
   async editPlace(data) {
-    const { name, address, lactitude, longitude, category, features, id } =
+    const { name, address, lactitude, longitude, categories, features, id } =
       data;
 
     let newData = {};
@@ -40,7 +40,7 @@ class PlaceRepository {
       newData.longitude = longitude;
     }
     if (category != "") {
-      newData.category = category;
+      newData.categories = categories;
     }
     if (features != "") {
       newData.features = features;

@@ -48,7 +48,7 @@ export default function Header() {
             <Button href="/listcategories" color="inherit">
               Categorías
             </Button>
-          </Typography>        
+          </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button href="/null" color="inherit">
               Estadísticas
@@ -151,12 +151,6 @@ function AccountMenu() {
             <Logout fontSize="small" />
           </ListItemIcon>
           Salir
-        </MenuItem>
-        <MenuItem component={Link} to="/changePassword">
-          <ListItemIcon path="/listusers">
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Cambiar contraseña
         </MenuItem>
       </Menu>
     </React.Fragment>

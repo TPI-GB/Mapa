@@ -8,7 +8,7 @@ const PlaceSchema = Schema(
     address: { type: String, unique: true },
     lactitude: String,
     longitude: String,
-    //categories: [],
+    categories: [],
     image: String,
 
     //sub_categories: [],

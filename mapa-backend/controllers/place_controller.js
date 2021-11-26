@@ -23,7 +23,7 @@ class PlaceController {
           data.address &&
           data.lactitude &&
           data.longitude &&
-          data.category
+          data.categories
         )
         //data.features
       )
@@ -71,7 +71,6 @@ class PlaceController {
 
   deletePlace(req, res) {
     const data = req.body;
-    console.log(data);
     const { id } = data;
     const placePromise = this.placeService.deletePlace(id);
     placePromise

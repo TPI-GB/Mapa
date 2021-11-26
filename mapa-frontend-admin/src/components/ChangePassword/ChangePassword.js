@@ -23,41 +23,48 @@ export default function ChangePassword() {
       <Grid container spacing={2}>
         <Grid item xs={4}></Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
-          <Card sx={{ minWidth: 275, minHeight: 550 }}>
+          <Card
+            style={{ background: "#E8F0F2" }}
+            sx={{ minWidth: 275, minHeight: 250 }}
+          >
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Cambiar contraseña</h1>
                 <Stack direction="row" ml={2}>
                   <TextField
                     required
+                    style={{ background: "white" }}
                     {...register("oldpassword")}
                     id="outlined-required"
                     label="Contraseña actual"
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     required
                     {...register("newpassword")}
+                    style={{ background: "white" }}
                     id="outlined-required"
                     label="Contraseña nueva"
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     required
                     {...register("newpasswordretry")}
+                    style={{ background: "white" }}
                     id="outlined-required"
                     label="Repetir contraseña nueva"
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <Button
+                    variant="contained"
                     type="submit"
-                    style={{ background: "lightblue", color: "black" }}
+                    style={{ background: "#39A2DB" }}
                   >
                     Actualizar contraseña
                   </Button>

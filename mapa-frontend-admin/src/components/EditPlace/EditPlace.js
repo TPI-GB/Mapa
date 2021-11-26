@@ -10,13 +10,8 @@ import {
   CardContent,
   TextField,
   Typography,
-  Autocomplete,
-  Checkbox,
-  FormControlLabel,
 } from "@mui/material";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
 import CategorySelect from "./CategorySelect";
@@ -38,7 +33,7 @@ function FormNewPlace() {
   const { register, handleSubmit, control } = useForm({});
   const [categories, setCategories] = useState([]);
   const onSubmit = (data) => {
-    data.category = categories;
+    data.categories = categories;
     petitions.CreatePlace(data);
   };
 
@@ -48,8 +43,12 @@ function FormNewPlace() {
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listplaces">
-          <KeyboardBackspaceIcon />  Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listplaces"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -58,28 +57,34 @@ function FormNewPlace() {
               <h1>Nuevo Lugar</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField 
-                    style={{ background: "white" }} 
-                    required {...register("name")} 
-                    label="Nombre" />
-                </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <TextField 
-                    style={{ background: "white" }} 
-                    required {...register("address")} 
-                    label="Dirección" />
-                </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <TextField 
+                  <TextField
                     style={{ background: "white" }}
-                    required {...register("lactitude")}
+                    required
+                    {...register("name")}
+                    label="Nombre"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    required
+                    {...register("address")}
+                    label="Dirección"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    required
+                    {...register("lactitude")}
                     label="Latitud"
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     style={{ background: "white" }}
-                    required {...register("longitude")}
+                    required
+                    {...register("longitude")}
                     label="Longitud"
                   />
                 </Stack>
@@ -101,8 +106,12 @@ function FormNewPlace() {
                   <input type="file" ref={inputFileRef} />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
-                  <CheckCircleTwoToneIcon /> Guardar 
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar
                   </Button>
                 </Stack>
               </form>
@@ -134,8 +143,12 @@ function FormEditPlace(id) {
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listplaces">
-          <KeyboardBackspaceIcon /> Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listplaces"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -187,14 +200,19 @@ function FormEditPlace(id) {
                       shrink: true,
                     }}
                   />
-                </Stack>                
-              
+                </Stack>
+
                 <Stack>
                   <CategorySelect />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" variant="contained" type="submit" style={{ background: "#39A2DB" }}>
-                  <CheckCircleTwoToneIcon /> Guardar Cambios 
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    type="submit"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar Cambios
                   </Button>
                 </Stack>
               </form>
@@ -241,4 +259,3 @@ function FormEditPlace(id) {
 //     />
 //   );
 // }
-
