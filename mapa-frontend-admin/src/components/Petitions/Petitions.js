@@ -312,7 +312,7 @@ async function EditPlace(data, id) {
     console.error(err);
     Swal.fire({
       title: "Error!",
-      text: "Error al editar el lugar, asegurese de no haber ingresado una direccion ya registrada u otro dato incorrecto",
+      text: "Error al editar el lugar, asegurese de no haber ingresado una dirección ya registrada u otro dato incorrecto",
       icon: "error",
       confirmButtonText: "Ok",
     });
@@ -328,7 +328,7 @@ async function CreateCategory(data) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La categoria se creó correctamente",
+      text: "La categoría se creó correctamente",
       icon: "success",
       confirmButtonText: "Cerrar",
     });
@@ -336,7 +336,7 @@ async function CreateCategory(data) {
   } catch (error) {
     Swal.fire({
       title: "Error!",
-      text: "No se pudo crear la categoria. Asegurese de haber ingresado un nombre ya registrado",
+      text: "No se pudo crear la categoría. Asegurese de haber ingresado un nombre ya registrado",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
@@ -380,7 +380,7 @@ async function EditCategory(data, id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La categoria ha sido editada correctamente",
+      text: "La categoría ha sido editada correctamente",
       icon: "success",
       confirmButtonText: "Ok",
     });
@@ -389,7 +389,7 @@ async function EditCategory(data, id) {
     console.error(err);
     Swal.fire({
       title: "Error!",
-      text: "Error al editar la categoria, asegurese de no haber ingresado un nombre ya registrado incorrecto",
+      text: "Error al editar la categoría, asegurese de no haber ingresado un nombre ya registrado incorrecto",
       icon: "error",
       confirmButtonText: "Ok",
     });
@@ -409,7 +409,7 @@ async function DeleteCategory(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La categoría se ha borrado correctamente, actualize para visualizar los cambios",
+      text: "La categoría se ha borrado correctamente, actualice para visualizar los cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
     });
@@ -478,6 +478,35 @@ async function GetFeatureById(id) {
   return [];
 }
 
+async function EditFeature(data, id) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/features/${id}`,
+      method: "PUT",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "La característica ha sido editada correctamente",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      title: "Error!",
+      text: "Error al editar la característica, asegurese de no haber ingresado una descripción ya registrada incorrecta",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+}
+
+
 async function DeleteFeature(id) {
   try {
     const response = await axios({
@@ -490,7 +519,7 @@ async function DeleteFeature(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La característica se ha borrado correctamente, actualize para visualizar los cambios",
+      text: "La característica se ha borrado correctamente, actualice para visualizar los cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
     });
@@ -523,12 +552,13 @@ const petitions = {
   CreateCategory,
   EditCategory,
   GetCategories,
+  DeleteCategory,
+  GetCategoryById,
   CreateFeature,
   GetFeatures,
   GetFeatureById,
-  DeleteFeature,
-  DeleteCategory,
-  GetCategoryById,
+  EditFeature,
+  DeleteFeature
 };
 
 export default petitions;

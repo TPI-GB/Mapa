@@ -10,6 +10,9 @@ import {
   CardContent,
   TextField,
 } from "@mui/material";
+import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 import Swal from "sweetalert2";
 
 export default function EditUser() {
@@ -40,47 +43,55 @@ function FormNewUser() {
   const onSubmit = (data) => petitions.RegisterUser(data);
 
   return (
-    <Stack direction="row" ml={2} mt={5}>
+    <Stack direction="row" ml={2} mt={2}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button style={{ background: "lightblue" }} href="/listusers">
-            Volver
+          <Button variant="contained" style={{ background: "#053742" }} href="/listusers">
+          <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
-          <Card sx={{ minWidth: 400 }}>
+          <Card style={{ background: "#E8F0F2" }} sx={{ minWidth: 400 }}>
             <CardContent>
-              <h1>Crear Usuario</h1>
+              <h1>Nuevo Usuario</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
-                    required
-                    {...register("first_name")}
+                    style={{ background: "white" }}
+                    required {...register("first_name")}
                     label="Nombre"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
-                    required
-                    {...register("last_name")}
+                    style={{ background: "white" }}
+                    required {...register("last_name")}
                     label="Apellido"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField required {...register("nick")} label="Nick" />
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField 
+                    style={{ background: "white" }}
+                    required {...register("nick")} 
+                    label="Nick" 
+                  />
                 </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField required {...register("email")} label="Email" />
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField 
+                    style={{ background: "white" }}
+                    required {...register("email")}
+                    label="Email" 
+                  />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
-                    required
-                    {...register("password")}
+                    style={{ background: "white" }}
+                    required {...register("password")}
                     label="Contraseña"
                     type="password"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
+                <Stack direction="row" ml={2} mt={1}>
                   <h6>Rol</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
@@ -89,9 +100,9 @@ function FormNewUser() {
                     <option value="Moderador">Moderador</option>
                   </select>
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" style={{ background: "black" }}>
-                    Cargar
+                <Stack direction="row" ml={2} mt={8}>
+                  <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
+                  <CheckCircleTwoToneIcon /> Guardar 
                   </Button>
                 </Stack>
               </form>
@@ -138,20 +149,21 @@ function FormEditUser(id) {
   }
 
   return (
-    <Stack direction="row" ml={2} mt={5}>
+    <Stack direction="row" ml={2} mt={2}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button style={{ background: "lightblue" }} href="/listusers">
-            Volver
+          <Button variant="contained" style={{ background: "#053742" }} href="/listusers">
+          <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
-          <Card sx={{ minWidth: 400 }}>
+          <Card style={{ background: "#E8F0F2" }} sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Usuario</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("first_name")}
                     label="Nuevo Nombre"
                     placeholder={user.first_name}
@@ -159,10 +171,10 @@ function FormEditUser(id) {
                       shrink: true,
                     }}
                   />
-                  <Stack direction="row" ml={2} />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("last_name")}
                     label="Nuevo Apellido"
                     placeholder={user.last_name}
@@ -171,8 +183,9 @@ function FormEditUser(id) {
                     }}
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("nick")}
                     label="Nuevo Nick"
                     placeholder={user.nick}
@@ -181,8 +194,9 @@ function FormEditUser(id) {
                     }}
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("email")}
                     label="Nuevo Email"
                     placeholder={user.email}
@@ -191,19 +205,19 @@ function FormEditUser(id) {
                     }}
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
+                <Stack direction="row" ml={2} mt={1}>
                   <h6>Nuevo Rol</h6>
                 </Stack>
                 <Stack direction="row" ml={2}>
                   {selected}
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" style={{ background: "black" }}>
-                    Guardar Cambios
+                <Stack direction="row" ml={2} mt={9}>
+                  <Button type="submit" variant="contained" style={{ background: "#39A2DB" }}>
+                  <CheckCircleTwoToneIcon /> Guardar Cambios 
                   </Button>
                 </Stack>
               </form>
-              <Stack direction="row" ml={2} mt={2}>
+              <Stack direction="row" ml={2} mt={4}>
                 {buttonStatus(user)}
               </Stack>
             </CardContent>
@@ -218,10 +232,11 @@ function buttonStatus(user) {
   let button = (
     <Button
       type="submit"
-      style={{ background: "red" }}
+      variant="contained"
+      style={{ background: "#AC0D0D" }}
       onClick={() => unsubscribeUser(user._id)}
     >
-      DAR DE BAJA
+      <ArrowCircleDownTwoToneIcon /> DAR DE BAJA 
     </Button>
   );
   if (!user.active) {
@@ -231,7 +246,7 @@ function buttonStatus(user) {
         style={{ background: "green" }}
         onClick={() => subscribeUser(user._id)}
       >
-        DAR DE ALTA
+        DAR DE ALTA 
       </Button>
     );
   }

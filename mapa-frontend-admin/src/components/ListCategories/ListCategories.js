@@ -2,16 +2,14 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "./ListCategories.scss";
 import "antd/dist/antd.css";
 import Swal from "sweetalert2";
-
-import AddLocationAltTwoToneIcon from "@mui/icons-material/AddLocationAltTwoTone";
 
 export default function ListCategories() {
   const [categories, setcategories] = useState([]);
@@ -35,53 +33,52 @@ export default function ListCategories() {
 
   return (
     <div className="ListCategories">
-      <h2>CATEGORIAS</h2>
+      <h2>CATEGORÍAS</h2>
       <Stack
         direction="row"
         ml={5}
-        mr={5}
+        mr={5}        
+        mb={4}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
       >
-        <Link to={`/editcategory/new`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            <AddLocationAltTwoToneIcon /> Cargar Categoria
-          </Button>
-        </Link>
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            <KeyboardBackspaceIcon /> Regresar
-          </Button>
-        </Link>
+        {
+          <Link to={`/editcategory/new`}>
+            <Button variant="contained" style={{ background: "#053742" }}>
+              Cargar Categoría <AddOutlinedIcon />
+            </Button>
+          </Link>
+        }
       </Stack>
       <List
+        style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={"Nombre"}></List.Item.Meta>
-            <List.Item.Meta title={"categoria "}></List.Item.Meta>
-            <List.Item.Meta title={"algo"}></List.Item.Meta>
-            <List.Item.Meta title={"algo "}></List.Item.Meta>
+            <List.Item.Meta title={<h4>Nombre</h4>}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
+            <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
-      <List
+      <List     
+        style={{ background: "#a2dbfa" }}
         itemLayout="horizontal"
         dataSource={categories}
         renderItem={(category) => (
           <List.Item>
             <List.Item.Meta title={category.name}></List.Item.Meta>
-            <List.Item.Meta title={category.category}></List.Item.Meta>
             <List.Item.Meta
               title={
                 <Link to={`/editcategory/${category._id}`}>
                   <Button
                     variant="contained"
-                    style={{ background: "goldenrod" }}
+                    size="small"
+                    style={{ background: "#39A2DB" }}
                   >
-                    <ModeEditOutlineOutlinedIcon /> Editar Categoria
+                    <ModeEditOutlineOutlinedIcon /> Editar Categoría
                   </Button>
                 </Link>
               }
@@ -98,9 +95,10 @@ function buttonDelete(category) {
   let button = (
     <Button
       type="delete"
-      style={{ background: "red" }}
-      onClick={() => deletecategory(category._id)}
-      color="inherit"
+      size="small"
+      variant="contained"
+      style={{ background: "#AC0D0D" }}
+      onClick={() => deleteCategory(category._id)}
     >
       <DeleteForeverOutlinedIcon /> Borrar
     </Button>
@@ -109,10 +107,10 @@ function buttonDelete(category) {
   return button;
 }
 
-function deletecategory(id) {
+function deleteCategory(id) {
   return Swal.fire({
     title: "Atencion!",
-    text: "Está a punto de eliminar la categoria de la base de datos",
+    text: "Está a punto de eliminar la categoría de la base de datos",
     icon: "warning",
     showCancelButton: true,
     cancelButtonColor: "blue",

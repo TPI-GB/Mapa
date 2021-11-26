@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 import "./EditPlace.scss";
 
 export default function EditPlace() {
@@ -34,46 +36,50 @@ function FormNewPlace() {
   const onSubmit = (data) => petitions.CreatePlace(data);
 
   return (
-    <Stack direction="row" ml={2} mt={5}>
+    <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button style={{ background: "lightblue" }} href="/listplaces">
-            Volver
+          <Button variant="contained" style={{ background: "#053742" }} href="/listplaces">
+          <KeyboardBackspaceIcon />  Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
-          <Card sx={{ minWidth: 400 }}>
+          <Card style={{ background: "#E8F0F2" }} sx={{ minWidth: 400 }}>
             <CardContent>
-              <h1>Cargar Lugar</h1>
+              <h1>Nuevo Lugar</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField required {...register("name")} label="Nombre" />
+                  <TextField 
+                    style={{ background: "white" }} 
+                    required {...register("name")} 
+                    label="Nombre" />
                 </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField {...register("address")} label="Dirección" />
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField 
+                    style={{ background: "white" }} 
+                    required {...register("address")} 
+                    label="Dirección" />
                 </Stack>
-                <Stack direction="row" ml={2}>
-                  <TextField
-                    required
-                    {...register("lactitude")}
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField 
+                    style={{ background: "white" }}
+                    required {...register("lactitude")}
                     label="Latitud"
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
-                    required
-                    {...register("longitude")}
+                    style={{ background: "white" }}
+                    required {...register("longitude")}
                     label="Longitud"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}></Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <CheckboxesTagsCategory />
                 </Stack>
-
                 <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" style={{ background: "black" }}>
-                    Cargar
+                  <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
+                  <CheckCircleTwoToneIcon /> Guardar 
                   </Button>
                 </Stack>
               </form>
@@ -102,21 +108,22 @@ function FormEditPlace(id) {
   const onSubmit = (data) => petitions.EditPlace(data, id);
 
   return (
-    <Stack direction="row" ml={2} mt={5}>
+    <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button style={{ background: "lightblue" }} href="/listplaces">
-            Volver
+          <Button variant="contained" style={{ background: "#053742" }} href="/listplaces">
+          <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
-          <Card sx={{ minWidth: 400 }}>
+          <Card style={{ background: "#E8F0F2" }} sx={{ minWidth: 400 }}>
             <CardContent>
               <h1>Editar Lugar</h1>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("name")}
                     label="Nuevo Nombre"
                     placeholder={place.name}
@@ -124,10 +131,10 @@ function FormEditPlace(id) {
                       shrink: true,
                     }}
                   />
-                  <Stack direction="row" ml={2} />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("address")}
                     label="Nueva Dirección"
                     placeholder={place.address}
@@ -136,8 +143,9 @@ function FormEditPlace(id) {
                     }}
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("lactitude")}
                     label="Nueva Latitud"
                     placeholder={place.lactitude}
@@ -146,8 +154,9 @@ function FormEditPlace(id) {
                     }}
                   />
                 </Stack>
-                <Stack direction="row" ml={2}>
+                <Stack direction="row" ml={2} mt={2}>
                   <TextField
+                    style={{ background: "white" }}
                     {...register("longitude")}
                     label="Nueva Longitud"
                     placeholder={place.longitude}
@@ -155,16 +164,13 @@ function FormEditPlace(id) {
                       shrink: true,
                     }}
                   />
-                </Stack>
+                </Stack>                
                 <Stack direction="row" ml={2} mt={2}>
-                  <h6>Categorías</h6>
-                </Stack>
-                <Stack>
                   <CheckboxesTagsCategory />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" style={{ background: "black" }}>
-                    Guardar Cambios
+                  <Button type="submit" variant="contained" type="submit" style={{ background: "#39A2DB" }}>
+                  <CheckCircleTwoToneIcon /> Guardar Cambios 
                   </Button>
                 </Stack>
               </form>
@@ -207,7 +213,7 @@ function CheckboxesTagsCategory() {
         </li>
       )}
       style={{ width: 500 }}
-      renderInput={(params) => <TextField {...params} label="Categorias" />}
+      renderInput={(params) => <TextField style={{ background: "white" }} {...params} label="Categorias" />}
     />
   );
 }
