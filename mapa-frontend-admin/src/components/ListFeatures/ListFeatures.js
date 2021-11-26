@@ -2,10 +2,9 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { List } from "antd";
 import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
@@ -26,41 +25,38 @@ export default function Features() {
 
   return (
     <div className="ListFeatures">
-      <h2>CARACTERISTICAS</h2>
+      <h2>CARACTERÍSTICAS</h2>
       <Stack
         direction="row"
         ml={5}
         mr={5}
-        mb={5}
+        mb={4}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
       >
         {
           <Link to={`/editfeature/new`}>
-            <Button variant="contained" style={{ background: "blue" }}>
-              <AddCircleTwoToneIcon /> Cargar Nueva Característica
+            <Button variant="contained" style={{ background: "#053742" }}>
+              Cargar Característica <AddOutlinedIcon />
             </Button>
           </Link>
         }
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            <KeyboardBackspaceIcon /> Regresar
-          </Button>
-        </Link>
       </Stack>
       <List
+        style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
-          <List.Item>
-            <List.Item.Meta title={<i>Descripición</i>}></List.Item.Meta>
+          <List.Item >
+            <List.Item.Meta title={<h4>Descripición</h4>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
-      <List
+      <List      
+        style={{ background: "#a2dbfa" }}
         itemLayout="horizontal"
         dataSource={features}
         renderItem={(feature) => (
@@ -71,7 +67,8 @@ export default function Features() {
                 <Link to={`/editfeature/${feature._id}`}>
                   <Button
                     variant="contained"
-                    style={{ background: "goldenrod" }}
+                    size="small"
+                    style={{ background: "#39A2DB" }}
                   >
                     <ModeEditOutlineOutlinedIcon /> Editar Característica
                   </Button>
@@ -90,9 +87,10 @@ function buttonDelete(feature) {
   let button = (
     <Button
       type="delete"
-      style={{ background: "red" }}
+      size="small"
+      variant="contained"
+      style={{ background: "#AC0D0D"}}
       onClick={() => deleteFeature(feature._id)}
-      color="inherit"
     >
       <DeleteForeverOutlinedIcon /> Borrar
     </Button>

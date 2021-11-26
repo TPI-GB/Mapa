@@ -2,7 +2,6 @@ import React from "react";
 import { List } from "antd";
 import { Stack, Button } from "@mui/material";
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { Link } from "react-router-dom";
 import petitions from "../Petitions";
@@ -48,8 +47,9 @@ export default function ListUsers() {
       return (
         <Button
           variant="contained"
-          style={{ background: "goldenrod" }}
           href={`edituser/${id}`}
+          size="small"
+          style={{ background: "#39A2DB" }}          
         >
           <ModeEditOutlineOutlinedIcon /> Editar Usuario
         </Button>
@@ -64,10 +64,10 @@ export default function ListUsers() {
       return (
         <Button
           variant="contained"
-          style={{ background: "blue" }}
+          style={{ background: "#053742" }}
           href={`/edituser/new`}
         >
-          <PersonAddTwoToneIcon /> Crear Usuario
+          Crear Usuario <PersonAddTwoToneIcon />
         </Button>
       );
     } else {
@@ -82,33 +82,31 @@ export default function ListUsers() {
         direction="row"
         ml={5}
         mr={5}
+        mb={4}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
       >
-        {ButtonCreateUser()}
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            <KeyboardBackspaceIcon /> Regresar
-          </Button>
-        </Link>
+        {ButtonCreateUser()}        
       </Stack>
       <List
+        style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Apellido</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Nick</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Rol</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Estado</i>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Apellido</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Nick</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Rol</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Estado</h5>}></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
           </List.Item>
         )}
       />
       <List
-        itemLayout="horizontal"
+        style={{ background: "#a2dbfa" }}
+        itemLayout="horizontal" 
         dataSource={users}
         renderItem={(user) => (
           <List.Item>

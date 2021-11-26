@@ -24,8 +24,8 @@ import HomeIcon from "@mui/icons-material/Home";
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar variant="dense">
+      <AppBar position="static" style={{ background: "#053742" }}>
+        <Toolbar>
           <Button href="/home" color="inherit">
             <HomeIcon />
           </Button>
@@ -35,23 +35,23 @@ export default function Header() {
             </Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button href="/listcategories" color="inherit">
-              Categorias
-            </Button>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button href="/listplaces" color="inherit">
               Lugares
             </Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button href="/listfeatures" color="inherit">
-              Caracteristicas
+              Características
             </Button>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Button href="/listcategories" color="inherit">
+              Categorías
+            </Button>
+          </Typography>        
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button href="/null" color="inherit">
-              Estadisticas
+              Estadísticas
             </Button>
           </Typography>
           <Button color="inherit">

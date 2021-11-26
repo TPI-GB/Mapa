@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import "./Places.scss";
 import "antd/dist/antd.css";
 import Swal from "sweetalert2";
-
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddLocationAltTwoToneIcon from "@mui/icons-material/AddLocationAltTwoTone";
 
 export default function Places() {
@@ -37,39 +38,37 @@ export default function Places() {
         direction="row"
         ml={5}
         mr={5}
+        mb={4}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
       >
         {
           <Link to={`/editplace/new`}>
-            <Button variant="contained" style={{ background: "blue" }}>
+            <Button variant="contained" style={{ background: "#053742" }}>
               Cargar Lugar <AddLocationAltTwoToneIcon />
             </Button>
           </Link>
         }
-        <Link to={`/home`}>
-          <Button variant="contained" style={{ background: "blue" }}>
-            Regresar
-          </Button>
-        </Link>
       </Stack>
-      <List
+      <List         
+        style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
-            <List.Item.Meta title={<i>Nombre</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Dirección</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Latitud</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Longitud</i>}></List.Item.Meta>
-            <List.Item.Meta title={<i>Categoria</i>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Dirección</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Latitud</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Longitud</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Categoría</h5>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
       <List
+        style={{ background: "#a2dbfa" }}
         itemLayout="horizontal"
         dataSource={places}
         renderItem={(place) => (
@@ -84,9 +83,10 @@ export default function Places() {
                 <Link to={`/editplace/${place._id}`}>
                   <Button
                     variant="contained"
-                    style={{ background: "goldenrod" }}
+                    size="small"
+                    style={{ background: "#39A2DB" }}
                   >
-                    Editar Lugar
+                    <ModeEditOutlineOutlinedIcon /> Editar Lugar
                   </Button>
                 </Link>
               }
@@ -103,10 +103,12 @@ function buttonDelete(place) {
   let button = (
     <Button
       type="delete"
-      style={{ background: "red" }}
+      size="small"
+      variant="contained"
+      style={{ background: "#AC0D0D"}}
       onClick={() => deletePlace(place._id)}
     >
-      Borrar
+      <DeleteForeverOutlinedIcon /> Borrar
     </Button>
   );
 
