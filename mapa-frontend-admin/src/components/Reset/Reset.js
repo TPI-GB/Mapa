@@ -17,8 +17,16 @@ export default function Reset() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     data.numberSecurity = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    petitions.SendEmailReset(data);
-    NumberVerify(data);
+    const res = petitions.SendEmailReset(data);
+    res
+      .then((response) => {
+        if (response.status === 200) {
+          NumberVerify(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <Stack direction="row" ml={2} mt={5}>
@@ -60,11 +68,34 @@ export default function Reset() {
   );
 }
 
-function NumberVerify(data) {
+async function NumberVerify(data) {
+  const { email, numberSecurity } = data;
+  const changePassword = (newData) => petitions.ChangePassword(newData);
   return Swal.fire({
-    title: "Info!",
-    text: "Ingrese el numero enviado",
-    icon: "info",
-    confirmButtonText: "Ok",
+    title: "Ingrese el codigo de seguridad enviado a la casilla de coreo",
+    input: "text",
+    showCancelButton: true,
+    confirmButtonText: "Ingresar",
+    cancelButtonText: "Salir",
+  }).then((result) => {
+    if (result.value) {
+      if (result.value === `${numberSecurity}`) {
+        const newPassword = Math.floor(
+          Math.random() * (99999999 - 10000000 + 1) + 10000000
+        );
+        const newData = {};
+        newData.email = email;
+        newData.password = newPassword;
+        newData.numberSecurity = `${numberSecurity}`;
+        changePassword(newData);
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "El codigo es incorrecto",
+          icon: "error",
+          confirmButtonText: "Cerrar",
+        });
+      }
+    }
   });
 }

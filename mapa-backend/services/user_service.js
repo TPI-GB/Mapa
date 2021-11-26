@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const User = require("../models/user_model");
 const UserRepository = require("../repositories/user_repository");
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
@@ -72,28 +73,47 @@ class UserService {
   async reset(data) {
     const { email, numberSecurity } = data;
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "mapaturismogb@gmail.com",
-        pass: "TurismoGB2311",
-      },
-    });
+    const user = await this.userRepository.userEmail(email);
+    if (user) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "mapaturismogb@gmail.com",
+          pass: "TurismoGB2311",
+        },
+      });
 
-    const info = await transporter.sendMail({
-      from: "mapaturismogb@gmail.com",
-      to: email,
-      subject: "Cambio de contraseña",
-      text: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
-      html: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
-    });
+      const info = await transporter.sendMail({
+        from: "mapaturismogb@gmail.com",
+        to: email,
+        subject: "Cambio de contraseña",
+        text: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
+        html: `Su codigo de seguridad para resetear contraseña es: ${numberSecurity}`,
+      });
 
-    return info;
+      const newData = {
+        codeReset: numberSecurity,
+      };
+
+      await User.findByIdAndUpdate({ _id: user._id }, newData);
+
+      return info;
+    }
   }
 
   //EditUser
   async editUser(data) {
     const newUser = await this.userRepository.editUser(data);
+    return newUser;
+  }
+
+  async changePassword(data) {
+    const newUser = await this.userRepository.changePassword(data);
+    return newUser;
+  }
+
+  async changePasswordUser(data) {
+    const newUser = await this.userRepository.changePasswordUser(data);
     return newUser;
   }
 

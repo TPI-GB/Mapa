@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Box } from "@mui/system";
+import { useForm } from "react-hook-form";
+import petitions from "../Petitions/Petitions";
 import {
   TextField,
   Button,
@@ -10,6 +11,13 @@ import {
 } from "@mui/material";
 
 export default function ChangePassword() {
+  const { register, handleSubmit } = useForm();
+  const id = sessionStorage.getItem("user login id");
+  const onSubmit = (data) => {
+    data.id = id;
+    petitions.ChangePasswordUser(data);
+  };
+
   return (
     <Stack direction="row" ml={2} mt={5}>
       <Grid container spacing={2}>
@@ -17,51 +25,44 @@ export default function ChangePassword() {
         <Grid item xs={4} style={{ textAlign: "center" }}>
           <Card sx={{ minWidth: 275, minHeight: 550 }}>
             <CardContent>
-              <Box
-                component="form"
-                sx={{
-                  width: 110,
-                  height: 250,
-                  "&:hover": {
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                  "& .MuiTextField-root": { m: 2, width: "7cm" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Cambiar contraseña</h1>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Email"
-                  defaultValue=""
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Contraseña vieja"
-                  defaultValue=""
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Contraseña nueva"
-                  defaultValue=""
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Repetir contraseña"
-                  defaultValue=""
-                />
-
                 <Stack direction="row" ml={2}>
-                  <Button variant="contained" href="/Home">
-                    Cambiar
+                  <TextField
+                    required
+                    {...register("oldpassword")}
+                    id="outlined-required"
+                    label="Contraseña actual"
+                    type="password"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <TextField
+                    required
+                    {...register("newpassword")}
+                    id="outlined-required"
+                    label="Contraseña nueva"
+                    type="password"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <TextField
+                    required
+                    {...register("newpasswordretry")}
+                    id="outlined-required"
+                    label="Repetir contraseña nueva"
+                    type="password"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <Button
+                    type="submit"
+                    style={{ background: "lightblue", color: "black" }}
+                  >
+                    Actualizar contraseña
                   </Button>
                 </Stack>
-              </Box>
+              </form>
             </CardContent>
           </Card>
         </Grid>

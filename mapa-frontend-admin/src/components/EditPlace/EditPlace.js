@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import petitions from "../Petitions/Petitions";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Button,
   Stack,
@@ -9,14 +9,17 @@ import {
   Card,
   CardContent,
   TextField,
+  Typography,
   Autocomplete,
   Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
+import CategorySelect from "./CategorySelect";
 
 export default function EditPlace() {
   const { id } = useParams();
@@ -32,8 +35,14 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => petitions.CreatePlace(data);
+  const { register, handleSubmit, control } = useForm({});
+  const [categories, setCategories] = useState([]);
+  const onSubmit = (data) => {
+    data.category = categories;
+    petitions.CreatePlace(data);
+  };
+
+  const inputFileRef = useRef();
 
   return (
     <Stack direction="row" ml={2} mt={3}>
@@ -74,8 +83,22 @@ function FormNewPlace() {
                     label="Longitud"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <CheckboxesTagsCategory />
+                <Stack direction="row" ml={2}>
+                  <CategorySelect
+                    control={control}
+                    onChangeProp={(e) => {
+                      console.log(e);
+                      setCategories([...categories, e.target.innerText]);
+                    }}
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}></Stack>
+                <Stack direction="row" ml={2}>
+                  <Typography align="inherit" mt={0.3} variant="button">
+                    {"Cargar imagen"}
+                  </Typography>
+
+                  <input type="file" ref={inputFileRef} />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
@@ -165,8 +188,9 @@ function FormEditPlace(id) {
                     }}
                   />
                 </Stack>                
-                <Stack direction="row" ml={2} mt={2}>
-                  <CheckboxesTagsCategory />
+              
+                <Stack>
+                  <CategorySelect />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button type="submit" variant="contained" type="submit" style={{ background: "#39A2DB" }}>
@@ -182,38 +206,39 @@ function FormEditPlace(id) {
   );
 }
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+// const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+// const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-function CheckboxesTagsCategory() {
-  const [categories, setCategories] = useState([]);
+// function CheckboxesTagsCategory({ onchange, control }) {
+//   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    petitions.GetCategories().then((y) => {
-      setCategories(y.map((x) => x.name));
-    });
-  }, []);
+//   useEffect(() => {
+//     petitions.GetCategories().then((y) => {
+//       setCategories(y.map((x) => x.name));
+//     });
+//   }, []);
 
-  return (
-    <Autocomplete
-      multiple
-      id="checkboxes-tags-demo"
-      options={categories}
-      disableCloseOnSelect
-      getOptionLabel={(option) => option}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option}
-        </li>
-      )}
-      style={{ width: 500 }}
-      renderInput={(params) => <TextField style={{ background: "white" }} {...params} label="Categorias" />}
-    />
-  );
-}
+//   return (
+//     <Autocomplete
+//       multiple
+//       id="checkboxes-tags-demo"
+//       options={categories}
+//       disableCloseOnSelect
+//       getOptionLabel={(option) => option}
+//       renderOption={(props, option, { selected }) => (
+//         <li {...props}>
+//           <Checkbox
+//             icon={icon}
+//             checkedIcon={checkedIcon}
+//             style={{ marginRight: 8 }}
+//             checked={selected}
+//           />
+//           {option}
+//         </li>
+//       )}
+//       style={{ width: 500 }}
+//       renderInput={(params) => <TextField {...params} label="Categorias" />}
+//     />
+//   );
+// }
+

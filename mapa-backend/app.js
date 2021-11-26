@@ -22,5 +22,6 @@ app.use("/users", userController.router);
 app.use("/places", placeController.router);
 app.use("/categories", categoryController.router);
 app.use("/features", featureController.router);
+app.use("/public", express.static(`${__dirname}/storage/imgs`));
 
 module.exports = app;

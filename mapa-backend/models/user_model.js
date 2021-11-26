@@ -12,7 +12,7 @@ const UserSchema = Schema(
     password: { type: String, required: true },
     email: { type: String, required: true },
     active: { type: Boolean, required: true, default: true },
-    hasChangePassword: { type: Boolean, default: false },
+    codeReset: { type: String },
   },
   {
     timestamps: true,
