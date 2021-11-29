@@ -10,9 +10,10 @@ import {
   CardContent,
   TextField,
 } from "@mui/material";
-import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
+import ArrowCircleDownTwoToneIcon from "@mui/icons-material/ArrowCircleDownTwoTone";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import Swal from "sweetalert2";
 
 export default function EditUser() {
@@ -46,8 +47,12 @@ function FormNewUser() {
     <Stack direction="row" ml={2} mt={2}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listusers">
-          <KeyboardBackspaceIcon /> Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listusers"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -58,35 +63,40 @@ function FormNewUser() {
                 <Stack direction="row" ml={2}>
                   <TextField
                     style={{ background: "white" }}
-                    required {...register("first_name")}
+                    required
+                    {...register("first_name")}
                     label="Nombre"
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     style={{ background: "white" }}
-                    required {...register("last_name")}
+                    required
+                    {...register("last_name")}
                     label="Apellido"
-                  />
-                </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <TextField 
-                    style={{ background: "white" }}
-                    required {...register("nick")} 
-                    label="Nick" 
-                  />
-                </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <TextField 
-                    style={{ background: "white" }}
-                    required {...register("email")}
-                    label="Email" 
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     style={{ background: "white" }}
-                    required {...register("password")}
+                    required
+                    {...register("nick")}
+                    label="Nick"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    required
+                    {...register("email")}
+                    label="Email"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    required
+                    {...register("password")}
                     label="Contraseña"
                     type="password"
                   />
@@ -101,8 +111,12 @@ function FormNewUser() {
                   </select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={8}>
-                  <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
-                  <CheckCircleTwoToneIcon /> Guardar 
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar
                   </Button>
                 </Stack>
               </form>
@@ -152,8 +166,12 @@ function FormEditUser(id) {
     <Stack direction="row" ml={2} mt={2}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listusers">
-          <KeyboardBackspaceIcon /> Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listusers"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -212,8 +230,12 @@ function FormEditUser(id) {
                   {selected}
                 </Stack>
                 <Stack direction="row" ml={2} mt={9}>
-                  <Button type="submit" variant="contained" style={{ background: "#39A2DB" }}>
-                  <CheckCircleTwoToneIcon /> Guardar Cambios 
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar Cambios
                   </Button>
                 </Stack>
               </form>
@@ -236,17 +258,18 @@ function buttonStatus(user) {
       style={{ background: "#AC0D0D" }}
       onClick={() => unsubscribeUser(user._id)}
     >
-      <ArrowCircleDownTwoToneIcon /> DAR DE BAJA 
+      <ArrowCircleDownTwoToneIcon /> DAR DE BAJA
     </Button>
   );
   if (!user.active) {
     button = (
       <Button
         type="submit"
+        variant="contained"
         style={{ background: "green" }}
         onClick={() => subscribeUser(user._id)}
       >
-        DAR DE ALTA 
+        <ArrowCircleUpIcon /> DAR DE ALTA
       </Button>
     );
   }
