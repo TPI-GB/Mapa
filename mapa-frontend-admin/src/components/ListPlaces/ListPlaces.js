@@ -62,7 +62,8 @@ export default function Places() {
             <List.Item.Meta title={<h5>Dirección</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Latitud</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Longitud</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Categoría</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Categorías</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Caracteristicas</h5>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
@@ -86,6 +87,7 @@ export default function Places() {
                 </p>
               ))}
             ></List.Item.Meta>
+
             <List.Item.Meta
               title={
                 <Link to={`/editplace/${place._id}`}>

@@ -3,7 +3,6 @@ import { List } from "antd";
 import { Stack, Button } from "@mui/material";
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import { Link } from "react-router-dom";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import "./ListUsers.scss";
@@ -49,7 +48,7 @@ export default function ListUsers() {
           variant="contained"
           href={`edituser/${id}`}
           size="small"
-          style={{ background: "#39A2DB" }}          
+          style={{ background: "#39A2DB" }}
         >
           <ModeEditOutlineOutlinedIcon /> Editar Usuario
         </Button>
@@ -87,7 +86,7 @@ export default function ListUsers() {
         alignItems="flex-start"
         spacing={8}
       >
-        {ButtonCreateUser()}        
+        {ButtonCreateUser()}
       </Stack>
       <List
         style={{ background: "white" }}
@@ -106,7 +105,7 @@ export default function ListUsers() {
       />
       <List
         style={{ background: "#a2dbfa" }}
-        itemLayout="horizontal" 
+        itemLayout="horizontal"
         dataSource={users}
         renderItem={(user) => (
           <List.Item>

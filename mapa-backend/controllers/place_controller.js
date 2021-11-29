@@ -18,14 +18,12 @@ class PlaceController {
     console.log(data);
     if (
       !(
-        (
-          data.name &&
-          data.address &&
-          data.lactitude &&
-          data.longitude &&
-          data.categories
-        )
-        //data.features
+        data.name &&
+        data.address &&
+        data.lactitude &&
+        data.longitude &&
+        data.category &&
+        data.features
       )
     ) {
       return res.status(400).send("All fields are required");

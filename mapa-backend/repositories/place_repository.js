@@ -2,15 +2,15 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
-    const { name, address, lactitude, longitude, categories, features } = data;
+    const { name, address, lactitude, longitude, category, features } = data;
 
     const place = await Place.create({
       name,
       address,
       lactitude,
       longitude,
-      categories,
-      //features,
+      category,
+      features,
     });
 
     if (data.file) {

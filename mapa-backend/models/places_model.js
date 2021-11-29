@@ -10,9 +10,7 @@ const PlaceSchema = Schema(
     longitude: String,
     categories: [],
     image: String,
-
-    //sub_categories: [],
-    //features: { type: Array, required: true, default: true },
+    features: [],
   },
   {
     timestamps: true,
