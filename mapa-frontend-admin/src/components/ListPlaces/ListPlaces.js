@@ -87,6 +87,14 @@ export default function Places() {
                 </p>
               ))}
             ></List.Item.Meta>
+            <List.Item.Meta
+              title={place.features.map((c) => (
+                <p>
+                  {<LabelImportantTwoToneIcon />}
+                  {`${c}`}
+                </p>
+              ))}
+            ></List.Item.Meta>
 
             <List.Item.Meta
               title={

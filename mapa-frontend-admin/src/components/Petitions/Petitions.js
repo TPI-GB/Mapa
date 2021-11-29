@@ -295,6 +295,7 @@ async function GetPlaces() {
         Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -556,7 +557,6 @@ async function EditFeature(data, id) {
   }
 }
 
-
 async function DeleteFeature(id) {
   try {
     const response = await axios({
@@ -610,7 +610,7 @@ const petitions = {
   GetFeatures,
   GetFeatureById,
   EditFeature,
-  DeleteFeature
+  DeleteFeature,
 };
 
 export default petitions;

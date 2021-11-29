@@ -35,7 +35,7 @@ function FormNewPlace() {
   const [categories, setCategories] = useState([]);
   const [feature, setfeature] = useState([]);
   const onSubmit = (data) => {
-    data.category = categories;
+    data.categories = categories;
     data.features = feature;
     petitions.CreatePlace(data);
   };

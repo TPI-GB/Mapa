@@ -22,7 +22,7 @@ class PlaceController {
         data.address &&
         data.lactitude &&
         data.longitude &&
-        data.category &&
+        data.categories &&
         data.features
       )
     ) {
