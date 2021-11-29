@@ -153,7 +153,7 @@ function FormEditPlace(id) {
 
   const { register, handleSubmit, control } = useForm();
   const onSubmit = (data) => {
-    data.category = categories;
+    data.categories = categories;
     data.features = feature;
     petitions.EditPlace(data, id);
   };
