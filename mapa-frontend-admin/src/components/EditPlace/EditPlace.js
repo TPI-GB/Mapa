@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Container } from "@mui/material";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
@@ -89,6 +90,13 @@ function FormNewPlace() {
                     required
                     {...register("longitude")}
                     label="Longitud"
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    {...register("description")}
+                    label="Descripcion"
                   />
                 </Stack>
 
@@ -217,6 +225,17 @@ function FormEditPlace(id) {
                     {...register("longitude")}
                     label="Nueva Longitud"
                     placeholder={place.longitude}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <TextField
+                    style={{ background: "white" }}
+                    {...register("description")}
+                    label="Nueva Descripcion"
+                    placeholder={place.description}
                     InputLabelProps={{
                       shrink: true,
                     }}
