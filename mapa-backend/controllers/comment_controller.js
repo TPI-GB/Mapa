@@ -1,4 +1,4 @@
-const CommentService = require("../repositories/comment_service");
+const CommentService = require("../services/comment_service");
 const express = require("express");
 
 class CommentController {
