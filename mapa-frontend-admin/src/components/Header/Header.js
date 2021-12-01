@@ -19,16 +19,12 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: "#053742" }}>
         <Toolbar>
-          <Button href="/home" color="inherit">
-            <HomeIcon />
-          </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Button href="/listusers" color="inherit">
               Usuarios

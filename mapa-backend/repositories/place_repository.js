@@ -2,7 +2,15 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
-    const { name, address, lactitude, longitude, categories, features } = data;
+    const {
+      name,
+      address,
+      lactitude,
+      longitude,
+      categories,
+      features,
+      description,
+    } = data;
 
     const place = await Place.create({
       name,
@@ -11,6 +19,7 @@ class PlaceRepository {
       longitude,
       categories,
       features,
+      description,
     });
 
     if (data.file) {
@@ -22,10 +31,20 @@ class PlaceRepository {
   }
 
   async editPlace(data) {
-    const { name, address, lactitude, longitude, categories, features, id } =
-      data;
+    const {
+      name,
+      address,
+      lactitude,
+      longitude,
+      categories,
+      features,
+      description,
+      id,
+    } = data;
 
     let newData = {};
+
+    const place = await Place.findById(id);
 
     if (name != "") {
       newData.name = name;
@@ -44,6 +63,9 @@ class PlaceRepository {
     }
     if (features != "") {
       newData.features = features;
+    }
+    if (place.description === undefined || description != "") {
+      newData.description = description;
     }
 
     await Place.findByIdAndUpdate({ _id: id }, newData);

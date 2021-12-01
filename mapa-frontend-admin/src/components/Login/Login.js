@@ -36,7 +36,7 @@ export default function Login() {
           sessionStorage.setItem("user login email", response.data.email);
           sessionStorage.setItem("user login id", response.data.id);
 
-          history.push("./home");
+          history.push("./listplaces");
         }
       })
       .catch((err) => {
@@ -53,27 +53,38 @@ export default function Login() {
               <h1>Login</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2}>
-                  <TextField 
+                  <TextField
                     style={{ background: "white" }}
-                    required {...register("email")} 
-                    label="Email" 
+                    required
+                    {...register("email")}
+                    label="Email"
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
                     style={{ background: "white" }}
-                    required {...register("password")}
+                    required
+                    {...register("password")}
                     label="Contraseña"
                     type="password"
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <Button type="submit" variant="contained" style={{ background: "#053742" }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    style={{ background: "#053742" }}
+                  >
                     Ingresar
                   </Button>
                 </Stack>
               </form>
-              <Stack direction="row" ml={2} mt={2} justifyContent="space-between">
+              <Stack
+                direction="row"
+                ml={2}
+                mt={2}
+                justifyContent="space-between"
+              >
                 <Button variant="text" href="/reset">
                   ¿Olvidaste tu contraseña?
                 </Button>
