@@ -32,9 +32,6 @@ function App() {
           <Authenticated component={<EditFeature />} />
         </Route>
         <Switch>
-          <Route path="/home" exact={true} component={Header}>
-            {/*   <Authenticated component={<Header />} /> */}
-          </Route>
           <Route path="/listusers" exact={true}>
             <Authenticated component={<ListUsers />} />
           </Route>
