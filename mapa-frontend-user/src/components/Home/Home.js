@@ -1,28 +1,21 @@
 import * as React from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "./Home.css";
 import { Box, Button, Modal, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
-
 import "./Home.scss";
+import MapView from "../MapView/MapView";
 
 export default function Home() {
   return (
-    <div className="Map">
-      <MapContainer
-        className="Map-container"
-        center={[51.505, -0.09]}
-        zoom={13}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-      </MapContainer>
-      <InfoPlace />
+    <div>
+      <div>
+        <MapView />
+      </div>
+      <div>
+        <InfoPlace />
+      </div>
     </div>
   );
 }
