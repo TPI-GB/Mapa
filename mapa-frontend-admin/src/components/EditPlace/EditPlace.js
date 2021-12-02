@@ -94,12 +94,14 @@ function FormNewPlace() {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
-                    style={{ background: "white" }}
+                    style={{
+                      background: "white",
+                      width: "100%",
+                    }}
                     {...register("description")}
                     label="Descripcion"
                   />
                 </Stack>
-
                 <Stack direction="row" ml={2} mt={2}>
                   <CategorySelect
                     control={control}
@@ -232,7 +234,7 @@ function FormEditPlace(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
-                    style={{ background: "white" }}
+                    style={{ background: "white", width: "100%" }}
                     {...register("description")}
                     label="Nueva Descripcion"
                     placeholder={place.description}
