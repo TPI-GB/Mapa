@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import "./Home.scss";
 import MapView from "../MapView/MapView";
+import petitions from "../Petitions";
 
 export default function Home() {
   return (
@@ -38,10 +39,6 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { register, handleSubmit } = useForm();
-
-  const commentSubmit = (data) => console.log(data);
-  const ratingSubmit = (data) => console.log(data);
 
   return (
     <div>
@@ -88,67 +85,97 @@ function InfoPlace(place) {
           <Stack className="modal-title">
             <b>Puntaje:</b>
           </Stack>
-          <form onSubmit={handleSubmit(ratingSubmit)}>
-            <Stack className="modal-title">
-              <b>Dar puntuación</b>
-            </Stack>
-            <Stack direction="row">
-              <select {...register("rating")}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </Stack>
-          </form>
-          <Stack direction="row" mt="3px">
-            <Button
-              variant="contained"
-              type="submit"
-              style={{ background: "gray" }}
-            >
-              Dejar puntaje
-            </Button>
-          </Stack>
+          {FormRating(place)}
           <Stack className="modal-title">
             <b>Opiniones</b>
           </Stack>
           <Stack>Opiniones</Stack>
-          <form onSubmit={handleSubmit(commentSubmit)}>
-            <Stack className="modal-title">
-              <b>Dejar una opinion</b>
-            </Stack>
-            <Stack direction="row">
-              <TextField
-                style={{ background: "white" }}
-                {...register("name")}
-                required
-                label="Nombre"
-                placeholder="Nombre"
-              />
-            </Stack>
-            <Stack mt="3px">
-              <TextField
-                style={{ background: "white" }}
-                {...register("text")}
-                required
-                label="Comentario"
-                placeholder="Comentario"
-              />
-            </Stack>
-            <Stack direction="row" mt="3px">
-              <Button
-                variant="contained"
-                type="submit"
-                style={{ background: "gray" }}
-              >
-                Dejar opinion
-              </Button>
-            </Stack>
-          </form>
+          {FormComment(place)}
         </Box>
       </Modal>
     </div>
+  );
+}
+
+function FormComment(place) {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    const newComment = await petitions.CreateComment(data);
+    let dataCommentToPlace = {};
+    dataCommentToPlace.place = place;
+    dataCommentToPlace.comment = newComment;
+    petitions.AddCommentToPlace(dataCommentToPlace);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack className="modal-title">
+        <b>Dejar una opinion</b>
+      </Stack>
+      <Stack direction="row">
+        <TextField
+          style={{ background: "white" }}
+          {...register("name")}
+          required
+          label="Nombre"
+          placeholder="Nombre"
+        />
+      </Stack>
+      <Stack mt="3px">
+        <TextField
+          style={{ background: "white" }}
+          {...register("text")}
+          required
+          label="Comentario"
+          placeholder="Comentario"
+        />
+      </Stack>
+      <Stack direction="row" mt="3px">
+        <Button
+          variant="contained"
+          type="submit"
+          style={{ background: "gray" }}
+        >
+          Dejar opinion
+        </Button>
+      </Stack>
+    </form>
+  );
+}
+
+function FormRating(place) {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    let dataEditRating = {};
+    dataEditRating.rating = data.rating;
+    dataEditRating.place = place;
+    petitions.EditRating(data);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack className="modal-title">
+        <b>Dar puntuación</b>
+      </Stack>
+      <Stack direction="row">
+        <select {...register("rating")}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </Stack>
+      <Stack direction="row" mt="3px">
+        <Button
+          variant="contained"
+          type="submit"
+          style={{ background: "gray" }}
+        >
+          Dejar puntaje
+        </Button>
+      </Stack>
+    </form>
   );
 }

@@ -11,6 +11,14 @@ class CommentRepository {
 
     return await comment.save();
   }
+
+  async addCommentToPlace(data) {
+    const { place, comment } = data;
+
+    const response = place.comments.push(comment);
+
+    return await response;
+  }
 }
 
 module.exports = CommentRepository;

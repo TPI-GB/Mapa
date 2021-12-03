@@ -10,13 +10,17 @@ import {
   CardContent,
   TextField,
   Typography,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import { Container } from "@mui/material";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
 import CategorySelect from "./CategorySelect";
 import FeatureSelect from "./FeatureSelect";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPlace() {
   const { id } = useParams();
@@ -32,10 +36,17 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
+  const iconList = Object.keys(Icons)
+    .filter((key) => key !== "fas" && key !== "prefix")
+    .map((icon) => Icons[icon]);
+
+  library.add(...iconList);
+  const allIcons = library.definitions.fas;
   const { register, handleSubmit, control } = useForm({});
   const [categories, setCategories] = useState([]);
   const [feature, setfeature] = useState([]);
   const onSubmit = (data) => {
+    console.log(allIcons);
     data.categories = categories;
     data.features = feature;
     petitions.CreatePlace(data);
@@ -127,6 +138,16 @@ function FormNewPlace() {
                   </Typography>
 
                   <input type="file" ref={inputFileRef} />
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  Icono
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <Select>
+                    <MenuItem value="icono">
+                      <FontAwesomeIcon icon={"coffee"} />
+                    </MenuItem>
+                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button

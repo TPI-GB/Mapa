@@ -6,7 +6,12 @@ class CommentService {
   }
 
   async createComment(data) {
-    const comment = await this.CommentRepository.createComment(data);
+    const comment = await this.commentRepository.createComment(data);
+    return comment;
+  }
+
+  async addCommentToPlace(data) {
+    const comment = await this.commentRepository.addCommentToPlace(data);
     return comment;
   }
 }

@@ -75,6 +75,22 @@ class PlaceRepository {
     return placeStored;
   }
 
+  async editRating(data) {
+    const { place, rating } = data;
+    const newVotesCount = place.votes_count + 1;
+    const newRating = (place.rating + rating) / newVotesCount;
+
+    let newData = {};
+    newData.rating = newRating;
+    newData.votes_count = newVotesCount;
+
+    await Place.findByIdAndUpdate({ _id: place.id }, newData);
+
+    const placeStored = await Place.findById(place.id);
+
+    return placeStored;
+  }
+
   async getPlace() {
     return await Place.find().lean().exec();
   }
