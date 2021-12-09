@@ -11,6 +11,7 @@ class PlaceController {
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.post("/img", upload.single("image"), this.createPlace);
+    this.router.put("/:rating", (req, res) => this.editRating(req, res));
   }
 
   createPlace(req, res) {
@@ -45,6 +46,19 @@ class PlaceController {
     const { id } = req.params;
     data.id = id;
     const placePromise = this.placeService.editPlace(data);
+    placePromise
+      .then((place) => {
+        res.json(place);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
+  editRating(req, res) {
+    const data = req.body;
+    const placePromise = this.placeService.editRating(data);
     placePromise
       .then((place) => {
         res.json(place);

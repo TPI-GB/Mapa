@@ -1,17 +1,44 @@
 import axios from "axios";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-async function CreateComment() {
+async function CreateComment(data) {
   try {
     const response = await axios({
       url: `${baseUrl}/comment`,
       method: "POST",
+      data: data,
     });
     return response.data;
   } catch (err) {
     console.error(err);
   }
   return [];
+}
+
+async function AddCommentToPlace(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/comment`,
+      method: "PUT",
+      data: data,
+    });
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function EditRating(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/rating`,
+      method: "PUT",
+      data: data,
+    });
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function GetPlaces() {
@@ -33,7 +60,9 @@ async function GetPlaces() {
 
 const petitions = {
   CreateComment,
-  GetPlaces
+  GetPlaces,
+  AddCommentToPlace,
+  EditRating,
 };
 
 export default petitions;

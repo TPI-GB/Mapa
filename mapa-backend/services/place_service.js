@@ -15,6 +15,11 @@ class PlaceService {
     return newPlace;
   }
 
+  async editRating(data) {
+    const newPlace = await this.placeRepository.editRating(data);
+    return newPlace;
+  }
+
   async getPlace() {
     const places = await this.placeRepository.getPlace();
     return places;
