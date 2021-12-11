@@ -7,7 +7,7 @@ class PlaceRepository {
       address,
       lactitude,
       longitude,
-      categories,
+      category,
       features,
       description,
     } = data;
@@ -15,9 +15,9 @@ class PlaceRepository {
     const place = await Place.create({
       name,
       address,
-      lactitude,
-      longitude,
-      categories,
+      lactitude: parseFloat(lactitude),
+      longitude: parseFloat(longitude),
+      category,
       features,
       description,
     });
@@ -26,6 +26,8 @@ class PlaceRepository {
       const { filename } = data.file;
       place.setImgUrl(filename);
     }
+
+    console.log(place);
 
     return await place.save();
   }
@@ -36,7 +38,7 @@ class PlaceRepository {
       address,
       lactitude,
       longitude,
-      categories,
+      category,
       features,
       description,
       id,
@@ -53,13 +55,13 @@ class PlaceRepository {
       newData.address = address;
     }
     if (lactitude != "") {
-      newData.lactitude = lactitude;
+      newData.lactitude = parseFloat(lactitude);
     }
     if (longitude != "") {
-      newData.longitude = longitude;
+      newData.longitude = parseFloat(longitude);
     }
-    if (categories != "") {
-      newData.categories = categories;
+    if (category != "") {
+      newData.category = category;
     }
     if (features != "") {
       newData.features = features;

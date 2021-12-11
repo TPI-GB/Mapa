@@ -10,11 +10,12 @@ import {
   CardContent,
   TextField,
   Typography,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
-import CategorySelect from "./CategorySelect";
 import FeatureSelect from "./FeatureSelect";
 
 export default function EditPlace() {
@@ -102,14 +103,13 @@ function FormNewPlace() {
                     label="Descripcion"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <CategorySelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      console.log(e);
-                      setCategories([...categories, e.target.innerText]);
-                    }}
-                  />
+                <Stack ml={2} mt={2}>
+                  <p>
+                    <b>Seleccione categoria</b>
+                  </p>
+                  <Select {...register("category")} required label="Categoria">
+                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <FeatureSelect
@@ -246,17 +246,10 @@ function FormEditPlace(id) {
                 </Stack>
 
                 <Stack direction="row" ml={2} mt={2}>
-                  <CategorySelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      console.log(e);
-                      setCategories([...categories, e.target.innerText]);
-                    }}
-                    placeholder={place.longitude}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
+                  <p>Seleccione categoria</p>
+                  <Select {...register("category")} required>
+                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <FeatureSelect

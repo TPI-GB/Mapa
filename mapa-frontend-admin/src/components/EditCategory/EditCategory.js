@@ -40,7 +40,10 @@ function FormNewCategory() {
 
   library.add(...iconList);
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => petitions.CreateCategory(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    petitions.CreateCategory(data);
+  };
 
   return (
     <Stack direction="row" ml={2} mt={3}>
@@ -305,7 +308,10 @@ function FormEditCategory(id) {
     setCategory(category);
   };
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => petitions.EditCategory(data, id);
+  const onSubmit = (data) => {
+    console.log(data);
+    petitions.EditCategory(data, id);
+  };
 
   return (
     <Stack direction="row" ml={2} mt={3}>
