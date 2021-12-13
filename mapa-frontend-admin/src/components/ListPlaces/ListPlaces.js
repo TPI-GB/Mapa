@@ -62,7 +62,7 @@ export default function Places() {
             <List.Item.Meta title={<h5>Dirección</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Latitud</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Longitud</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Categorías</h5>}></List.Item.Meta>
+            <List.Item.Meta title={<h5>Categoría</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Caracteristicas</h5>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
@@ -80,12 +80,12 @@ export default function Places() {
             <List.Item.Meta title={place.lactitude}></List.Item.Meta>
             <List.Item.Meta title={place.longitude}></List.Item.Meta>
             <List.Item.Meta
-              title={place.categories.map((c) => (
+              title={
                 <p>
                   {<LabelImportantTwoToneIcon />}
-                  {`${c}`}
+                  {`${place.category}`}
                 </p>
-              ))}
+              }
             ></List.Item.Meta>
             <List.Item.Meta
               title={place.features.map((f) => (

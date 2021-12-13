@@ -16,11 +16,7 @@ import {
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
-import CategorySelect from "./CategorySelect";
 import FeatureSelect from "./FeatureSelect";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPlace() {
   const { id } = useParams();
@@ -36,17 +32,11 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
-  const iconList = Object.keys(Icons)
-    .filter((key) => key !== "fas" && key !== "prefix")
-    .map((icon) => Icons[icon]);
+  const { register, handleSubmit, control } = useForm();
 
-  library.add(...iconList);
-  const allIcons = library.definitions.fas;
-  const { register, handleSubmit, control } = useForm({});
   const [categories, setCategories] = useState([]);
   const [feature, setfeature] = useState([]);
   const onSubmit = (data) => {
-    console.log(allIcons);
     data.categories = categories;
     data.features = feature;
     petitions.CreatePlace(data);
@@ -113,14 +103,13 @@ function FormNewPlace() {
                     label="Descripcion"
                   />
                 </Stack>
-                <Stack direction="row" ml={2} mt={2}>
-                  <CategorySelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      console.log(e);
-                      setCategories([...categories, e.target.innerText]);
-                    }}
-                  />
+                <Stack ml={2} mt={2}>
+                  <p>
+                    <b>Seleccione categoria</b>
+                  </p>
+                  <Select {...register("category")} required label="Categoria">
+                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <FeatureSelect
@@ -138,16 +127,6 @@ function FormNewPlace() {
                   </Typography>
 
                   <input type="file" ref={inputFileRef} />
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  Icono
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  <Select>
-                    <MenuItem value="icono">
-                      <FontAwesomeIcon icon={"coffee"} />
-                    </MenuItem>
-                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
@@ -168,6 +147,8 @@ function FormNewPlace() {
 }
 
 function FormEditPlace(id) {
+  const { register, handleSubmit, control } = useForm();
+
   const [place, setPlace] = useState([]);
   const [categories, setCategories] = useState([]);
   const [feature, setfeature] = useState([]);
@@ -182,7 +163,6 @@ function FormEditPlace(id) {
     setPlace(place);
   };
 
-  const { register, handleSubmit, control } = useForm();
   const onSubmit = (data) => {
     data.categories = categories;
     data.features = feature;
@@ -266,17 +246,10 @@ function FormEditPlace(id) {
                 </Stack>
 
                 <Stack direction="row" ml={2} mt={2}>
-                  <CategorySelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      console.log(e);
-                      setCategories([...categories, e.target.innerText]);
-                    }}
-                    placeholder={place.longitude}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
+                  <p>Seleccione categoria</p>
+                  <Select {...register("category")} required>
+                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                  </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <FeatureSelect

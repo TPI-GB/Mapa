@@ -4,14 +4,22 @@ import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { List } from "antd";
 import { Link } from "react-router-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 import "./ListCategories.scss";
 import "antd/dist/antd.css";
 import Swal from "sweetalert2";
 
 export default function ListCategories() {
+  const iconList = Object.keys(Icons)
+    .filter((key) => key !== "fas" && key !== "prefix")
+    .map((icon) => Icons[icon]);
+
+  library.add(...iconList);
   const [categories, setcategories] = useState([]);
 
   useEffect(() => {
@@ -37,7 +45,7 @@ export default function ListCategories() {
       <Stack
         direction="row"
         ml={5}
-        mr={5}        
+        mr={5}
         mb={4}
         justifyContent="space-between"
         alignItems="flex-start"
@@ -58,18 +66,22 @@ export default function ListCategories() {
         renderItem={() => (
           <List.Item>
             <List.Item.Meta title={<h4>Nombre</h4>}></List.Item.Meta>
+            <List.Item.Meta title={<h4>Icono</h4>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
-      <List     
+      <List
         style={{ background: "#a2dbfa" }}
         itemLayout="horizontal"
         dataSource={categories}
         renderItem={(category) => (
           <List.Item>
             <List.Item.Meta title={category.name}></List.Item.Meta>
+            <List.Item.Meta
+              title={<FontAwesomeIcon icon={category.icon} />}
+            ></List.Item.Meta>
             <List.Item.Meta
               title={
                 <Link to={`/editcategory/${category._id}`}>
@@ -110,7 +122,7 @@ function buttonDelete(category) {
 function deleteCategory(id) {
   return Swal.fire({
     title: "Atencion!",
-    text: "Está a punto de eliminar la categoría de la base de datos",
+    text: "Está a punto de eliminar la categoría de la base de datos, esto no implica que un lugar con esta categoria se modifique",
     icon: "warning",
     showCancelButton: true,
     cancelButtonColor: "blue",

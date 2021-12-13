@@ -13,7 +13,7 @@ class CategoryController {
 
   createCategory(req, res) {
     const data = req.body;
-    if (!data.name) {
+    if (!data.name && !data.icon) {
       return res.status(400).send("All fields are required");
     }
     const categoryPromise = this.categoryService.createCategory(data);

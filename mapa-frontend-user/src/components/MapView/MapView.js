@@ -4,6 +4,9 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import Markers from "../Markers";
 import "./MapView.scss";
 import { useState, useEffect } from "react";
+import { Box, Button, Modal, Stack, TextField } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useForm } from "react-hook-form";
 import petitions from "../Petitions";
 
 export default function MapView() {

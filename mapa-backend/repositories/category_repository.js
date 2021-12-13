@@ -2,22 +2,26 @@ const Category = require("../models/category_model");
 
 class CategoryRepository {
   async createCategory(data) {
-    const { name } = data;
+    const { name, icon } = data;
 
     const category = await Category.create({
       name,
+      icon,
     });
 
     return await category.save();
   }
 
   async editCategory(data) {
-    const { name, id } = data;
+    const { name, icon, id } = data;
 
     const newData = {};
 
     if (name != "") {
       newData.name = name;
+    }
+    if (icon != "") {
+      newData.icon = icon;
     }
 
     await Category.findByIdAndUpdate({ _id: id }, newData);

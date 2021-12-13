@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const CategorySchema = Schema(
   {
     name: { type: String, unique: true },
+    icon: { type: String },
   },
   {
     timestamps: true,

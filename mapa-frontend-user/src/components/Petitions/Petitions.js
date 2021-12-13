@@ -58,11 +58,39 @@ async function GetPlaces() {
   return [];
 }
 
+async function GetCategories() {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/categories`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function GetIconNameByCategoryName(category) {
+  try {
+    const categories = await GetCategories();
+    const findCategory = categories.filter((c) => c.name === category)[0];
+    return findCategory.icon;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 const petitions = {
   CreateComment,
   GetPlaces,
   AddCommentToPlace,
   EditRating,
+  GetCategories,
+  GetIconNameByCategoryName,
 };
 
 export default petitions;

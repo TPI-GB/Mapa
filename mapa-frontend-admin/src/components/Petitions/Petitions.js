@@ -422,7 +422,7 @@ async function GetCategoryById(id) {
 async function EditCategory(data, id) {
   try {
     const response = await axios({
-      url: `${baseUrl}/places/${id}`,
+      url: `${baseUrl}/categories/${id}`,
       method: "PUT",
       data: data,
       headers: {
@@ -449,27 +449,34 @@ async function EditCategory(data, id) {
 
 async function DeleteCategory(id) {
   try {
-    const response = await axios({
-      url: `${baseUrl}/categories/`,
+    const category = GetCategoryById(id);
+    const places = await GetPlaces();
+    const categoriesActive = places.map((p) => p.category);
+    if (categoriesActive.includes(category.name)) {
+      throw new Error();
+    } else {
+      const response = await axios({
+        url: `${baseUrl}/categories/`,
 
-      method: "DELETE",
-      data: { id: id },
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
-      },
-    });
-    Swal.fire({
-      title: "Hecho!",
-      text: "La categoría se ha borrado correctamente, actualice para visualizar los cambios",
-      icon: "success",
-      confirmButtonText: "Cerrar",
-    });
-    return response;
+        method: "DELETE",
+        data: { id: id },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        },
+      });
+      Swal.fire({
+        title: "Hecho!",
+        text: "La categoría se ha borrado correctamente, actualice para visualizar los cambios",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+      return response;
+    }
   } catch (err) {
     console.error(err);
     Swal.fire({
       title: "Error!",
-      text: "Error inesperado al borrar la categoría, asegurese que no fue borrada con anterioridad",
+      text: "Error al borrar la categoría, asegurese que esta categoria no este activa en un lugar o no haya sido borrada",
       icon: "error",
       confirmButtonText: "Cerrar",
     });
