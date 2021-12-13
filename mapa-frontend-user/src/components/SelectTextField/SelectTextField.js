@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 export default function BasicSelect() {
   const [age, setAge] = React.useState("");
@@ -15,18 +15,23 @@ export default function BasicSelect() {
 
   return (
     <Box>
-      <TextField id="outlined-name" label="Nombre" onChange={handleChange} />
-      <FormControl sx={{ minWidth: 220 }}>
+      <TextField
+        className="nombre"
+        label="Nombre"
+        onChange={handleChange}
+        sx={{ minWidth: "300px" }}
+      />
+      <FormControl sx={{ minWidth: "300px" }}>
         <InputLabel>Categorias</InputLabel>
-        <Select label="Categorias">
+        <Select value={age} label="Categorias" onChange={handleChange}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
       </FormControl>
-      <FormControl sx={{ minWidth: 220 }}>
+      <FormControl sx={{ minWidth: "300px" }}>
         <InputLabel>Caracteristicas</InputLabel>
-        <Select label="Caracteristicas">
+        <Select value={age} label="Caracteristicas" onChange={handleChange}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
