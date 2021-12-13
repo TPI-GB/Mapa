@@ -6,16 +6,7 @@ import { TextField, Autocomplete, Checkbox } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-export default function FeatureSelect({
-  options = [],
-  renderInput,
-  getOptionLabel,
-  onChangeProp,
-  control,
-  defaultValue,
-  name,
-  renderOption,
-}) {
+export default function FeatureSelect({ onChangeProp, control, defaultValue }) {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const [features, setFeatures] = useState([]);

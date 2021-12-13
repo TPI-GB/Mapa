@@ -14,7 +14,7 @@ class CommentController {
     if (!data.name || !data.text) {
       return res.status(400).send("All fields are required");
     }
-    const commentPromise = this.commentService.createCategory(data);
+    const commentPromise = this.commentService.createComment(data);
     commentPromise
       .then((comment) => {
         res.json(comment);

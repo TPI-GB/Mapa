@@ -15,9 +15,11 @@ class CommentRepository {
   async addCommentToPlace(data) {
     const { place, comment } = data;
 
-    const response = place.comments.push(comment);
+    const newComments = place.comments.push(comment);
 
-    return await response;
+    const newPlace = await Place.findByIdAndUpdate({ _id: id }, newData);
+
+    return newPlace;
   }
 }
 

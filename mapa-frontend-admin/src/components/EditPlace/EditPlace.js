@@ -17,6 +17,9 @@ import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
 import FeatureSelect from "./FeatureSelect";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPlace() {
   const { id } = useParams();
@@ -32,6 +35,12 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
+  const iconList = Object.keys(Icons)
+    .filter((key) => key !== "fas" && key !== "prefix")
+    .map((icon) => Icons[icon]);
+
+  library.add(...iconList);
+
   const { register, handleSubmit, control } = useForm();
 
   const [categories, setCategories] = useState([]);
@@ -40,6 +49,16 @@ function FormNewPlace() {
     data.categories = categories;
     data.features = feature;
     petitions.CreatePlace(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const responseCategories = petitions.GetCategories();
+    const categories = await responseCategories;
+    setCategories(categories);
   };
 
   const inputFileRef = useRef();
@@ -107,15 +126,23 @@ function FormNewPlace() {
                   <p>
                     <b>Seleccione categoria</b>
                   </p>
-                  <Select {...register("category")} required label="Categoria">
-                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                  <Select
+                    {...register("category")}
+                    required
+                    placeholder="Categoria"
+                  >
+                    {categories.map(({ name, icon }) => (
+                      <MenuItem value={name}>
+                        {`${name}`}
+                        {<FontAwesomeIcon icon={icon} />}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <FeatureSelect
                     control={control}
                     onChangeProp={(e) => {
-                      console.log(e);
                       setfeature([...feature, e.target.innerText]);
                     }}
                   />
@@ -159,8 +186,11 @@ function FormEditPlace(id) {
 
   const getData = async () => {
     const responsePlace = petitions.GetPlaceById(id);
+    const responseCategories = petitions.GetCategories();
     const place = await responsePlace;
+    const categories = await responseCategories;
     setPlace(place);
+    setCategories(categories);
   };
 
   const onSubmit = (data) => {
@@ -245,10 +275,21 @@ function FormEditPlace(id) {
                   />
                 </Stack>
 
-                <Stack direction="row" ml={2} mt={2}>
-                  <p>Seleccione categoria</p>
-                  <Select {...register("category")} required>
-                    <MenuItem value="Cafeteria">Cafeteria</MenuItem>
+                <Stack ml={2} mt={2}>
+                  <p>
+                    <b>Seleccione nueva categoria</b>
+                  </p>
+                  <Select
+                    {...register("category")}
+                    required
+                    placeholder="Categoria"
+                  >
+                    {categories.map(({ name, icon }) => (
+                      <MenuItem value={name}>
+                        {`${name}`}
+                        {<FontAwesomeIcon icon={icon} />}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { renderToStaticMarkup } from "react-dom/server";
 import { divIcon } from "leaflet";
+import { useState, useEffect } from "react";
 import petitions from "../Petitions";
 
 const Markers = (props) => {
@@ -49,11 +50,19 @@ function IconPlace(place) {
     .map((icon) => Icons[icon]);
 
   library.add(...iconList);
-  const icon = petitions.GetIconNameByCategoryName(place.category);
-  console.log(icon);
+  const [icon, setIcon] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const response = await petitions.GetIconNameByCategoryName(place.category);
+    setIcon(response);
+  };
   const iconMarkup = renderToStaticMarkup(<FontAwesomeIcon icon={icon} />);
   const customMarkerIcon = divIcon({
     html: iconMarkup,
+    className: "dummy",
   });
   return customMarkerIcon;
 }
@@ -62,6 +71,7 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(place.comments);
 
   return (
     <div>
@@ -86,33 +96,36 @@ function InfoPlace(place) {
           <Stack className="modal-title">
             <b>Nombre</b>
           </Stack>
-          <Stack>El nombre</Stack>
+          <Stack>{place.name}</Stack>
+          <Stack className="modal-title">
+            <b>Categoria</b>
+          </Stack>
+          <Stack>{place.category}</Stack>
           <Stack className="modal-title">
             <b>Descripcion</b>
           </Stack>
-          <Stack>La descripcion</Stack>
-          <Stack className="modal-title">
-            <b>Categorias</b>
-          </Stack>
-          <Stack>
-            <li>categoria 1</li>
-            <li>categoria 2</li>
-          </Stack>
+          <Stack>{place.description}</Stack>
           <Stack className="modal-title">
             <b>Caracteristicas</b>
           </Stack>
           <Stack>
-            <li>caracteristica 1</li>
-            <li>caracteristica 2</li>
+            {place.features.map((f) => (
+              <li>{f}</li>
+            ))}
           </Stack>
           <Stack className="modal-title">
-            <b>Puntaje:</b>
+            <b>Puntaje: {place.rating}</b>
           </Stack>
           {FormRating(place)}
           <Stack className="modal-title">
             <b>Opiniones</b>
           </Stack>
-          <Stack>Opiniones</Stack>
+          <Stack>
+            {" "}
+            {place.comments.map((c) => (
+              <li>{c.name}</li>
+            ))}
+          </Stack>
           {FormComment(place)}
         </Box>
       </Modal>
@@ -128,7 +141,9 @@ function FormComment(place) {
     let dataCommentToPlace = {};
     dataCommentToPlace.place = place;
     dataCommentToPlace.comment = newComment;
+    console.log(dataCommentToPlace);
     petitions.AddCommentToPlace(dataCommentToPlace);
+    console.log(place);
   };
 
   return (
@@ -183,11 +198,11 @@ function FormRating(place) {
       </Stack>
       <Stack direction="row">
         <select {...register("rating")}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
         </select>
       </Stack>
       <Stack direction="row" mt="3px">
