@@ -50,7 +50,6 @@ async function GetPlaces() {
         Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);

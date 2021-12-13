@@ -71,7 +71,6 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(place.comments);
 
   return (
     <div>
@@ -120,10 +119,12 @@ function InfoPlace(place) {
           <Stack className="modal-title">
             <b>Opiniones</b>
           </Stack>
-          <Stack>
-            {" "}
+          <Stack mt={2}>
             {place.comments.map((c) => (
-              <li>{c.name}</li>
+              <Stack>
+                <b>{c.name}</b>
+                <p>{c.text}</p>
+              </Stack>
             ))}
           </Stack>
           {FormComment(place)}
@@ -141,9 +142,7 @@ function FormComment(place) {
     let dataCommentToPlace = {};
     dataCommentToPlace.place = place;
     dataCommentToPlace.comment = newComment;
-    console.log(dataCommentToPlace);
     petitions.AddCommentToPlace(dataCommentToPlace);
-    console.log(place);
   };
 
   return (

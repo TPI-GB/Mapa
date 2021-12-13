@@ -1,4 +1,5 @@
 const Comment = require("../models/comment_model");
+const Place = require("../models/places_model");
 
 class CommentRepository {
   async createComment(data) {
@@ -14,12 +15,12 @@ class CommentRepository {
 
   async addCommentToPlace(data) {
     const { place, comment } = data;
+    let newComments = {};
+    newComments.comments = place.comments.concat(comment);
+    await Place.findByIdAndUpdate({ _id: place._id }, newComments);
+    const placeStored = await Place.findById(place._id);
 
-    const newComments = place.comments.push(comment);
-
-    const newPlace = await Place.findByIdAndUpdate({ _id: id }, newData);
-
-    return newPlace;
+    return placeStored;
   }
 }
 
