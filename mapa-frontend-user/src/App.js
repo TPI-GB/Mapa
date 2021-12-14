@@ -11,14 +11,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-        </Routes>
-        <Routes>
-          <Route path="/footer" element={<Footer />} />
-        </Routes>
+        </Routes>       
         <Routes>
           <Route path="/selectTextField" element={<SelectTextField />} />
         </Routes>
       </Router>
+      <Footer />
     </div>
   );
 }

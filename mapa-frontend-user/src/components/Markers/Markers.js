@@ -11,6 +11,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { divIcon } from "leaflet";
 import { useState, useEffect } from "react";
 import petitions from "../Petitions";
+import "./Markers.scss"
 
 const Markers = (props) => {
   const { places } = props;
@@ -35,7 +36,7 @@ const stylebox = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  height: "100%",
+  height: "90%",
   width: 750,
   overflow: "auto",
   bgcolor: "background.paper",
@@ -59,10 +60,10 @@ function IconPlace(place) {
     const response = await petitions.GetIconNameByCategoryName(place.category);
     setIcon(response);
   };
-  const iconMarkup = renderToStaticMarkup(<FontAwesomeIcon icon={icon} />);
+  const iconMarkup = renderToStaticMarkup(<FontAwesomeIcon icon={icon} Color='red' />);
   const customMarkerIcon = divIcon({
     html: iconMarkup,
-    className: "dummy",
+    className: "dummy"
   });
   return customMarkerIcon;
 }
@@ -93,19 +94,19 @@ function InfoPlace(place) {
             />
           </Stack>
           <Stack className="modal-title">
-            <b>Nombre</b>
+            <b>Nombre:</b>
           </Stack>
           <Stack>{place.name}</Stack>
           <Stack className="modal-title">
-            <b>Categoria</b>
+            <b>Categoría:</b>
           </Stack>
           <Stack>{place.category}</Stack>
           <Stack className="modal-title">
-            <b>Descripcion</b>
+            <b>Descripción:</b>
           </Stack>
           <Stack>{place.description}</Stack>
           <Stack className="modal-title">
-            <b>Caracteristicas</b>
+            <b>Características:</b>
           </Stack>
           <Stack>
             {place.features.map((f) => (
@@ -148,7 +149,7 @@ function FormComment(place) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack className="modal-title">
-        <b>Dejar una opinion</b>
+        <b>Dejar una opinión</b>
       </Stack>
       <Stack direction="row">
         <TextField
@@ -174,7 +175,7 @@ function FormComment(place) {
           type="submit"
           style={{ background: "gray" }}
         >
-          Dejar opinion
+          Dejar opinión
         </Button>
       </Stack>
     </form>

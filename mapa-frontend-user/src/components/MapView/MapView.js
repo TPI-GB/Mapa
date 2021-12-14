@@ -4,9 +4,6 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import Markers from "../Markers";
 import "./MapView.scss";
 import { useState, useEffect } from "react";
-import { Box, Button, Modal, Stack, TextField } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useForm } from "react-hook-form";
 import petitions from "../Petitions";
 
 export default function MapView() {
@@ -30,7 +27,7 @@ export default function MapView() {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
         />
         <Markers places={places} />
       </MapContainer>
