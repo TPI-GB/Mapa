@@ -1,7 +1,15 @@
 import React from "react";
 import { Marker, Popup } from "react-leaflet";
-import IconLocation from "../IconLocation";
-import { Box, Button, Modal, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Modal,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -72,6 +80,16 @@ function InfoPlace(place) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  let colorRating;
+
+  if (place.rating <= 2) {
+    colorRating = "red";
+  } else if (place.rating <= 3) {
+    colorRating = "yellow";
+  } else {
+    colorRating = "green";
+  }
+
   return (
     <div>
       <Button onClick={handleOpen}>Ver info</Button>
@@ -113,21 +131,30 @@ function InfoPlace(place) {
             ))}
           </Stack>
           <Stack className="modal-title">
-            <b>Puntaje: {place.rating}</b>
+            <b>
+              Puntaje
+              <div style={{ color: `${colorRating}` }}>{place.rating}</div>
+            </b>
           </Stack>
           {FormRating(place)}
+          {FormComment(place)}
           <Stack className="modal-title">
             <b>Opiniones</b>
           </Stack>
           <Stack mt={2}>
             {place.comments.map((c) => (
-              <Stack>
-                <b>{c.name}</b>
-                <p>{c.text}</p>
+              <Stack mt={1}>
+                <div
+                  style={{
+                    backgroundColor: "lightblue",
+                  }}
+                >
+                  <b>{c.name}</b>
+                  <p>{c.text}</p>
+                </div>
               </Stack>
             ))}
           </Stack>
-          {FormComment(place)}
         </Box>
       </Modal>
     </div>
@@ -185,9 +212,8 @@ function FormRating(place) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    let dataEditRating = {};
-    dataEditRating.rating = data.rating;
-    dataEditRating.place = place;
+    data.place = place;
+    console.log(data);
     petitions.EditRating(data);
   };
   return (
@@ -196,13 +222,13 @@ function FormRating(place) {
         <b>Dar puntuación</b>
       </Stack>
       <Stack direction="row">
-        <select {...register("rating")}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-        </select>
+        <Select {...register("rating")}>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+        </Select>
       </Stack>
       <Stack direction="row" mt="3px">
         <Button

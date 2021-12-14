@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 async function CreateComment(data) {
@@ -31,7 +32,7 @@ async function AddCommentToPlace(data) {
 async function EditRating(data) {
   try {
     const response = await axios({
-      url: `${baseUrl}/places/rating`,
+      url: `${baseUrl}/places/rating/${data.place._id}`,
       method: "PUT",
       data: data,
     });
@@ -46,9 +47,6 @@ async function GetPlaces() {
     const response = await axios({
       url: `${baseUrl}/places`,
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
-      },
     });
     return response.data;
   } catch (err) {
@@ -62,9 +60,6 @@ async function GetCategories() {
     const response = await axios({
       url: `${baseUrl}/categories`,
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
-      },
     });
     return response.data;
   } catch (err) {

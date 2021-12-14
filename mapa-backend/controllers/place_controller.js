@@ -11,7 +11,8 @@ class PlaceController {
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.post("/img", upload.single("image"), this.createPlace);
-    this.router.put("/:rating", (req, res) => this.editRating(req, res));
+    this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
+    this.router.put("/lama", (req, res) => this.lamaRating(req, res));
   }
 
   createPlace(req, res) {
@@ -56,8 +57,15 @@ class PlaceController {
       });
   }
 
+  lamaRating(req, res) {
+    const data = req.body;
+    console.log("hola mundo");
+  }
+
   editRating(req, res) {
     const data = req.body;
+    const { id } = req.params;
+    data.id = id;
     const placePromise = this.placeService.editRating(data);
     placePromise
       .then((place) => {

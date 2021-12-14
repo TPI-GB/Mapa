@@ -12,7 +12,7 @@ const PlaceSchema = Schema(
     category: String,
     features: [],
     description: String,
-    votes_count: { type: Number, default: 0 },
+    votes_count: { type: Number, default: 0.0 },
     rating: { type: Number, default: 0.0 },
     comments: [],
   },

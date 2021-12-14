@@ -174,6 +174,11 @@ function FormNewPlace() {
 }
 
 function FormEditPlace(id) {
+  const iconList = Object.keys(Icons)
+    .filter((key) => key !== "fas" && key !== "prefix")
+    .map((icon) => Icons[icon]);
+
+  library.add(...iconList);
   const { register, handleSubmit, control } = useForm();
 
   const [place, setPlace] = useState([]);
