@@ -14,14 +14,14 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box>
+    <Box >
       <TextField
         className="nombre"
         label="Nombre"
         onChange={handleChange}
         sx={{ minWidth: "300px" }}
       />
-      <FormControl sx={{ minWidth: "300px" }}>
+      <FormControl  sx={{ minWidth: "300px" }}>
         <InputLabel>Categorias</InputLabel>
         <Select value={age} label="Categorias" onChange={handleChange}>
           <MenuItem value={10}>Ten</MenuItem>
