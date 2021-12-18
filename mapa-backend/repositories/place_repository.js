@@ -80,9 +80,7 @@ class PlaceRepository {
   async editRating(data) {
     const { place, rating, id } = data;
     const newVotesCount = place.votes_count + 1;
-    const newRating = Math.round(
-      (place.rating + parseFloat(rating)) / newVotesCount
-    );
+    const newRating = Math.round((place.rating + rating) / newVotesCount);
 
     let newData = {};
     newData.rating = newRating;

@@ -19,7 +19,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { divIcon } from "leaflet";
 import { useState, useEffect } from "react";
 import petitions from "../Petitions";
-import "./Markers.scss"
+import "./Markers.scss";
 
 const Markers = (props) => {
   const { places } = props;
@@ -68,10 +68,12 @@ function IconPlace(place) {
     const response = await petitions.GetIconNameByCategoryName(place.category);
     setIcon(response);
   };
-  const iconMarkup = renderToStaticMarkup(<FontAwesomeIcon icon={icon} Color='red' />);
+  const iconMarkup = renderToStaticMarkup(
+    <FontAwesomeIcon icon={icon} Color="red" />
+  );
   const customMarkerIcon = divIcon({
     html: iconMarkup,
-    className: "dummy"
+    className: "dummy",
   });
   return customMarkerIcon;
 }
@@ -80,16 +82,6 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  let colorRating;
-
-  if (place.rating <= 2) {
-    colorRating = "red";
-  } else if (place.rating <= 3) {
-    colorRating = "yellow";
-  } else {
-    colorRating = "green";
-  }
 
   return (
     <div>
@@ -130,12 +122,6 @@ function InfoPlace(place) {
             {place.features.map((f) => (
               <li>{f}</li>
             ))}
-          </Stack>
-          <Stack className="modal-title">
-            <b>
-              Puntaje
-              <div style={{ color: `${colorRating}` }}>{place.rating}</div>
-            </b>
           </Stack>
           {FormRating(place)}
           {FormComment(place)}
@@ -217,8 +203,25 @@ function FormRating(place) {
     console.log(data);
     petitions.EditRating(data);
   };
+
+  let colorRating;
+
+  if (place.rating <= 2) {
+    colorRating = "red";
+  } else if (place.rating <= 3) {
+    colorRating = "yellow";
+  } else {
+    colorRating = "green";
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack className="modal-title">
+        <b>
+          Puntaje
+          <div style={{ color: `${colorRating}` }}>{place.rating}</div>
+        </b>
+      </Stack>
       <Stack className="modal-title">
         <b>Dar puntuación</b>
       </Stack>
