@@ -125,23 +125,6 @@ function InfoPlace(place) {
           </Stack>
           {FormRating(place)}
           {FormComment(place)}
-          <Stack className="modal-title">
-            <b>Opiniones</b>
-          </Stack>
-          <Stack mt={2}>
-            {place.comments.map((c) => (
-              <Stack mt={1}>
-                <div
-                  style={{
-                    backgroundColor: "lightblue",
-                  }}
-                >
-                  <b>{c.name}</b>
-                  <p>{c.text}</p>
-                </div>
-              </Stack>
-            ))}
-          </Stack>
         </Box>
       </Modal>
     </div>
@@ -150,13 +133,15 @@ function InfoPlace(place) {
 
 function FormComment(place) {
   const { register, handleSubmit } = useForm();
+  const [state, setState] = useState(place);
 
   const onSubmit = async (data) => {
     const newComment = await petitions.CreateComment(data);
     let dataCommentToPlace = {};
-    dataCommentToPlace.place = place;
+    dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;
-    petitions.AddCommentToPlace(dataCommentToPlace);
+    const response = await petitions.AddCommentToPlace(dataCommentToPlace);
+    setState(response.data);
   };
 
   return (
@@ -191,35 +176,55 @@ function FormComment(place) {
           Dejar opinión
         </Button>
       </Stack>
+      <Stack className="modal-title">
+        <b>Opiniones</b>
+      </Stack>
+      <Stack mt={2}>
+        {state.comments.map((c) => (
+          <Stack mt={1}>
+            <div
+              style={{
+                backgroundColor: "lightblue",
+              }}
+            >
+              <b>{c.name}</b>
+              <p>{c.text}</p>
+            </div>
+          </Stack>
+        ))}
+      </Stack>
     </form>
   );
 }
 
 function FormRating(place) {
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    data.place = place;
-    console.log(data);
-    petitions.EditRating(data);
+  const getColorRating = (place) => {
+    if (place.rating <= 2) {
+      return "red";
+    } else if (state.rating <= 3) {
+      return "yellow";
+    } else {
+      return "green";
+    }
   };
 
-  let colorRating;
+  const { register, handleSubmit } = useForm();
+  const [state, setState] = useState(place);
+  const [stateColor, setStateColor] = useState(getColorRating(place));
 
-  if (place.rating <= 2) {
-    colorRating = "red";
-  } else if (place.rating <= 3) {
-    colorRating = "yellow";
-  } else {
-    colorRating = "green";
-  }
+  const onSubmit = async (data) => {
+    data.place = state;
+    const response = await petitions.EditRating(data);
+    setState(response.data);
+    setStateColor(getColorRating(response.data));
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack className="modal-title">
         <b>
           Puntaje
-          <div style={{ color: `${colorRating}` }}>{place.rating}</div>
+          <div style={{ color: `${stateColor}` }}>{state.rating}</div>
         </b>
       </Stack>
       <Stack className="modal-title">

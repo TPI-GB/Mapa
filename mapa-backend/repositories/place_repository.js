@@ -79,14 +79,17 @@ class PlaceRepository {
 
   async editRating(data) {
     const { place, rating, id } = data;
-    const newVotesCount = place.votes_count + 1;
-    const newRating = Math.round((place.rating + rating) / newVotesCount);
+    let newVotesCount = place.votes_count.concat(parseInt(rating));
+    const newRating = (newVotesCount) => {
+      return (
+        newVotesCount.reduce((a, b) => a + b, 0) / newVotesCount.length
+      ).toFixed();
+    };
 
     let newData = {};
-    newData.rating = newRating;
+    newData.rating = newRating(newVotesCount);
     newData.votes_count = newVotesCount;
 
-    console.log(newData);
     await Place.findByIdAndUpdate({ _id: id }, newData);
 
     const placeStored = await Place.findById(id);
