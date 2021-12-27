@@ -1,15 +1,18 @@
 const multer = require("multer");
+const path = require("path");
+
+const imagesPath = path.resolve(
+  path.join(path.dirname(__dirname), "storage/imgs")
+);
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./storage/imgs");
-  },
+  destination: imagesPath,
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ".png");
+    console.log("filename");
+    cb(null, file.originalname);
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage }).single("image");
 
 module.exports = upload;

@@ -8,6 +8,7 @@ const PlaceSchema = Schema(
     address: { type: String, unique: true },
     lactitude: Number,
     longitude: Number,
+<<<<<<< Updated upstream
     image: String,
     category: String,
     features: [],
@@ -15,16 +16,21 @@ const PlaceSchema = Schema(
     votes_count: { type: Array, default: [] },
     rating: { type: Number, default: 0 },
     comments: [],
+=======
+    categories: [],
+    features: [],
+    description: String,
+    //imgurl: String,
+>>>>>>> Stashed changes
   },
   {
     timestamps: true,
   }
 );
 
-PlaceSchema.method.setImgUrl = function setImgUrl(filename) {
-  const { host, port } = appConfig;
-  this.imgUrl = `${host}:${port}/public/${filename}`;
-};
+// PlaceSchema.method.setImgUrl = function setImgUrl(filename) {
+//   const { host, port } = appConfig;
+//   this.imgurl = `${host}:${port}/public/${filename}`;
+// };
 
-//PlaceSchema.index({ address: 1 }, { unique: true });
 module.exports = mongoose.model("Places", PlaceSchema);

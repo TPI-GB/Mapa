@@ -44,13 +44,16 @@ function FormNewPlace() {
   const { register, handleSubmit, control } = useForm();
 
   const [categories, setCategories] = useState([]);
-  const [feature, setfeature] = useState([]);
+  const [features, setfeatures] = useState([]);
+
   const onSubmit = (data) => {
     data.categories = categories;
-    data.features = feature;
+    data.features = features;
+
     petitions.CreatePlace(data);
   };
 
+<<<<<<< Updated upstream
   useEffect(() => {
     getData();
   }, []);
@@ -63,6 +66,8 @@ function FormNewPlace() {
 
   const inputFileRef = useRef();
 
+=======
+>>>>>>> Stashed changes
   return (
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
@@ -143,17 +148,36 @@ function FormNewPlace() {
                   <FeatureSelect
                     control={control}
                     onChangeProp={(e) => {
+<<<<<<< Updated upstream
                       setfeature([...feature, e.target.innerText]);
+=======
+                      console.log(e);
+                      setfeatures([...features, e.target.innerText]);
+>>>>>>> Stashed changes
                     }}
                   />
                 </Stack>
-
+                {/* 
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">
                     {"Cargar imagen"}
                   </Typography>
 
+<<<<<<< Updated upstream
                   <input type="file" ref={inputFileRef} />
+=======
+                  <input name="image" type="file" {...register("image")} />
+                </Stack> */}
+                <Stack direction="row" ml={2}>
+                  Icono
+                </Stack>
+                <Stack direction="row" ml={2}>
+                  <Select>
+                    <MenuItem value="icono">
+                      <FontAwesomeIcon icon={"coffee"} />
+                    </MenuItem>
+                  </Select>
+>>>>>>> Stashed changes
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button

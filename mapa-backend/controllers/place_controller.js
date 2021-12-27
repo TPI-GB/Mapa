@@ -10,14 +10,21 @@ class PlaceController {
     this.router.put("/:id", (req, res) => this.editPlace(req, res));
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
+<<<<<<< Updated upstream
     this.router.post("/img", upload.single("image"), this.createPlace);
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
     this.router.put("/lama", (req, res) => this.lamaRating(req, res));
+=======
+    this.router.put("/:rating", (req, res) => this.editRating(req, res));
+    this.router.get("/filter/:place", (req, res) =>
+      this.getFilterPlace(req, res)
+    );
+>>>>>>> Stashed changes
   }
 
   createPlace(req, res) {
     const data = req.body;
-    console.log(data);
+
     if (
       !(
         data.name &&
@@ -28,6 +35,13 @@ class PlaceController {
         data.features
       )
     ) {
+      console.log(data.name);
+      console.log(data.address);
+      console.log(data.lactitude);
+      console.log(data.longitude);
+      console.log(data.categories);
+      console.log(data.features);
+
       return res.status(400).send("All fields are required");
     }
 
@@ -93,6 +107,20 @@ class PlaceController {
     const data = req.body;
     const { id } = data;
     const placePromise = this.placeService.deletePlace(id);
+    placePromise
+      .then((place) => {
+        res.json(place);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
+  getFilterPlace(req, res) {
+    const data = req.body;
+    const placePromise = this.placeService.getFilterPlace(data);
+    console.log(data);
     placePromise
       .then((place) => {
         res.json(place);
