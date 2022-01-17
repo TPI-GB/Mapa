@@ -29,6 +29,11 @@ class PlaceService {
     const place = await this.placeRepository.deletePlace(id);
     return place;
   }
+
+  async getFilterPlace(data) {
+    const place = await this.placeRepository.getFilterPlace(data);
+    return place;
+  }
 }
 
 module.exports = PlaceService;

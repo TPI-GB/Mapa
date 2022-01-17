@@ -87,14 +87,14 @@ export default function Places() {
                 </p>
               }
             ></List.Item.Meta>
-            <List.Item.Meta
+            {/* <List.Item.Meta
               title={place.features.map((f) => (
                 <p>
                   {<LabelImportantTwoToneIcon />}
                   {`${f}`}
                 </p>
               ))}
-            ></List.Item.Meta>
+            ></List.Item.Meta> */}
 
             <List.Item.Meta
               title={

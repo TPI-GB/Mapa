@@ -22,10 +22,10 @@ class PlaceRepository {
       description,
     });
 
-    if (data.file) {
-      const { filename } = data.file;
-      place.setImgUrl(filename);
-    }
+    // if (data.file) {
+    //   const { filename } = data.file;
+    //   place.setImgUrl(filename);
+    // }
 
     console.log(place);
 
@@ -40,8 +40,8 @@ class PlaceRepository {
       longitude,
       category,
       features,
-      description,
       id,
+      //imgurl,
     } = data;
 
     let newData = {};
@@ -66,9 +66,9 @@ class PlaceRepository {
     if (features != "") {
       newData.features = features;
     }
-    if (place.description === undefined || description != "") {
-      newData.description = description;
-    }
+    // if (imgurl != "") {
+    //   newData.imgurl = imgurl;
+    // }
 
     await Place.findByIdAndUpdate({ _id: id }, newData);
 
@@ -103,6 +103,13 @@ class PlaceRepository {
 
   async deletePlace(id) {
     return await Place.deleteOne({ _id: id });
+  }
+
+  async getFilterPlace(data) {
+    const { name } = data;
+    const filter = await Place.find({ $name: name });
+    console.log(filter);
+    return filter;
   }
 }
 

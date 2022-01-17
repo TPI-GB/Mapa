@@ -49,6 +49,24 @@ async function GetPlaces() {
     const response = await axios({
       url: `${baseUrl}/places`,
       method: "GET",
+<<<<<<< Updated upstream
+=======
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
+async function GetPlacesFilter(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/filter/:place`,
+      method: "GET",
+      data: data,
+>>>>>>> Stashed changes
     });
     return response.data;
   } catch (err) {
@@ -85,8 +103,12 @@ const petitions = {
   GetPlaces,
   AddCommentToPlace,
   EditRating,
+<<<<<<< Updated upstream
   GetCategories,
   GetIconNameByCategoryName,
+=======
+  GetPlacesFilter,
+>>>>>>> Stashed changes
 };
 
 export default petitions;
