@@ -23,6 +23,7 @@ async function AddCommentToPlace(data) {
       method: "PUT",
       data: data,
     });
+    window.alert("Se ha publicado su comentario, gracias por su aporte!");
     return response;
   } catch (err) {
     console.log(err);
@@ -36,6 +37,7 @@ async function EditRating(data) {
       method: "PUT",
       data: data,
     });
+    window.alert("Se ha cargado su puntaje, gracias por su aporte!");
     return response;
   } catch (err) {
     console.log(err);
