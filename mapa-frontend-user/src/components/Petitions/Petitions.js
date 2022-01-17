@@ -49,8 +49,6 @@ async function GetPlaces() {
     const response = await axios({
       url: `${baseUrl}/places`,
       method: "GET",
-<<<<<<< Updated upstream
-=======
     });
     console.log(response.data);
     return response.data;
@@ -66,7 +64,6 @@ async function GetPlacesFilter(data) {
       url: `${baseUrl}/places/filter/:place`,
       method: "GET",
       data: data,
->>>>>>> Stashed changes
     });
     return response.data;
   } catch (err) {
@@ -103,12 +100,9 @@ const petitions = {
   GetPlaces,
   AddCommentToPlace,
   EditRating,
-<<<<<<< Updated upstream
   GetCategories,
   GetIconNameByCategoryName,
-=======
   GetPlacesFilter,
->>>>>>> Stashed changes
 };
 
 export default petitions;
