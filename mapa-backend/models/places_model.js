@@ -8,7 +8,6 @@ const PlaceSchema = Schema(
     address: { type: String, unique: true },
     lactitude: Number,
     longitude: Number,
-<<<<<<< Updated upstream
     image: String,
     category: String,
     features: [],
@@ -16,12 +15,10 @@ const PlaceSchema = Schema(
     votes_count: { type: Array, default: [] },
     rating: { type: Number, default: 0 },
     comments: [],
-=======
     categories: [],
     features: [],
     description: String,
     //imgurl: String,
->>>>>>> Stashed changes
   },
   {
     timestamps: true,

@@ -53,7 +53,6 @@ function FormNewPlace() {
     petitions.CreatePlace(data);
   };
 
-<<<<<<< Updated upstream
   useEffect(() => {
     getData();
   }, []);
@@ -66,8 +65,6 @@ function FormNewPlace() {
 
   const inputFileRef = useRef();
 
-=======
->>>>>>> Stashed changes
   return (
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
@@ -148,12 +145,9 @@ function FormNewPlace() {
                   <FeatureSelect
                     control={control}
                     onChangeProp={(e) => {
-<<<<<<< Updated upstream
-                      setfeature([...feature, e.target.innerText]);
-=======
+                      setfeatures([...features, e.target.innerText]);
                       console.log(e);
                       setfeatures([...features, e.target.innerText]);
->>>>>>> Stashed changes
                     }}
                   />
                 </Stack>
@@ -163,9 +157,7 @@ function FormNewPlace() {
                     {"Cargar imagen"}
                   </Typography>
 
-<<<<<<< Updated upstream
                   <input type="file" ref={inputFileRef} />
-=======
                   <input name="image" type="file" {...register("image")} />
                 </Stack> */}
                 <Stack direction="row" ml={2}>
@@ -177,7 +169,6 @@ function FormNewPlace() {
                       <FontAwesomeIcon icon={"coffee"} />
                     </MenuItem>
                   </Select>
->>>>>>> Stashed changes
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button

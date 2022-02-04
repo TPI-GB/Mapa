@@ -1,6 +1,17 @@
 const express = require("express");
 const PlaceService = require("../services/place_service");
-const upload = require("../libs/storage");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
+
+const upload = multer({ storage: storage });
 
 class PlaceController {
   constructor() {
@@ -10,16 +21,13 @@ class PlaceController {
     this.router.put("/:id", (req, res) => this.editPlace(req, res));
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
-<<<<<<< Updated upstream
     this.router.post("/img", upload.single("image"), this.createPlace);
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
     this.router.put("/lama", (req, res) => this.lamaRating(req, res));
-=======
     this.router.put("/:rating", (req, res) => this.editRating(req, res));
     this.router.get("/filter/:place", (req, res) =>
       this.getFilterPlace(req, res)
     );
->>>>>>> Stashed changes
   }
 
   createPlace(req, res) {
