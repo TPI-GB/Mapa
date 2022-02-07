@@ -160,16 +160,6 @@ function FormNewPlace() {
                   <input type="file" ref={inputFileRef} />
                   <input name="image" type="file" {...register("image")} />
                 </Stack> */}
-                <Stack direction="row" ml={2}>
-                  Icono
-                </Stack>
-                <Stack direction="row" ml={2}>
-                  <Select>
-                    <MenuItem value="icono">
-                      <FontAwesomeIcon icon={"coffee"} />
-                    </MenuItem>
-                  </Select>
-                </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
                     variant="contained"
