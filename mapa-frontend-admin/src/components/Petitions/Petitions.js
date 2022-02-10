@@ -129,9 +129,13 @@ async function EditUser(data, id) {
       });
       Swal.fire({
         title: "Hecho!",
-        text: "El usuario ha sido editado correctamente, actualice para ver los cambios",
+        text: "El usuario ha sido editado correctamente",
         icon: "success",
-        confirmButtonText: "Cerrar",
+        confirmButtonText: "Regresar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = "/listusers";
+        }
       });
       return response;
     } else {
@@ -162,9 +166,13 @@ async function EditUserStatus(data, id) {
       });
       Swal.fire({
         title: "Hecho!",
-        text: "El usuario ha cambiado de estado correctamente, actualice para ver los cambios",
+        text: "El usuario ha cambiado de estado correctamente, presioné Cerrar para actualizar",
         icon: "success",
         confirmButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = window.location.href;
+        }
       });
       return response;
     } else {
@@ -274,7 +282,11 @@ async function CreatePlace(data) {
       title: "Hecho!",
       text: "El lugar se creó correctamente",
       icon: "success",
-      confirmButtonText: "Cerrar",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listplaces";
+      }
     });
     return response;
   } catch (error) {
@@ -326,7 +338,7 @@ async function DeletePlace(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "El lugar se ha borrado correctamente",
+      text: "El lugar se ha borrado correctamente, presioné Cerrar para actualizar",
       icon: "success",
       confirmButtonText: "Cerrar",
     }).then((result) => {
@@ -361,7 +373,11 @@ async function EditPlace(data, id) {
       title: "Hecho!",
       text: "El lugar ha sido editado correctamente",
       icon: "success",
-      confirmButtonText: "Ok",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listplaces";
+      }
     });
     return response;
   } catch (err) {
@@ -387,6 +403,10 @@ async function CreateCategory(data) {
       text: "La categoría se creó correctamente",
       icon: "success",
       confirmButtonText: "Cerrar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listcategories";
+      }
     });
     return response;
   } catch (error) {
@@ -438,7 +458,11 @@ async function EditCategory(data, id) {
       title: "Hecho!",
       text: "La categoría ha sido editada correctamente",
       icon: "success",
-      confirmButtonText: "Ok",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listcategories";
+      }
     });
     return response;
   } catch (err) {
@@ -471,7 +495,7 @@ async function DeleteCategory(id) {
       });
       Swal.fire({
         title: "Hecho!",
-        text: "La categoría se ha borrado correctamente",
+        text: "La categoría se ha borrado correctamente, presioné Cerrar para actualizar",
         icon: "success",
         confirmButtonText: "Cerrar",
       }).then((result) => {
@@ -506,7 +530,11 @@ async function CreateFeature(data) {
       title: "Hecho!",
       text: "La característica se creó correctamente",
       icon: "success",
-      confirmButtonText: "Cerrar",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listfeatures";
+      }
     });
     return response;
   } catch (error) {
@@ -559,7 +587,11 @@ async function EditFeature(data, id) {
       title: "Hecho!",
       text: "La característica ha sido editada correctamente",
       icon: "success",
-      confirmButtonText: "Ok",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/listfeatures";
+      }
     });
     return response;
   } catch (err) {
@@ -585,7 +617,7 @@ async function DeleteFeature(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La característica se ha borrado correctamente",
+      text: "La característica se ha borrado correctamente, presioné Cerrar para actualizar",
       icon: "success",
       confirmButtonText: "Cerrar",
     }).then((result) => {
