@@ -1,3 +1,4 @@
+import { Result } from "antd";
 import axios from "axios";
 import Swal from "sweetalert2";
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -328,6 +329,10 @@ async function DeletePlace(id) {
       text: "El lugar se ha borrado correctamente, actualice para visualizar cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = window.location.href;
+      }
     });
     return response;
   } catch (err) {
@@ -469,6 +474,10 @@ async function DeleteCategory(id) {
         text: "La categoría se ha borrado correctamente, actualice para visualizar los cambios",
         icon: "success",
         confirmButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = window.location.href;
+        }
       });
       return response;
     }
@@ -579,6 +588,10 @@ async function DeleteFeature(id) {
       text: "La característica se ha borrado correctamente, actualice para visualizar los cambios",
       icon: "success",
       confirmButtonText: "Cerrar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = window.location.href;
+      }
     });
     return response;
   } catch (err) {

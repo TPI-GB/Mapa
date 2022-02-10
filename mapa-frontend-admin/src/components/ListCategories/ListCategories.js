@@ -20,8 +20,8 @@ export default function ListCategories() {
     .map((icon) => Icons[icon]);
 
   library.add(...iconList);
-  const [categories, setcategories] = useState([]);
 
+  const [categories, setcategories] = useState([]);
   useEffect(() => {
     getData();
   }, []);
@@ -110,7 +110,7 @@ function buttonDelete(category) {
       size="small"
       variant="contained"
       style={{ background: "#AC0D0D" }}
-      onClick={() => deleteCategory(category._id)}
+      onClick={() => DeleteCategory(category._id)}
     >
       <DeleteForeverOutlinedIcon /> Borrar
     </Button>
@@ -119,7 +119,7 @@ function buttonDelete(category) {
   return button;
 }
 
-function deleteCategory(id) {
+function DeleteCategory(id) {
   return Swal.fire({
     title: "Atencion!",
     text: "Está a punto de eliminar la categoría de la base de datos, esto no implica que un lugar con esta categoria se modifique",
