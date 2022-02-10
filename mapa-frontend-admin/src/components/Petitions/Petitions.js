@@ -326,7 +326,7 @@ async function DeletePlace(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "El lugar se ha borrado correctamente, actualice para visualizar cambios",
+      text: "El lugar se ha borrado correctamente",
       icon: "success",
       confirmButtonText: "Cerrar",
     }).then((result) => {
@@ -471,7 +471,7 @@ async function DeleteCategory(id) {
       });
       Swal.fire({
         title: "Hecho!",
-        text: "La categoría se ha borrado correctamente, actualice para visualizar los cambios",
+        text: "La categoría se ha borrado correctamente",
         icon: "success",
         confirmButtonText: "Cerrar",
       }).then((result) => {
@@ -585,7 +585,7 @@ async function DeleteFeature(id) {
     });
     Swal.fire({
       title: "Hecho!",
-      text: "La característica se ha borrado correctamente, actualice para visualizar los cambios",
+      text: "La característica se ha borrado correctamente",
       icon: "success",
       confirmButtonText: "Cerrar",
     }).then((result) => {
