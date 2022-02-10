@@ -27,7 +27,6 @@ class UserService {
     // Validate if user exist in our database
     try {
       const user = await this.userRepository.userEmail(email);
-
       if (
         user &&
         (await bcrypt.compare(password, user.password)) &&

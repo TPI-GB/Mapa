@@ -16,10 +16,25 @@ import {
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./EditPlace.scss";
-import FeatureSelect from "./FeatureSelect";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250
+    }
+  }
+};
 
 export default function EditPlace() {
   const { id } = useParams();
@@ -44,13 +59,24 @@ function FormNewPlace() {
   const { register, handleSubmit, control } = useForm();
 
   const [categories, setCategories] = useState([]);
-  const [features, setfeatures] = useState([]);
+  const [feature, setFeature] = useState([]);
+  const [features, setFeatures] = useState([]);
 
   const onSubmit = (data) => {
     data.categories = categories;
     data.features = features;
 
     petitions.CreatePlace(data);
+  };
+
+  const handleChange = (event) => {
+    const {
+      target: { value }
+    } = event;
+    setFeature(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
 
   useEffect(() => {
@@ -61,6 +87,8 @@ function FormNewPlace() {
     const responseCategories = petitions.GetCategories();
     const categories = await responseCategories;
     setCategories(categories);
+    const featureValues = await petitions.GetFeatures();
+    setFeatures(featureValues.map((x) => x.name));
   };
 
   const inputFileRef = useRef();
@@ -142,24 +170,29 @@ function FormNewPlace() {
                   </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <FeatureSelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      setfeatures([...features, e.target.innerText]);
-                      console.log(e);
-                      setfeatures([...features, e.target.innerText]);
-                    }}
-                  />
+                  <div>
+                    <FormControl sx={{ m: 1, width: 300 }}>
+                      <InputLabel id="feature-multiple-checkbox-label">Caracteristicas</InputLabel>
+                      <Select
+                        labelId="feature-multiple-checkbox-label"
+                        id="feature-multiple-checkbox"
+                        multiple
+                        value={feature}
+                        onChange={handleChange}
+                        input={<OutlinedInput label="Caracteristicas" />}
+                        renderValue={(selected) => selected.join(", ")}
+                        MenuProps={MenuProps}
+                      >
+                        {features.map((name) => (
+                          <MenuItem key={name} value={name}>
+                            <Checkbox checked={feature.indexOf(name) > -1} />
+                            <ListItemText primary={name} />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </Stack>
-                {/* 
-                <Stack direction="row" ml={2} mt={2}>
-                  <Typography align="inherit" mt={0.3} variant="button">
-                    {"Cargar imagen"}
-                  </Typography>
-
-                  <input type="file" ref={inputFileRef} />
-                  <input name="image" type="file" {...register("image")} />
-                </Stack> */}
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
                     variant="contained"
@@ -187,20 +220,46 @@ function FormEditPlace(id) {
   const { register, handleSubmit, control } = useForm();
 
   const [place, setPlace] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("")
   const [categories, setCategories] = useState([]);
-  const [feature, setfeature] = useState([]);
+  const [feature, setFeature] = useState([]);
+  const [features, setFeatures] = useState([]);
 
   useEffect(() => {
     getData();
   }, []);
+
+
+  const handleChange = (event) => {
+    const {
+      target: { value }
+    } = event;
+    setFeature(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
+  const handleChangeSelectedCategory = (event) => {
+    const {
+      target: { value }
+    } = event;
+    setSelectedCategory(
+      value
+    );
+  };
 
   const getData = async () => {
     const responsePlace = petitions.GetPlaceById(id);
     const responseCategories = petitions.GetCategories();
     const place = await responsePlace;
     const categories = await responseCategories;
+    const featureValues = await petitions.GetFeatures();
+    setFeatures(featureValues.map((x) => x.name));
     setPlace(place);
+    setFeature(place.features)
     setCategories(categories);
+    setSelectedCategory(place.category ? place.category.trim() : '')
   };
 
   const onSubmit = (data) => {
@@ -286,34 +345,49 @@ function FormEditPlace(id) {
                 </Stack>
 
                 <Stack ml={2} mt={2}>
-                  <p>
-                    <b>Seleccione nueva categoria</b>
-                  </p>
-                  <Select
-                    {...register("category")}
-                    required
-                    placeholder="Categoria"
-                  >
-                    {categories.map(({ name, icon }) => (
-                      <MenuItem value={name}>
-                        {`${name}`}
-                        {<FontAwesomeIcon icon={icon} />}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="feature-multiple-checkbox-label">Categoria</InputLabel>
+                    <Select
+                      {...register("category")}
+                      required
+                      input={<OutlinedInput label="Categoria" />}
+                      value={selectedCategory}
+                      onChange={handleChangeSelectedCategory}
+                    >
+                      {
+                        categories.map(({ name, icon }) => (
+                          <MenuItem value={name}>
+                            {name}
+                            {<FontAwesomeIcon icon={icon} />}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
-                  <FeatureSelect
-                    control={control}
-                    onChangeProp={(e) => {
-                      console.log(e);
-                      setfeature([...feature, e.target.innerText]);
-                    }}
-                    placeholder={place.longitude}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
+                  <div>
+                    <FormControl sx={{ m: 1, width: 300 }}>
+                      <InputLabel id="feature-multiple-checkbox-label">Caracteristicas</InputLabel>
+                      <Select
+                        {...register("features")}
+                        required
+                        multiple
+                        value={feature}
+                        onChange={handleChange}
+                        input={<OutlinedInput label="Caracteristicas" />}
+                        renderValue={(selected) => selected.join(", ")}
+                        MenuProps={MenuProps}
+                      >
+                        {features.map((name) => (
+                          <MenuItem key={name} value={name}>
+                            <Checkbox checked={feature.indexOf(name) > -1} />
+                            <ListItemText primary={name} />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">
@@ -323,6 +397,7 @@ function FormEditPlace(id) {
                   <input
                     type="file"
                     ref={inputFileRef}
+                    name="image"
                     placeholder={place.longitude}
                     InputLabelProps={{
                       shrink: true,
