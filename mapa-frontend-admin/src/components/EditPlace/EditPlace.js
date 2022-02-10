@@ -323,6 +323,7 @@ function FormEditPlace(id) {
                   <input
                     type="file"
                     ref={inputFileRef}
+                    name="image"
                     placeholder={place.longitude}
                     InputLabelProps={{
                       shrink: true,
