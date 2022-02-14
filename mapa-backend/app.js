@@ -7,9 +7,6 @@ const PlaceController = require("./controllers/place_controller");
 const CategoryController = require("./controllers/category_controller");
 const FeatureController = require("./controllers/feature_controller");
 const CommentController = require("./controllers/comment_controller");
-const multer = require("multer");
-
-//const upload = require("./libs/storage");
 
 app.use(cors());
 
@@ -17,7 +14,6 @@ var bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//app.use(multer().array());
 
 let userController = new UserController();
 let placeController = new PlaceController();

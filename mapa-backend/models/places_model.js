@@ -10,7 +10,6 @@ const PlaceSchema = Schema(
     longitude: Number,
     image: String,
     category: String,
-    features: [],
     description: String,
     votes_count: { type: Array, default: [] },
     rating: { type: Number, default: 0 },
