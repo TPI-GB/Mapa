@@ -3,7 +3,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Footer from "./components/Footer/Footer";
-import SelectTextField from "./components/SelectTextField";
 import Prueba from "./components/Home/Prueba";
 
 function App() {
@@ -12,9 +11,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-        </Routes>
-        <Routes>
-          <Route path="/selectTextField" element={<SelectTextField />} />
         </Routes>
         <Routes>
           <Route path="/prueba" element={<Prueba />} />

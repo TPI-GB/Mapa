@@ -108,7 +108,6 @@ class PlaceRepository {
   async getFilterPlace(data) {
     const { name } = data;
     const filter = await Place.find({ $name: name });
-    console.log(filter);
     return filter;
   }
 }
