@@ -1,4 +1,3 @@
-import { Result } from "antd";
 import axios from "axios";
 import Swal from "sweetalert2";
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -212,8 +211,8 @@ async function verifyEditUser(data, user) {
   return (
     !allNicksActiveFilter.includes(nick) &&
     !allEmailsActiveFilter.includes(email) &&
-    isValidEmail(data.email)
-  );
+    (isValidEmail(data.email) || data.email === '')
+  ); 
 }
 
 async function SendEmailReset(data) {
@@ -242,7 +241,7 @@ async function SendEmailReset(data) {
 function isValidEmail(email) {
   const validFormat =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  return validFormat.test(email);
+  return validFormat.test(email)
 }
 
 async function LoginUser(data) {

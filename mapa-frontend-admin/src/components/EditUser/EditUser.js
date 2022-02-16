@@ -144,6 +144,7 @@ function FormEditUser(id) {
 
   const onSubmit = (data) => {
     petitions.EditUser(data, id);
+    console.log(data);
   };
 
   let selected = (

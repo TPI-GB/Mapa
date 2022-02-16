@@ -14,10 +14,17 @@ class PlaceController {
     );
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
+<<<<<<< Updated upstream
     this.router.post("/img", upload.single("image"), function (req, res, next) {
       console.log("/img");
       console.log(req.file.filename);
       console.log(req.body);
+=======
+    this.router.post("/img", upload.array('image', 12), function (req, res, next) {
+      console.log("/img")
+      console.log(req.file.filename)
+      console.log(req.body)
+>>>>>>> Stashed changes
       // req.file is the `image` file
       // req.body will hold the text fields, if there were any
     });
