@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 export default function EditUser() {
   const { id } = useParams();
 
-  if (sessionStorage.getItem("user login rol") === "Administrador") {
+  if (localStorage.getItem("user login rol") === "Administrador") {
     let form;
 
     if (id === "new") {

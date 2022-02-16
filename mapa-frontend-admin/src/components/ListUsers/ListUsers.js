@@ -42,7 +42,7 @@ export default function ListUsers() {
   });
 
   const ButtonEditUser = (id) => {
-    if (sessionStorage.getItem("user login rol") === "Administrador") {
+    if (localStorage.getItem("user login rol") === "Administrador") {
       return (
         <Button
           variant="contained"
@@ -59,7 +59,7 @@ export default function ListUsers() {
   };
 
   const ButtonCreateUser = () => {
-    if (sessionStorage.getItem("user login rol") === "Administrador") {
+    if (localStorage.getItem("user login rol") === "Administrador") {
       return (
         <Button
           variant="contained"

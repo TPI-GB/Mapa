@@ -12,7 +12,7 @@ import {
 
 export default function ChangePassword() {
   const { register, handleSubmit } = useForm();
-  const id = sessionStorage.getItem("user login id");
+  const id = localStorage.getItem("user login id");
   const onSubmit = (data) => {
     data.id = id;
     petitions.ChangePasswordUser(data);

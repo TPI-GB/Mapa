@@ -7,7 +7,7 @@ import Login from "../Login";
 export default function Authenticated(props) {
   const component = props.component;
   const history = useHistory();
-  const token = sessionStorage.getItem("user login nick");
+  const token = localStorage.getItem("user login nick");
   const tokenTime = localStorage.getItem("user token expires");
   const isExpires = () => {
     try {

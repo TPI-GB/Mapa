@@ -9,7 +9,7 @@ async function GetUsers() {
       url: `${baseUrl}/users`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     return response.data;
@@ -38,7 +38,7 @@ async function RegisterUser(data) {
         method: "POST",
         data: data,
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+          Authorization: `Bearer ${localStorage.getItem("user login token")}`,
         },
       });
       Swal.fire({
@@ -124,7 +124,7 @@ async function EditUser(data, id) {
         method: "PUT",
         data: data,
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+          Authorization: `Bearer ${localStorage.getItem("user login token")}`,
         },
       });
       Swal.fire({
@@ -161,7 +161,7 @@ async function EditUserStatus(data, id) {
         method: "PUT",
         data: { active: data },
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+          Authorization: `Bearer ${localStorage.getItem("user login token")}`,
         },
       });
       Swal.fire({
@@ -252,7 +252,7 @@ async function LoginUser(data) {
       method: "POST",
       data: data,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     return response;
@@ -305,7 +305,7 @@ async function GetPlaces() {
       url: `${baseUrl}/places`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     console.log(response.data);
@@ -333,7 +333,7 @@ async function DeletePlace(id) {
       method: "DELETE",
       data: { id: id },
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     Swal.fire({
@@ -366,7 +366,7 @@ async function EditPlace(data, id) {
       method: "PUT",
       data: data,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     Swal.fire({
@@ -425,7 +425,7 @@ async function GetCategories() {
       url: `${baseUrl}/categories`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     return response.data;
@@ -451,7 +451,7 @@ async function EditCategory(data, id) {
       method: "PUT",
       data: data,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     Swal.fire({
@@ -490,7 +490,7 @@ async function DeleteCategory(id) {
         method: "DELETE",
         data: { id: id },
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+          Authorization: `Bearer ${localStorage.getItem("user login token")}`,
         },
       });
       Swal.fire({
@@ -553,7 +553,7 @@ async function GetFeatures() {
       url: `${baseUrl}/features`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     return response.data;
@@ -580,7 +580,7 @@ async function EditFeature(data, id) {
       method: "PUT",
       data: data,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     Swal.fire({
@@ -612,7 +612,7 @@ async function DeleteFeature(id) {
       method: "DELETE",
       data: { id: id },
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("user login token")}`,
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
     Swal.fire({

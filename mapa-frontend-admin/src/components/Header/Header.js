@@ -60,10 +60,10 @@ export default function Header() {
 }
 
 function AccountMenu() {
-  const id = sessionStorage.getItem("user login id");
+  const id = localStorage.getItem("user login id");
   const history = useHistory();
   const logOut = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     history.push("/login");
   };
   const ChangePassword = () => {
@@ -123,13 +123,13 @@ function AccountMenu() {
         <MenuItem>
           <Avatar />
           <b>
-            {sessionStorage.getItem("user login first_name") +
+            {localStorage.getItem("user login first_name") +
               " " +
-              sessionStorage.getItem("user login last_name")}
+              localStorage.getItem("user login last_name")}
           </b>
         </MenuItem>
         <MenuItem>
-          <b>{sessionStorage.getItem("user login nick")}</b>
+          <b>{localStorage.getItem("user login nick")}</b>
         </MenuItem>
         <Divider />
         <MenuItem

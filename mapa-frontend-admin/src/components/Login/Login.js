@@ -20,21 +20,18 @@ export default function Login() {
     res
       .then((response) => {
         if (response.status === 200) {
-          sessionStorage.setItem("user login token", response.data.token);
-          sessionStorage.setItem("user login expires", response.data.expires);
+          localStorage.setItem("user login token", response.data.token);
+          localStorage.setItem("user login expires", response.data.expires);
 
-          sessionStorage.setItem(
+          localStorage.setItem(
             "user login first_name",
             response.data.first_name
           );
-          sessionStorage.setItem(
-            "user login last_name",
-            response.data.last_name
-          );
-          sessionStorage.setItem("user login nick", response.data.nick);
-          sessionStorage.setItem("user login rol", response.data.rol);
-          sessionStorage.setItem("user login email", response.data.email);
-          sessionStorage.setItem("user login id", response.data.id);
+          localStorage.setItem("user login last_name", response.data.last_name);
+          localStorage.setItem("user login nick", response.data.nick);
+          localStorage.setItem("user login rol", response.data.rol);
+          localStorage.setItem("user login email", response.data.email);
+          localStorage.setItem("user login id", response.data.id);
 
           history.push("./listplaces");
         }
