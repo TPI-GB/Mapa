@@ -50,7 +50,7 @@ export default function MapView() {
             {...register("name")}
             sx={{ minWidth: "300px" }}
           />
-          <FormControl sx={{ minWidth: "300px" }}>
+          {/* <FormControl sx={{ minWidth: "300px" }}>
             <InputLabel>Categorias</InputLabel>
             <Select
               value={age}
@@ -75,7 +75,7 @@ export default function MapView() {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
           <Button
             variant="contained"
             type="submit"

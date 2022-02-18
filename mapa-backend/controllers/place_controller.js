@@ -14,24 +14,21 @@ class PlaceController {
     );
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
-<<<<<<< Updated upstream
-    this.router.post("/img", upload.single("image"), function (req, res, next) {
-      console.log("/img");
-      console.log(req.file.filename);
-      console.log(req.body);
-=======
-    this.router.post("/img", upload.array('image', 12), function (req, res, next) {
-      console.log("/img")
-      console.log(req.file.filename)
-      console.log(req.body)
->>>>>>> Stashed changes
-      // req.file is the `image` file
-      // req.body will hold the text fields, if there were any
-    });
+    this.router.post(
+      "/img",
+      upload.array("image", 12),
+      function (req, res, next) {
+        console.log("/img");
+        console.log(req.file.filename);
+        console.log(req.body);
+        // req.file is the `image` file
+        // req.body will hold the text fields, if there were any
+      }
+    );
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
     this.router.put("/lama", (req, res) => this.lamaRating(req, res));
     this.router.put("/:rating", (req, res) => this.editRating(req, res));
-    this.router.put("/filter", (req, res) => this.getFilterPlace(req, res));
+    this.router.post("/filter", (req, res) => this.getFilterPlace(req, res));
   }
 
   createPlace(req, res) {

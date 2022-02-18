@@ -60,8 +60,8 @@ async function GetPlaces() {
 async function GetPlacesFilter(data) {
   try {
     const response = await axios({
-      url: `${baseUrl}/places/${data}`,
-      method: "PUT",
+      url: `${baseUrl}/places/filter`,
+      method: "POST",
       data: data,
     });
     return response.data;
