@@ -13,6 +13,7 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import petitions from "../Petitions";
 import { useForm } from "react-hook-form";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function MapView() {
   const [places, setPlaces] = useState([]);
@@ -81,7 +82,7 @@ export default function MapView() {
             type="submit"
             style={{ background: "#39A2DB" }}
           >
-            Buscar
+            <SearchIcon />
           </Button>
         </Box>
       </form>
