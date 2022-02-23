@@ -31,9 +31,9 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
+      width: 250,
+    },
+  },
 };
 
 export default function EditPlace() {
@@ -71,7 +71,7 @@ function FormNewPlace() {
 
   const handleChange = (event) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
     setFeature(
       // On autofill we get a stringified value.
@@ -172,7 +172,9 @@ function FormNewPlace() {
                 <Stack direction="row" ml={2} mt={2}>
                   <div>
                     <FormControl sx={{ m: 1, width: 300 }}>
-                      <InputLabel id="feature-multiple-checkbox-label">Caracteristicas</InputLabel>
+                      <InputLabel id="feature-multiple-checkbox-label">
+                        Caracteristicas
+                      </InputLabel>
                       <Select
                         labelId="feature-multiple-checkbox-label"
                         id="feature-multiple-checkbox"
@@ -220,7 +222,7 @@ function FormEditPlace(id) {
   const { register, handleSubmit, control } = useForm();
 
   const [place, setPlace] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
@@ -229,10 +231,9 @@ function FormEditPlace(id) {
     getData();
   }, []);
 
-
   const handleChange = (event) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
     setFeature(
       // On autofill we get a stringified value.
@@ -242,11 +243,9 @@ function FormEditPlace(id) {
 
   const handleChangeSelectedCategory = (event) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
-    setSelectedCategory(
-      value
-    );
+    setSelectedCategory(value);
   };
 
   const getData = async () => {
@@ -257,9 +256,9 @@ function FormEditPlace(id) {
     const featureValues = await petitions.GetFeatures();
     setFeatures(featureValues.map((x) => x.name));
     setPlace(place);
-    setFeature(place.features)
+    setFeature(place.features);
     setCategories(categories);
-    setSelectedCategory(place.category ? place.category.trim() : '')
+    setSelectedCategory(place.category ? place.category.trim() : "");
   };
 
   const onSubmit = (data) => {
@@ -346,7 +345,9 @@ function FormEditPlace(id) {
 
                 <Stack ml={2} mt={2}>
                   <FormControl sx={{ m: 1, width: 300 }}>
-                    <InputLabel id="feature-multiple-checkbox-label">Categoria</InputLabel>
+                    <InputLabel id="feature-multiple-checkbox-label">
+                      Categoria
+                    </InputLabel>
                     <Select
                       {...register("category")}
                       required
@@ -354,20 +355,21 @@ function FormEditPlace(id) {
                       value={selectedCategory}
                       onChange={handleChangeSelectedCategory}
                     >
-                      {
-                        categories.map(({ name, icon }) => (
-                          <MenuItem value={name}>
-                            {name}
-                            {<FontAwesomeIcon icon={icon} />}
-                          </MenuItem>
-                        ))}
+                      {categories.map(({ name, icon }) => (
+                        <MenuItem value={name}>
+                          {name}
+                          {<FontAwesomeIcon icon={icon} />}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <div>
                     <FormControl sx={{ m: 1, width: 300 }}>
-                      <InputLabel id="feature-multiple-checkbox-label">Caracteristicas</InputLabel>
+                      <InputLabel id="feature-multiple-checkbox-label">
+                        Caracteristicas
+                      </InputLabel>
                       <Select
                         {...register("features")}
                         required
@@ -387,7 +389,6 @@ function FormEditPlace(id) {
                       </Select>
                     </FormControl>
                   </div>
-
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">

@@ -14,7 +14,6 @@ const PlaceSchema = Schema(
     votes_count: { type: Array, default: [] },
     rating: { type: Number, default: 0 },
     comments: [],
-    categories: [],
     features: [],
     description: String,
     //imgurl: String,

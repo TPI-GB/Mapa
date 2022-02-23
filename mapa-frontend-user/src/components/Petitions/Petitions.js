@@ -83,6 +83,22 @@ async function GetCategories() {
   }
 }
 
+async function GetFeatures() {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/features`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
 async function GetIconNameByCategoryName(category) {
   try {
     const categories = await GetCategories();
@@ -102,6 +118,7 @@ const petitions = {
   GetCategories,
   GetIconNameByCategoryName,
   GetPlacesFilter,
+  GetFeatures,
 };
 
 export default petitions;
