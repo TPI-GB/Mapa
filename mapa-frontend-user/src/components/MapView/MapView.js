@@ -9,6 +9,8 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@mui/material/Button";
 import ListItemText from "@mui/material/ListItemText";
@@ -16,6 +18,7 @@ import Checkbox from "@mui/material/Checkbox";
 import petitions from "../Petitions";
 import { useForm } from "react-hook-form";
 import SearchIcon from "@mui/icons-material/Search";
+import { Stack } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -51,7 +54,6 @@ export default function MapView() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const newPlaces = await petitions.GetPlacesFilter(data);
     setPlaces(newPlaces);
   };
@@ -77,32 +79,43 @@ export default function MapView() {
             {...register("name")}
             sx={{ minWidth: "300px" }}
           />
-          <Select {...register("category")} placeholder="Seleccionar categoria">
-            {categories.map(({ name, icon }) => (
-              <MenuItem value={name}>
-                {`${name}`}
-                {<FontAwesomeIcon icon={icon} />}
-              </MenuItem>
-            ))}
-          </Select>
-          <Select
-            {...register("features")}
-            labelId="feature-multiple-checkbox-label"
-            id="feature-multiple-checkbox"
-            multiple
-            value={feature}
-            onChange={handleChange}
-            input={<OutlinedInput label="Seleccionar caracteristicas" />}
-            renderValue={(selected) => selected.join(", ")}
-            MenuProps={MenuProps}
-          >
-            {features.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={feature.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl sx={{ width: 300 }}>
+            <InputLabel id="feature-multiple-checkbox-label">
+              Buscar Categoria
+            </InputLabel>
+            <Select {...register("category")}>
+              <MenuItem value={""}>Todas</MenuItem>
+              {categories.map(({ name, icon }) => (
+                <MenuItem value={name}>
+                  {`${name}`}
+                  {<FontAwesomeIcon icon={icon} />}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ width: 300 }}>
+            <InputLabel id="feature-multiple-checkbox-label">
+              Buscar Caracteristicas
+            </InputLabel>
+            <Select
+              {...register("features")}
+              labelId="feature-multiple-checkbox-label"
+              id="feature-multiple-checkbox"
+              multiple
+              value={feature}
+              onChange={handleChange}
+              input={<OutlinedInput label="Seleccionar caracteristicas" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={MenuProps}
+            >
+              {features.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <Checkbox checked={feature.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Button
             variant="contained"
             type="submit"

@@ -109,39 +109,11 @@ class PlaceRepository {
     const { name, category, features } = data;
     const filter = await Place.find({
       $and: [
-        {
-          $or: [
-            { name: { $regex: name } },
-            {
-              $where: function () {
-                return name === "";
-              },
-            },
-          ],
-        },
-        {
-          $or: [
-            { category: category },
-            {
-              $where: function () {
-                return category === "";
-              },
-            },
-          ],
-        },
-        {
-          $or: [
-            { features: { $all: features } },
-            {
-              $where: function () {
-                return features === "";
-              },
-            },
-          ],
-        },
+        { name: { $regex: name || name === "" } },
+        { category: category || category === "" },
+        { features: { $all: features || features.length === 0 } },
       ],
     });
-    console.log(filter);
     return filter;
   }
 }
