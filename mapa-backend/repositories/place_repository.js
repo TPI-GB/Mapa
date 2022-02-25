@@ -107,14 +107,15 @@ class PlaceRepository {
 
   async getFilterPlace(data) {
     const { name, category, features } = data;
-    const filter = await Place.find({
-      $and: [
-        { name: { $regex: name || name === "" } },
-        { category: category || category === "" },
-        { features: { $all: features || features.length === 0 } },
-      ],
-    });
-    return filter;
+    console.log(name);
+    const places = await Place.find();
+    const placesFilter = places.filter(
+      (p) =>
+        (p.name.includes(name) || name === "") &&
+        (p.category === category || category === "") &&
+        (p.features.every((f) => features.includes(f)) || features.length == 0)
+    );
+    return placesFilter;
   }
 }
 
