@@ -45,15 +45,16 @@ export default function MapView() {
     const placesValues = await petitions.GetPlaces();
     const responseCategories = petitions.GetCategories();
     const categories = await responseCategories;
-    setCategories(categories);
     const featureValues = await petitions.GetFeatures();
     setPlaces(placesValues);
     setFeatures(featureValues.map((x) => x.name));
+    setCategories(categories);
   };
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     const newPlaces = await petitions.GetPlacesFilter(data);
     setPlaces(newPlaces);
   };

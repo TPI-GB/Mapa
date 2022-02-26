@@ -372,7 +372,6 @@ function FormEditPlace(id) {
                       </InputLabel>
                       <Select
                         {...register("features")}
-                        required
                         multiple
                         value={feature}
                         onChange={handleChange}

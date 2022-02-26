@@ -63,9 +63,7 @@ class PlaceRepository {
     if (category != "") {
       newData.category = category;
     }
-    if (features != "") {
-      newData.features = features;
-    }
+    newData.features = features;
     // if (imgurl != "") {
     //   newData.imgurl = imgurl;
     // }
@@ -107,14 +105,8 @@ class PlaceRepository {
 
   async getFilterPlace(data) {
     const { name, category, features } = data;
-    console.log(name);
-    const places = await Place.find();
-    const placesFilter = places.filter(
-      (p) =>
-        (p.name.includes(name) || name === "") &&
-        (p.category === category || category === "") &&
-        (p.features.every((f) => features.includes(f)) || features.length == 0)
-    );
+    const placesFilter = await Place.find({ name: { $regex: name } });
+    console.log(placesFilter);
     return placesFilter;
   }
 }
