@@ -105,8 +105,21 @@ class PlaceRepository {
 
   async getFilterPlace(data) {
     const { name, category, features } = data;
-    const placesFilter = await Place.find({ name: { $regex: name } });
-    console.log(placesFilter);
+    let nameFilter = {};
+    let categoryFliter = {};
+    let featuresFilter = {};
+    if (name != "") {
+      nameFilter = { name: { $regex: name } };
+    }
+    if (category != "") {
+      categoryFliter = { category: category };
+    }
+    if (features.length != 0) {
+      featuresFilter = { features: { $all: features } };
+    }
+    const placesFilter = Place.find({
+      $and: [nameFilter, categoryFliter, featuresFilter],
+    });
     return placesFilter;
   }
 }

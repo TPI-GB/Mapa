@@ -43,21 +43,14 @@ export default function MapView() {
 
   const getData = async () => {
     const placesValues = await petitions.GetPlaces();
-    const responseCategories = petitions.GetCategories();
-    const categories = await responseCategories;
+    const categoriesValues = await petitions.GetCategories();
     const featureValues = await petitions.GetFeatures();
     setPlaces(placesValues);
     setFeatures(featureValues.map((x) => x.name));
-    setCategories(categories);
+    setCategories(categoriesValues);
   };
 
   const { register, handleSubmit } = useForm();
-
-  const onSubmit = async (data) => {
-    console.log(data);
-    const newPlaces = await petitions.GetPlacesFilter(data);
-    setPlaces(newPlaces);
-  };
 
   const handleChange = (event) => {
     const {
@@ -67,6 +60,11 @@ export default function MapView() {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+  };
+
+  const onSubmit = async (data) => {
+    const newPlaces = await petitions.GetPlacesFilter(data);
+    setPlaces(newPlaces);
   };
 
   return (

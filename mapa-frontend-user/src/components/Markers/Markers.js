@@ -61,7 +61,9 @@ function IconPlace(place) {
   library.add(...iconList);
   const [icon, setIcon] = useState([]);
   useEffect(() => {
-    getData();
+    if (place) {
+      getData();
+    }
   }, []);
 
   const getData = async () => {
