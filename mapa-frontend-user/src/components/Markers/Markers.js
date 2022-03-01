@@ -21,8 +21,11 @@ import { useState, useEffect } from "react";
 import petitions from "../Petitions";
 import "./Markers.scss";
 
-const Markers = (props) => {
-  const { places } = props;
+const Markers = () => {
+  const places = JSON.parse(sessionStorage.getItem("places"));
+  if (places === null) {
+    window.location = window.location.href;
+  }
   const markers = places.map((place, i) => (
     <Marker
       key={i}
@@ -61,9 +64,7 @@ function IconPlace(place) {
   library.add(...iconList);
   const [icon, setIcon] = useState([]);
   useEffect(() => {
-    if (place) {
-      getData();
-    }
+    getData();
   }, []);
 
   const getData = async () => {

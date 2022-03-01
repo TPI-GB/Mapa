@@ -32,7 +32,7 @@ const MenuProps = {
 };
 
 export default function MapView() {
-  const [places, setPlaces] = useState([]);
+  let places = sessionStorage.getItem("places");
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -42,10 +42,13 @@ export default function MapView() {
   }, []);
 
   const getData = async () => {
-    const placesValues = await petitions.GetPlaces();
+    if (places === null) {
+      const res = await petitions.GetPlaces();
+      sessionStorage.setItem("places", JSON.stringify(res));
+      places = sessionStorage.getItem("places");
+    }
     const categoriesValues = await petitions.GetCategories();
     const featureValues = await petitions.GetFeatures();
-    setPlaces(placesValues);
     setFeatures(featureValues.map((x) => x.name));
     setCategories(categoriesValues);
   };
@@ -64,7 +67,8 @@ export default function MapView() {
 
   const onSubmit = async (data) => {
     const newPlaces = await petitions.GetPlacesFilter(data);
-    setPlaces(newPlaces);
+    sessionStorage.setItem("places", JSON.stringify(newPlaces));
+    window.location = window.location.href;
   };
 
   return (
@@ -134,7 +138,7 @@ export default function MapView() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
           />
-          <Markers places={places} />
+          <Markers />
         </MapContainer>
       </div>
     </div>
