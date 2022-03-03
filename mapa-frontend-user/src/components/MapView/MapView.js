@@ -33,6 +33,7 @@ const MenuProps = {
 
 export default function MapView() {
   let places = sessionStorage.getItem("places");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -51,6 +52,12 @@ export default function MapView() {
     const featureValues = await petitions.GetFeatures();
     setFeatures(featureValues.map((x) => x.name));
     setCategories(categoriesValues);
+    const category = sessionStorage.getItem("category");
+    if (category != null) {
+      setSelectedCategory(category ? category.trim() : "");
+    } else {
+      setSelectedCategory("Todas");
+    }
   };
 
   const { register, handleSubmit } = useForm();
@@ -65,7 +72,20 @@ export default function MapView() {
     );
   };
 
+  const handleChangeSelectedCategory = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedCategory(value);
+  };
+
   const onSubmit = async (data) => {
+    if (data.category === "Todas" || data.category === "") {
+      data.category = "";
+      sessionStorage.setItem("category", "Todas");
+    } else {
+      sessionStorage.setItem("category", data.category);
+    }
     const newPlaces = await petitions.GetPlacesFilter(data);
     sessionStorage.setItem("places", JSON.stringify(newPlaces));
     window.location = window.location.href;
@@ -86,8 +106,12 @@ export default function MapView() {
             <InputLabel id="feature-multiple-checkbox-label">
               Buscar Categoria
             </InputLabel>
-            <Select {...register("category")}>
-              <MenuItem value={""}>Todas</MenuItem>
+            <Select
+              {...register("category")}
+              value={selectedCategory}
+              onChange={handleChangeSelectedCategory}
+            >
+              <MenuItem value={"Todas"}>Todas</MenuItem>
               {categories.map(({ name, icon }) => (
                 <MenuItem value={name}>
                   {`${name}`}

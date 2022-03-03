@@ -65,7 +65,6 @@ function FormNewPlace() {
   const onSubmit = (data) => {
     data.categories = categories;
     data.features = features;
-
     petitions.CreatePlace(data);
   };
 
