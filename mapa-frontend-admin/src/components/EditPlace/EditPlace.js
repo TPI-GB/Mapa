@@ -64,8 +64,8 @@ function FormNewPlace() {
   const [file, setFile] = useState([]);
 
   const onSubmit = (data) => {
-    data.image = file
-    console.log(data)
+    data.image = file.name
+    console.log(file)
     data.categories = categories;
     data.features = features;
     petitions.CreatePlace(data);
@@ -97,17 +97,17 @@ function FormNewPlace() {
     setFile(e.target.files[0])
   }
 
-  const sendHandler = () => {
+  const sendHandler = async () => {
     const formdata = new FormData()
     formdata.append('image', file)
-
-    fetch('http://localhost:8080/places', {
+    const response = await fetch('http://localhost:8080/places/img', {
       method: 'POST',
+      enctype: "multipart/form-data",
       body: formdata
     })
-    .then(res => res.text())
-    .then(res => console.log(res))
-
+    .then(res => res.json())
+    .catch(e=> console.log(e))
+    console.log(response)
     document.getElementById('fileinput').value = null
   }
   //const inputFileRef = useRef();

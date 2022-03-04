@@ -18,8 +18,8 @@ class PlaceRepository {
     const place = await Place.create({
       name,
       address,
-      lactitude: parseFloat(lactitude),
-      longitude: parseFloat(longitude),
+      lactitude: lactitude,
+      longitude: longitude,
       category,
       features,
       description,

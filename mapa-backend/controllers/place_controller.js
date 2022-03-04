@@ -9,19 +9,19 @@ class PlaceController {
     this.router.post("/", upload, (req, res) =>
       this.createPlace(req, res),
     );
+    this.router.post("/img", upload, (req, res) => {return req.file.filename}),
     this.router.put("/:id", upload, (req, res) =>
       this.editPlace(req, res)
-    );
+    ),
     this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
-    this.router.put("/lama", (req, res) => this.lamaRating(req, res));
     this.router.put("/:rating", (req, res) => this.editRating(req, res));
     this.router.put("/filter", (req, res) => this.getFilterPlace(req, res));
   }
 
   createPlace(req, res) {
-    const data = req.body;
+    const data = req.body
 
     const placePromise = this.placeService.createPlace(data);
     placePromise
@@ -48,12 +48,6 @@ class PlaceController {
         console.log(err);
       });
   }
-
-  lamaRating(req, res) {
-    const data = req.body;
-    console.log("hola mundo");
-  }
-
   editRating(req, res) {
     const data = req.body;
     const { id } = req.params;
