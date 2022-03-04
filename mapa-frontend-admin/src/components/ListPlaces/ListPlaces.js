@@ -32,6 +32,8 @@ export default function Places() {
     }
   });
 
+  
+
   return (
     <div className="PlaceList">
       <h2>LUGARES</h2>
@@ -116,6 +118,7 @@ export default function Places() {
         )}
       />
     </div>
+
   );
 }
 

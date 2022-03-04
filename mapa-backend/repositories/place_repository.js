@@ -2,6 +2,8 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
+    console.log(data)
+
     const {
       name,
       address,
@@ -10,6 +12,7 @@ class PlaceRepository {
       category,
       features,
       description,
+      image
     } = data;
 
     const place = await Place.create({
@@ -20,12 +23,8 @@ class PlaceRepository {
       category,
       features,
       description,
+      image
     });
-
-    // if (data.file) {
-    //   const { filename } = data.file;
-    //   place.setImgUrl(filename);
-    // }
 
     console.log(place);
 
@@ -41,7 +40,6 @@ class PlaceRepository {
       category,
       features,
       id,
-      //imgurl,
     } = data;
 
     let newData = {};

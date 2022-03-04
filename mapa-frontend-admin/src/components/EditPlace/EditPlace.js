@@ -61,8 +61,11 @@ function FormNewPlace() {
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [file, setFile] = useState([]);
 
   const onSubmit = (data) => {
+    data.image = file
+    console.log(data)
     data.categories = categories;
     data.features = features;
     petitions.CreatePlace(data);
@@ -90,7 +93,24 @@ function FormNewPlace() {
     setFeatures(featureValues.map((x) => x.name));
   };
 
-  const inputFileRef = useRef();
+  const selectedHandler = e => {
+    setFile(e.target.files[0])
+  }
+
+  const sendHandler = () => {
+    const formdata = new FormData()
+    formdata.append('image', file)
+
+    fetch('http://localhost:8080/places', {
+      method: 'POST',
+      body: formdata
+    })
+    .then(res => res.text())
+    .then(res => console.log(res))
+
+    document.getElementById('fileinput').value = null
+  }
+  //const inputFileRef = useRef();
 
   return (
     <Stack direction="row" ml={2} mt={3}>
@@ -194,8 +214,23 @@ function FormNewPlace() {
                     </FormControl>
                   </div>
                 </Stack>
+
+                <Stack direction="row" ml={2} mt={2}>
+                  <Typography align="inherit" mt={0.3} variant="button">
+                    {"Cargar imagen"}
+                  </Typography>
+
+                  <input
+                     id="fileinput"
+                     onChange={selectedHandler}
+                     type="file"
+                     className="form-control"
+                  />
+                </Stack>
+                
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
+                    onClick={sendHandler}
                     variant="contained"
                     type="submit"
                     style={{ background: "#39A2DB" }}
@@ -407,7 +442,6 @@ function FormEditPlace(id) {
                   <Button
                     type="submit"
                     variant="contained"
-                    type="submit"
                     style={{ background: "#39A2DB" }}
                   >
                     <CheckCircleTwoToneIcon /> Guardar Cambios
