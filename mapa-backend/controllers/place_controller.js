@@ -15,7 +15,7 @@ class PlaceController {
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
     this.router.put("/:rating", (req, res) => this.editRating(req, res));
-    this.router.put("/filter", (req, res) => this.getFilterPlace(req, res));
+    this.router.post("/filter", (req, res) => this.getFilterPlace(req, res));
   }
 
   createPlace(req, res) {

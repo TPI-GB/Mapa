@@ -55,9 +55,6 @@ class PlaceRepository {
       newData.category = category;
     }
     newData.features = features;
-    // if (imgurl != "") {
-    //   newData.imgurl = imgurl;
-    // }
 
     await Place.findByIdAndUpdate({ _id: id }, newData);
 
@@ -95,11 +92,12 @@ class PlaceRepository {
   }
 
   async getFilterPlace(data) {
+    console.log(data);
     const { name, category, features } = data;
     let nameFilter = {};
     let categoryFliter = {};
     let featuresFilter = {};
-    if (name != "") {
+    if (name != "Todas") {
       nameFilter = { name: { $regex: name } };
     }
     if (category != "Todas") {

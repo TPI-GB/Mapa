@@ -34,6 +34,7 @@ const MenuProps = {
 export default function MapView() {
   let places = sessionStorage.getItem("places");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -43,6 +44,7 @@ export default function MapView() {
   }, []);
 
   const getData = async () => {
+    console.log(places);
     if (places === null) {
       const res = await petitions.GetPlaces();
       sessionStorage.setItem("places", JSON.stringify(res));
@@ -53,6 +55,10 @@ export default function MapView() {
     setFeatures(featureValues.map((x) => x.name));
     setCategories(categoriesValues);
     const category = sessionStorage.getItem("category");
+    const name = sessionStorage.getItem("name");
+    if (name === null) {
+      setName(sessionStorage.setItem("name", ""));
+    }
     if (category != null) {
       setSelectedCategory(category ? category.trim() : "");
     } else {
@@ -61,6 +67,13 @@ export default function MapView() {
   };
 
   const { register, handleSubmit } = useForm();
+
+  const handleChangeName = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setName(value);
+  };
 
   const handleChange = (event) => {
     const {
@@ -80,7 +93,14 @@ export default function MapView() {
   };
 
   const onSubmit = async (data) => {
+    if (data.category === "") {
+      data.category = "Todas";
+    }
+    if (data.features === "") {
+      data.features = [];
+    }
     sessionStorage.setItem("category", data.category);
+    sessionStorage.setItem("name", name);
     const newPlaces = await petitions.GetPlacesFilter(data);
     sessionStorage.setItem("places", JSON.stringify(newPlaces));
     window.location = window.location.href;
@@ -93,8 +113,9 @@ export default function MapView() {
           <TextField
             className="nombre"
             label="Buscar por nombre"
-            onChange={handleChange}
-            {...register("name")}
+            {...register("name", {
+              onChange: handleChangeName,
+            })}
             sx={{ minWidth: "300px" }}
           />
           <FormControl sx={{ width: 300 }}>

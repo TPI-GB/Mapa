@@ -85,9 +85,6 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  console.log(place.image);
-
   return (
     <div>
       <Button onClick={handleOpen}>Ver info</Button>
