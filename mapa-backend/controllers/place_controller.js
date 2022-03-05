@@ -6,14 +6,12 @@ class PlaceController {
   constructor() {
     this.placeService = new PlaceService();
     this.router = express.Router();
-    this.router.post("/", upload, (req, res) =>
-      this.createPlace(req, res),
-    );
-    this.router.post("/img", upload, (req, res) => {return req.file.filename}),
-    this.router.put("/:id", upload, (req, res) =>
-      this.editPlace(req, res)
-    ),
-    this.router.get("/", (req, res) => this.getPlace(req, res));
+    this.router.post("/", upload, (req, res) => this.createPlace(req, res));
+    this.router.post("/img", upload, (req, res) => {
+      return res.status(200).json(req.file.filename);
+    }),
+      this.router.put("/:id", upload, (req, res) => this.editPlace(req, res)),
+      this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
     this.router.put("/:rating", (req, res) => this.editRating(req, res));
@@ -21,7 +19,7 @@ class PlaceController {
   }
 
   createPlace(req, res) {
-    const data = req.body
+    const data = req.body;
 
     const placePromise = this.placeService.createPlace(data);
     placePromise

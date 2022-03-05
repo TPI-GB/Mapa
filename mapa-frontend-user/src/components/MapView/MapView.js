@@ -80,12 +80,7 @@ export default function MapView() {
   };
 
   const onSubmit = async (data) => {
-    if (data.category === "Todas" || data.category === "") {
-      data.category = "";
-      sessionStorage.setItem("category", "Todas");
-    } else {
-      sessionStorage.setItem("category", data.category);
-    }
+    sessionStorage.setItem("category", data.category);
     const newPlaces = await petitions.GetPlacesFilter(data);
     sessionStorage.setItem("places", JSON.stringify(newPlaces));
     window.location = window.location.href;

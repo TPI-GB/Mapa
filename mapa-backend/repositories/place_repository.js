@@ -2,7 +2,7 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
-    console.log(data)
+    console.log(data);
 
     const {
       name,
@@ -12,7 +12,7 @@ class PlaceRepository {
       category,
       features,
       description,
-      image
+      image,
     } = data;
 
     const place = await Place.create({
@@ -23,7 +23,7 @@ class PlaceRepository {
       category,
       features,
       description,
-      image
+      image,
     });
 
     console.log(place);
@@ -32,15 +32,8 @@ class PlaceRepository {
   }
 
   async editPlace(data) {
-    const {
-      name,
-      address,
-      lactitude,
-      longitude,
-      category,
-      features,
-      id,
-    } = data;
+    const { name, address, lactitude, longitude, category, features, id } =
+      data;
 
     let newData = {};
 
@@ -109,7 +102,7 @@ class PlaceRepository {
     if (name != "") {
       nameFilter = { name: { $regex: name } };
     }
-    if (category != "") {
+    if (category != "Todas") {
       categoryFliter = { category: category };
     }
     if (features.length != 0) {

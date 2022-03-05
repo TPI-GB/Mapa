@@ -61,11 +61,11 @@ function FormNewPlace() {
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
-  const [file, setFile] = useState([]);
+  const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState("");
 
   const onSubmit = (data) => {
-    data.image = file.name
-    console.log(file)
+    data.image = fileName;
     data.categories = categories;
     data.features = features;
     petitions.CreatePlace(data);
@@ -93,23 +93,23 @@ function FormNewPlace() {
     setFeatures(featureValues.map((x) => x.name));
   };
 
-  const selectedHandler = e => {
-    setFile(e.target.files[0])
-  }
+  const selectedHandler = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const sendHandler = async () => {
-    const formdata = new FormData()
-    formdata.append('image', file)
-    const response = await fetch('http://localhost:8080/places/img', {
-      method: 'POST',
+    const formdata = new FormData();
+    formdata.append("image", file);
+    const response = await fetch("http://localhost:8080/places/img", {
+      method: "POST",
       enctype: "multipart/form-data",
-      body: formdata
+      body: formdata,
     })
-    .then(res => res.json())
-    .catch(e=> console.log(e))
-    console.log(response)
-    document.getElementById('fileinput').value = null
-  }
+      .then((res) => res.json())
+      .catch((e) => console.log(e));
+    setFileName(response);
+    document.getElementById("fileinput").value = null;
+  };
   //const inputFileRef = useRef();
 
   return (
@@ -221,13 +221,13 @@ function FormNewPlace() {
                   </Typography>
 
                   <input
-                     id="fileinput"
-                     onChange={selectedHandler}
-                     type="file"
-                     className="form-control"
+                    id="fileinput"
+                    onChange={selectedHandler}
+                    type="file"
+                    className="form-control"
                   />
                 </Stack>
-                
+
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
                     onClick={sendHandler}

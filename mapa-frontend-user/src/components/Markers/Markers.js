@@ -101,7 +101,7 @@ function InfoPlace(place) {
           </Button>
           <Stack>
             <img
-              src={`https://www.uba.ar/internacionales/archivos/TEST.jpg`}
+              src={`https://localhost:8080/images/${place.image}.png`}
               width="100%"
               height="100%"
             />
