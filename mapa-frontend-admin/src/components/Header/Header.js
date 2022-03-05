@@ -52,6 +52,11 @@ export default function Header() {
           </Typography>
           <Button color="inherit">
             <AccountMenu />
+            <b>
+            {localStorage.getItem("user login first_name") +
+              " " +
+              localStorage.getItem("user login last_name")}
+            </b>
           </Button>
         </Toolbar>
       </AppBar>
