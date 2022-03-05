@@ -56,7 +56,7 @@ export default function MapView() {
     if (category != null) {
       setSelectedCategory(category ? category.trim() : "");
     } else {
-      setSelectedCategory("Todas");
+      setSelectedCategory("Todas" ? "Todas".trim() : "");
     }
   };
 
