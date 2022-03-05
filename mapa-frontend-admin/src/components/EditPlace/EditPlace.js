@@ -56,15 +56,15 @@ function FormNewPlace() {
 
   library.add(...iconList);
 
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
   const [file, setFile] = useState("");
-  const [fileName, setFileName] = useState("");
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    let fileName = await sendHandler();
     data.image = fileName;
     data.categories = categories;
     data.features = features;
@@ -107,8 +107,8 @@ function FormNewPlace() {
     })
       .then((res) => res.json())
       .catch((e) => console.log(e));
-    setFileName(response);
     document.getElementById("fileinput").value = null;
+    return response;
   };
   //const inputFileRef = useRef();
 
@@ -230,7 +230,7 @@ function FormNewPlace() {
 
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
-                    onClick={sendHandler}
+                    //onClick={sendHandler}
                     variant="contained"
                     type="submit"
                     style={{ background: "#39A2DB" }}

@@ -86,6 +86,8 @@ function InfoPlace(place) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  console.log(place.image);
+
   return (
     <div>
       <Button onClick={handleOpen}>Ver info</Button>
@@ -101,7 +103,7 @@ function InfoPlace(place) {
           </Button>
           <Stack>
             <img
-              src={`https://localhost:8080/images/${place.image}.png`}
+              src={`http://localhost:8080/images/${place.image}`}
               width="100%"
               height="100%"
             />

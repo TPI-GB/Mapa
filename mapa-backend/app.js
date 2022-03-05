@@ -27,5 +27,4 @@ app.use("/categories", categoryController.router);
 app.use("/features", featureController.router);
 app.use("/comment", commentController.router);
 app.use("/images", express.static("images"));
-
 module.exports = app;
