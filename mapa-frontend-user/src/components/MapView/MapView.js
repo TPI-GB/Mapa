@@ -19,6 +19,7 @@ import petitions from "../Petitions";
 import { useForm } from "react-hook-form";
 import SearchIcon from "@mui/icons-material/Search";
 import { Stack } from "@mui/material";
+import { margin } from "@mui/system";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -117,8 +118,9 @@ export default function MapView() {
               onChange: handleChangeName,
             })}
             sx={{ minWidth: "300px" }}
+            style={{ margin:12 }}
           />
-          <FormControl sx={{ width: 300 }}>
+          <FormControl sx={{ width: 300 }} style={{ margin:12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
               Buscar Categoria
             </InputLabel>
@@ -136,7 +138,7 @@ export default function MapView() {
               ))}
             </Select>
           </FormControl>
-          <FormControl sx={{ width: 300 }}>
+          <FormControl sx={{ width: 300 }} style={{ margin:12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
               Buscar Caracteristicas
             </InputLabel>
@@ -163,6 +165,7 @@ export default function MapView() {
             variant="contained"
             type="submit"
             style={{ background: "#39A2DB" }}
+            style={{ margin:15 }}
           >
             <SearchIcon />
           </Button>

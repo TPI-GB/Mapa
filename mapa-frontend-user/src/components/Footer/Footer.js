@@ -7,10 +7,10 @@ export default function Footer() {
   return (
     <div className="footer">
       <AppBar position="static" color="transparent">
-        <Container maxWidth="md">
+        <Container >
           <Toolbar>
             <Typography variant="body1" color="inherit">
-              © 2021-Mapa
+            © 2021-Mapa 
             </Typography>
           </Toolbar>
         </Container>
