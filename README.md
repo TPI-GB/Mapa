@@ -15,7 +15,7 @@ Si no existe la base de datos, se crea una automáticamente. (Es necesario tener
 2. Eliminar temporalmente "auth, " de la linea: 
 >this.router.post("/", auth, (req, res) => this.registerUser(req, res));
 3. Desde la aplicación `Postman` abrir un "**New Tab**", elegir el método **POST** y en "Enter request URL" escribir: http://localhost:8080/users 
-4. En "**Body**" seleccionar "**raw**" y en "**TEXT v**" elegir "**JSON(application/json)**"
+4. En "**Body**" seleccionar "**raw**" y hacer click en "**TEXT**", bajar y elegir "**JSON(application/json)**"
 5. Abajo, escribir el siguiente documento JSON con estos campos:
 ```javascript
 {
