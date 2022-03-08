@@ -1,25 +1,37 @@
-## Instalación
+# Instalación:
 
-El proyecto está compuesto de dos partes principales, cada una con su propio directorio y proyecto npm. Luego de clonar el repositorio debería hacerse un `npm install` en cada directorio.
+El proyecto está compuesto de tres partes principales, cada una con su propio directorio y proyecto npm. Luego de clonar el repositorio debería hacerse un `npm install` en cada directorio.
 
-mapa-frontend: contiene el front-end. Es un proyecto create-react-app. Iniciarlo con `cd mapa-frontend` y `npm start`.
+mapa-frontend-user: Contiene el front-end principal, es decir, el entorno gráfico que está destinado al usuario final. Es un proyecto create-react-app. Iniciarlo con `cd mapa-frontend-user` y `npm start`.
 
-mapa-backend: contiene el back-end. Es un proyecto que usa express y la base de datos MongoDB a traves de mongoose. Iniciarlo con `cd mapa-backend` y `npm run server`.
+mapa-frontend-admin: Contiene el front-end destinado a administrador/es y/o moderador/es, desde aqui se va a editar la app. Es un proyecto create-react-app. Iniciarlo con `cd mapa-frontend-admin` y `npm start`.
 
-Si no existe el archivo .env crearlo dentro de la carpeta backend.
-APP_PORT=8080
-APP_HOST=http://localhost
+mapa-backend: Contiene el back-end. Es un proyecto que usa express y la base de datos MongoDB a traves de mongoose. Iniciarlo con `cd mapa-backend` y `npm run dev`.
 
-APP_DIR_STORAGE=
+Si no existe la base de datos, se crea una automáticamente. (Es necesario tener instalado y corriendo en nuestra máquina mongoDB)
 
-DB_NAME=mapadb
-DB_PORT=27017
-DB_HOST=localhost
-TOKEN_KEY=4c159624-6b4d-4d8c-aa0b-09de1027fe55
+## Creacion de usuario Administrador inicial:
+1. Dirigirse a mapa-backend\controllers\user_controller.js 
+2. Eliminar temporalmente "auth, " de la linea: 
+>this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+3. Desde la aplicación `Postman` abrir un "**New Tab**", elegir el método **POST** y en "Enter request URL" escribir: http://localhost:8080/users 
+4. En "**Body**" seleccionar "**raw**" y en "**TEXT v**" elegir "**JSON(application/json)**"
+5. Abajo, escribir el siguiente documento JSON con estos campos:
+```javascript
+{
+	"first_name": "tu nombre" ,
+	"last_name": "tu apellido" ,
+	"nick": "un nick" ,
+	"rol": "Administrador" ,
+	"password": "tu contraseña" ,
+	"email": "tu email"
+}
+```
+6. Por último, no olvidarse agregar el "auth, " para dejar como estaba originalmente la linea: 
+>this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+- Con esto ya podremos ingresar a la aplicación desde el frontend del administrador, usando el email y la contraseña antes escrita en Postman.
 
-Si no existe una base de datos, se crea una automáticamente.
-
-## Integrantes
+# Integrantes:
 
 - Franco Mostafa
 - Enzo Fica
