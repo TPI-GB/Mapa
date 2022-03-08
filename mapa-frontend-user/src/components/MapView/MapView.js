@@ -45,7 +45,6 @@ export default function MapView() {
   }, []);
 
   const getData = async () => {
-    console.log(places);
     if (places === null) {
       const res = await petitions.GetPlaces();
       sessionStorage.setItem("places", JSON.stringify(res));
@@ -58,8 +57,9 @@ export default function MapView() {
     const category = sessionStorage.getItem("category");
     const name = sessionStorage.getItem("name");
     if (name === null) {
-      setName(sessionStorage.setItem("name", ""));
+      sessionStorage.setItem("name", "");
     }
+    setName(sessionStorage.getItem("name"));
     if (category != null) {
       setSelectedCategory(category ? category.trim() : "");
     } else {
@@ -69,14 +69,11 @@ export default function MapView() {
 
   const { register, handleSubmit } = useForm();
 
-  const handleChangeName = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setName(value);
+  const handleChangeName = (e) => {
+    setName(e.target.value);
   };
 
-  const handleChange = (event) => {
+  const handleChangeFeature = (event) => {
     const {
       target: { value },
     } = event;
@@ -84,6 +81,7 @@ export default function MapView() {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    console.log(feature);
   };
 
   const handleChangeSelectedCategory = (event) => {
@@ -117,10 +115,11 @@ export default function MapView() {
             {...register("name", {
               onChange: handleChangeName,
             })}
+            value={name}
             sx={{ minWidth: "300px" }}
-            style={{ margin:12 }}
+            style={{ margin: 12 }}
           />
-          <FormControl sx={{ width: 300 }} style={{ margin:12 }}>
+          <FormControl sx={{ width: 300 }} style={{ margin: 12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
               Buscar Categoria
             </InputLabel>
@@ -138,7 +137,7 @@ export default function MapView() {
               ))}
             </Select>
           </FormControl>
-          <FormControl sx={{ width: 300 }} style={{ margin:12 }}>
+          <FormControl sx={{ width: 300 }} style={{ margin: 12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
               Buscar Caracteristicas
             </InputLabel>
@@ -148,7 +147,7 @@ export default function MapView() {
               id="feature-multiple-checkbox"
               multiple
               value={feature}
-              onChange={handleChange}
+              onChange={handleChangeFeature}
               input={<OutlinedInput label="Seleccionar caracteristicas" />}
               renderValue={(selected) => selected.join(", ")}
               MenuProps={MenuProps}
@@ -165,7 +164,7 @@ export default function MapView() {
             variant="contained"
             type="submit"
             style={{ background: "#39A2DB" }}
-            style={{ margin:15 }}
+            style={{ margin: 15 }}
           >
             <SearchIcon />
           </Button>
