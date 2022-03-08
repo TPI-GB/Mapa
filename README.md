@@ -27,8 +27,9 @@ Si no existe la base de datos, se crea una automáticamente. (Es necesario tener
 	"email": "tu email"
 }
 ```
-6. Con esto ya podremos ingresar a la aplicación desde el frontend del administrador, usando el email y la contraseña antes escrita en Postman.
-7. Por último, no olvidar agregar el "auth, " para dejar como estaba originalmente la linea: 
+6. Luego hacer click en **SEND** para enviar la petición.
+7. Con esto ya podremos ingresar a la aplicación desde el frontend del administrador, usando el email y la contraseña antes escrita en Postman.
+8. Por último, no olvidar agregar el "auth, " para dejar como estaba originalmente la linea: 
 >this.router.post("/", auth, (req, res) => this.registerUser(req, res));
 
 # Integrantes:
