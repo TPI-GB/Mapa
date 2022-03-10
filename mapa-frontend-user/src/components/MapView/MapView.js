@@ -56,6 +56,7 @@ export default function MapView() {
     setCategories(categoriesValues);
     const category = sessionStorage.getItem("category");
     const name = sessionStorage.getItem("name");
+    const features = sessionStorage.getItem("features");
     if (name === null) {
       sessionStorage.setItem("name", "");
     }
@@ -65,6 +66,10 @@ export default function MapView() {
     } else {
       setSelectedCategory("Todas" ? "Todas".trim() : "");
     }
+    if (features === null) {
+      sessionStorage.setItem("features", JSON.stringify([]));
+    }
+    setFeature(JSON.parse(sessionStorage.getItem("features")));
   };
 
   const { register, handleSubmit } = useForm();
@@ -100,6 +105,7 @@ export default function MapView() {
     }
     sessionStorage.setItem("category", data.category);
     sessionStorage.setItem("name", name);
+    sessionStorage.setItem("features", JSON.stringify(data.features));
     const newPlaces = await petitions.GetPlacesFilter(data);
     sessionStorage.setItem("places", JSON.stringify(newPlaces));
     window.location = window.location.href;
