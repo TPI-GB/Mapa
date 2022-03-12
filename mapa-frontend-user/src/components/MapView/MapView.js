@@ -199,10 +199,7 @@ export default function MapView() {
           center={{ lat: "-35.768021379446026", lng: "-58.49708847640829" }}
           zoom={15}
         >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"
-          />
+          <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers />
         </MapContainer>
       </div>

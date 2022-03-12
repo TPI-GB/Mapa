@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import petitions from "../Petitions/Petitions";
@@ -5,6 +6,8 @@ import { useEffect, useState, useRef } from "react";
 import {
   Button,
   Stack,
+  Modal,
+  Box,
   Grid,
   Card,
   CardContent,
@@ -50,6 +53,19 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
+  const stylebox = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    height: "90%",
+    width: 750,
+    overflow: "auto",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
   const iconList = Object.keys(Icons)
     .filter((key) => key !== "fas" && key !== "prefix")
     .map((icon) => Icons[icon]);
@@ -57,7 +73,9 @@ function FormNewPlace() {
   library.add(...iconList);
 
   const { register, handleSubmit } = useForm();
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
@@ -110,7 +128,6 @@ function FormNewPlace() {
     document.getElementById("fileinput").value = null;
     return response;
   };
-  //const inputFileRef = useRef();
 
   return (
     <Stack direction="row" ml={2} mt={3}>
@@ -152,6 +169,9 @@ function FormNewPlace() {
                     {...register("lactitude")}
                     label="Latitud"
                   />
+                  <Button onClick={handleOpen}>
+                    Como busco longitud/latitud
+                  </Button>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
@@ -243,11 +263,32 @@ function FormNewPlace() {
           </Card>
         </Grid>
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylebox}>Aca va el tutorial</Box>
+      </Modal>
     </Stack>
   );
 }
 
 function FormEditPlace(id) {
+  const stylebox = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    height: "90%",
+    width: 750,
+    overflow: "auto",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
   const iconList = Object.keys(Icons)
     .filter((key) => key !== "fas" && key !== "prefix")
     .map((icon) => Icons[icon]);
@@ -256,6 +297,9 @@ function FormEditPlace(id) {
   const { register, handleSubmit, control } = useForm();
 
   const [place, setPlace] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -353,6 +397,9 @@ function FormEditPlace(id) {
                       shrink: true,
                     }}
                   />
+                  <Button onClick={handleOpen}>
+                    Como busco longitud/latitud
+                  </Button>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
@@ -452,6 +499,14 @@ function FormEditPlace(id) {
           </Card>
         </Grid>
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={stylebox}>Aca va el tutorial</Box>
+      </Modal>
     </Stack>
   );
 }

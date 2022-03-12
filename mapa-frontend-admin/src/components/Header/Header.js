@@ -45,17 +45,12 @@ export default function Header() {
               Categorías
             </Button>
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button href="/null" color="inherit">
-              Estadísticas
-            </Button>
-          </Typography>
           <Button color="inherit">
             <AccountMenu />
             <b>
-            {localStorage.getItem("user login first_name") +
-              " " +
-              localStorage.getItem("user login last_name")}
+              {localStorage.getItem("user login first_name") +
+                " " +
+                localStorage.getItem("user login last_name")}
             </b>
           </Button>
         </Toolbar>
