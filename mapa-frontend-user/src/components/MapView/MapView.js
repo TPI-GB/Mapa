@@ -1,6 +1,7 @@
 import * as React from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer } from "react-leaflet";
+
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Markers from "../Markers";
 import "./MapView.scss";
 import { useState, useEffect } from "react";
@@ -18,8 +19,6 @@ import Checkbox from "@mui/material/Checkbox";
 import petitions from "../Petitions";
 import { useForm } from "react-hook-form";
 import SearchIcon from "@mui/icons-material/Search";
-import { Stack } from "@mui/material";
-import { margin } from "@mui/system";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -111,6 +110,24 @@ export default function MapView() {
     window.location = window.location.href;
   };
 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      successCurrentLocation,
+      errorCurrentLocation
+    );
+  } else {
+    alert("Atencion, este navegador no soporta visualizar su ubicación actual");
+  }
+
+  function successCurrentLocation(pos) {
+    var crd = pos.coords;
+    sessionStorage.setItem("current latitude", crd.latitude);
+    sessionStorage.setItem("current longitude", crd.longitude);
+  }
+
+  function errorCurrentLocation(err) {
+    console.log("ERROR(" + err.code + "): " + err.message);
+  }
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>

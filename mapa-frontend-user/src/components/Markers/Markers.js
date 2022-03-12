@@ -26,6 +26,19 @@ const Markers = () => {
   if (places === null) {
     window.location = window.location.href;
   }
+  const current = (
+    <Marker
+      position={[
+        sessionStorage.getItem("current latitude"),
+        sessionStorage.getItem("current longitude"),
+      ]}
+      icon={IconUser()}
+    >
+      <Popup>
+        <h3>Usted esta aqui</h3>
+      </Popup>
+    </Marker>
+  );
   const markers = places.map((place, i) => (
     <Marker
       key={i}
@@ -39,6 +52,7 @@ const Markers = () => {
       </Popup>
     </Marker>
   ));
+  markers.push(current);
   return markers;
 };
 
@@ -56,6 +70,23 @@ const stylebox = {
   p: 4,
 };
 
+function IconUser() {
+  const iconList = Object.keys(Icons)
+    .filter((key) => key !== "fas" && key !== "prefix")
+    .map((icon) => Icons[icon]);
+
+  library.add(...iconList);
+
+  const iconMarkup = renderToStaticMarkup(
+    <FontAwesomeIcon icon="user" color="blue" />
+  );
+  const customMarkerIcon = divIcon({
+    html: iconMarkup,
+    className: "dummy",
+  });
+  return customMarkerIcon;
+}
+
 function IconPlace(place) {
   const iconList = Object.keys(Icons)
     .filter((key) => key !== "fas" && key !== "prefix")
@@ -72,7 +103,7 @@ function IconPlace(place) {
     setIcon(response);
   };
   const iconMarkup = renderToStaticMarkup(
-    <FontAwesomeIcon icon={icon} Color="red" />
+    <FontAwesomeIcon icon={icon} color="red" />
   );
   const customMarkerIcon = divIcon({
     html: iconMarkup,
