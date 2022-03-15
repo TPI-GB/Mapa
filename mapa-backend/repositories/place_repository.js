@@ -54,6 +54,9 @@ class PlaceRepository {
     if (category != "") {
       newData.category = category;
     }
+    if (images != []) {
+      newData.images = images;
+    }
     newData.features = features;
 
     await Place.findByIdAndUpdate({ _id: id }, newData);

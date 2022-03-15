@@ -15,6 +15,7 @@ import {
   Typography,
   Select,
   MenuItem,
+  Link,
 } from "@mui/material";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -53,19 +54,6 @@ export default function EditPlace() {
 }
 
 function FormNewPlace() {
-  const stylebox = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    height: "90%",
-    width: 750,
-    overflow: "auto",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
   const iconList = Object.keys(Icons)
     .filter((key) => key !== "fas" && key !== "prefix")
     .map((icon) => Icons[icon]);
@@ -73,9 +61,6 @@ function FormNewPlace() {
   library.add(...iconList);
 
   const { register, handleSubmit } = useForm();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
@@ -172,9 +157,7 @@ function FormNewPlace() {
                     {...register("lactitude")}
                     label="Latitud"
                   />
-                  <Button onClick={handleOpen}>
-                    Como busco longitud/latitud
-                  </Button>
+                  {ModalTutorial()}
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
@@ -267,32 +250,11 @@ function FormNewPlace() {
           </Card>
         </Grid>
       </Grid>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={stylebox}>Aca va el tutorial</Box>
-      </Modal>
     </Stack>
   );
 }
 
 function FormEditPlace(id) {
-  const stylebox = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    height: "90%",
-    width: 750,
-    overflow: "auto",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
   const iconList = Object.keys(Icons)
     .filter((key) => key !== "fas" && key !== "prefix")
     .map((icon) => Icons[icon]);
@@ -301,9 +263,6 @@ function FormEditPlace(id) {
   const { register, handleSubmit, control } = useForm();
 
   const [place, setPlace] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -401,9 +360,7 @@ function FormEditPlace(id) {
                       shrink: true,
                     }}
                   />
-                  <Button onClick={handleOpen}>
-                    Como busco longitud/latitud
-                  </Button>
+                  {ModalTutorial()}
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <TextField
@@ -501,14 +458,50 @@ function FormEditPlace(id) {
           </Card>
         </Grid>
       </Grid>
+    </Stack>
+  );
+}
+
+function ModalTutorial() {
+  const stylebox = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    height: "90%",
+    width: 750,
+    overflow: "auto",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return (
+    <div>
+      <Button onClick={handleOpen}>Como busco longitud/latitud</Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={stylebox}>Aca va el tutorial</Box>
+        <Box sx={stylebox}>
+          <p>
+            1- Entre a la pagina de OpenStreetMap, en la ubicación de General
+            Belgrano.
+          </p>
+          <p>2- De click izquierdo en el punto donde desea ubicar el lugar.</p>
+          <p>3- Pulse en "Mostrar Dirección"</p>
+          <p>
+            4- En la izquierda se desplegara la información, el primer campo
+            corresponde a la longitud, el siguiente a la latitud
+          </p>
+        </Box>
       </Modal>
-    </Stack>
+    </div>
   );
 }
