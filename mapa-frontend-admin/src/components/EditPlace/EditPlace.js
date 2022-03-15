@@ -79,11 +79,11 @@ function FormNewPlace() {
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
-  const [file, setFile] = useState("");
+  const [files, setFiles] = useState([]);
 
   const onSubmit = async (data) => {
     let fileName = await sendHandler();
-    data.image = fileName;
+    data.images = fileName;
     data.categories = categories;
     data.features = features;
     petitions.CreatePlace(data);
@@ -112,21 +112,24 @@ function FormNewPlace() {
   };
 
   const selectedHandler = (e) => {
-    setFile(e.target.files[0]);
+    setFiles(e.target.files);
   };
 
   const sendHandler = async () => {
-    const formdata = new FormData();
-    formdata.append("image", file);
-    const response = await fetch("http://localhost:8080/places/img", {
-      method: "POST",
-      enctype: "multipart/form-data",
-      body: formdata,
-    })
-      .then((res) => res.json())
-      .catch((e) => console.log(e));
-    document.getElementById("fileinput").value = null;
-    return response;
+    let arrayImages = [];
+    for (var i = 0; i < files.length; i++) {
+      const formdata = new FormData();
+      formdata.append("image", files[i]);
+      const response = await fetch("http://localhost:8080/places/img", {
+        method: "POST",
+        enctype: "multipart/form-data",
+        body: formdata,
+      })
+        .then((res) => res.json())
+        .catch((e) => console.log(e));
+      arrayImages.push(response);
+    }
+    return arrayImages;
   };
 
   return (
@@ -245,6 +248,7 @@ function FormNewPlace() {
                     onChange={selectedHandler}
                     type="file"
                     className="form-control"
+                    multiple
                   />
                 </Stack>
 
@@ -477,9 +481,7 @@ function FormEditPlace(id) {
 
                   <input
                     type="file"
-                    ref={inputFileRef}
                     name="image"
-                    placeholder={place.longitude}
                     InputLabelProps={{
                       shrink: true,
                     }}

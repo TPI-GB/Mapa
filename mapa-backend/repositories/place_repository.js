@@ -12,7 +12,7 @@ class PlaceRepository {
       category,
       features,
       description,
-      image,
+      images,
     } = data;
 
     const place = await Place.create({
@@ -23,7 +23,7 @@ class PlaceRepository {
       category,
       features,
       description,
-      image,
+      images,
     });
 
     console.log(place);
