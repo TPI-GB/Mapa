@@ -103,15 +103,7 @@ function FormNewPlace() {
   const sendHandler = async () => {
     let arrayImages = [];
     for (var i = 0; i < files.length; i++) {
-      const formdata = new FormData();
-      formdata.append("image", files[i]);
-      const response = await fetch("http://localhost:8080/places/img", {
-        method: "POST",
-        enctype: "multipart/form-data",
-        body: formdata,
-      })
-        .then((res) => res.json())
-        .catch((e) => console.log(e));
+      const response = await petitions.SaveImageAndGetName(files[i]);
       arrayImages.push(response);
     }
     return arrayImages;
@@ -491,15 +483,47 @@ function ModalTutorial() {
       >
         <Box sx={stylebox}>
           <p>
-            1- Entre a la pagina de OpenStreetMap, en la ubicación de General
-            Belgrano.
+            <b>1-</b> Entre a la pagina de OpenStreetMap, en la ubicación de
+            General Belgrano:{" "}
+            <a
+              href="https://www.openstreetmap.org/node/198451376#map=16/-35.7669/-58.4957"
+              target="_blank"
+            >
+              Pagina
+            </a>
           </p>
-          <p>2- De click izquierdo en el punto donde desea ubicar el lugar.</p>
-          <p>3- Pulse en "Mostrar Dirección"</p>
           <p>
-            4- En la izquierda se desplegara la información, el primer campo
-            corresponde a la longitud, el siguiente a la latitud
+            <b>2-</b> De click derecho en el punto donde desea ubicar el lugar.
           </p>
+          <p>
+            <b>3-</b> Pulse en "Mostrar Dirección"
+            <p>
+              <img
+                src={`http://localhost:8080/images/tutorial_1.jpg`}
+                width="100%"
+                height="100%"
+              />
+            </p>
+          </p>
+          <p>
+            <b>4-</b> En la izquierda se desplegara la información, el numero
+            izquierdo corresponde a la longitud, el siguiente a la latitud.
+            Recuerde no copiar la coma que separa los datos.
+            <p>
+              <img
+                src={`http://localhost:8080/images/tutorial_2.jpg`}
+                width="100%"
+                height="100%"
+              />
+            </p>
+          </p>
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            onClick={handleClose}
+          >
+            Cerrar
+          </Button>
         </Box>
       </Modal>
     </div>

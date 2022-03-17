@@ -211,8 +211,8 @@ async function verifyEditUser(data, user) {
   return (
     !allNicksActiveFilter.includes(nick) &&
     !allEmailsActiveFilter.includes(email) &&
-    (isValidEmail(data.email) || data.email === '')
-  ); 
+    (isValidEmail(data.email) || data.email === "")
+  );
 }
 
 async function SendEmailReset(data) {
@@ -241,7 +241,7 @@ async function SendEmailReset(data) {
 function isValidEmail(email) {
   const validFormat =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  return validFormat.test(email)
+  return validFormat.test(email);
 }
 
 async function LoginUser(data) {
@@ -636,6 +636,19 @@ async function DeleteFeature(id) {
   }
 }
 
+async function SaveImageAndGetName(file) {
+  const formdata = new FormData();
+  formdata.append("image", file);
+  const response = await fetch("http://localhost:8080/places/img", {
+    method: "POST",
+    enctype: "multipart/form-data",
+    body: formdata,
+  })
+    .then((res) => res.json())
+    .catch((e) => console.log(e));
+  return response;
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -662,6 +675,7 @@ const petitions = {
   GetFeatureById,
   EditFeature,
   DeleteFeature,
+  SaveImageAndGetName,
 };
 
 export default petitions;
