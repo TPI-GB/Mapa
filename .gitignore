@@ -38,7 +38,7 @@ bower_components
 build/Release
 
 # images
-images/
+images/*
 !images/tutorial_1.jpg
 !images/tutorial_2.jpg
 
