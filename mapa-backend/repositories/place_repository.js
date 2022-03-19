@@ -1,9 +1,8 @@
 const Place = require("../models/places_model");
+const fs = require("fs");
 
 class PlaceRepository {
   async createPlace(data) {
-    console.log(data);
-
     const {
       name,
       address,
@@ -14,56 +13,87 @@ class PlaceRepository {
       description,
       images,
     } = data;
-
-    const place = await Place.create({
-      name,
-      address,
-      lactitude: lactitude,
-      longitude: longitude,
-      category,
-      features,
-      description,
-      images,
-    });
-
-    console.log(place);
-
-    return await place.save();
+    try {
+      const place = await Place.create({
+        name,
+        address,
+        lactitude: lactitude,
+        longitude: longitude,
+        category,
+        features,
+        description,
+        images,
+      });
+      return await place.save();
+    } catch (err) {
+      if (images.length != 0) {
+        images.forEach((img) => {
+          fs.unlink(`images/${img}`, function (err) {
+            try {
+              if (err) throw err;
+            } catch (err) {
+              console.log(err);
+            }
+          });
+        });
+      }
+      throw err;
+    }
   }
 
   async editPlace(data) {
-    const { name, address, lactitude, longitude, category, features, id } =
-      data;
+    const {
+      name,
+      address,
+      lactitude,
+      longitude,
+      category,
+      features,
+      id,
+      images,
+    } = data;
+    try {
+      let newData = {};
 
-    let newData = {};
+      if (name != "") {
+        newData.name = name;
+      }
+      if (address != "") {
+        newData.address = address;
+      }
+      if (lactitude != "") {
+        newData.lactitude = parseFloat(lactitude);
+      }
+      if (longitude != "") {
+        newData.longitude = parseFloat(longitude);
+      }
+      if (category != "") {
+        newData.category = category;
+      }
+      if (images != []) {
+        newData.images = images;
+      }
+      newData.features = features;
 
-    const place = await Place.findById(id);
+      await Place.findByIdAndUpdate({ _id: id }, newData);
 
-    if (name != "") {
-      newData.name = name;
-    }
-    if (address != "") {
-      newData.address = address;
-    }
-    if (lactitude != "") {
-      newData.lactitude = parseFloat(lactitude);
-    }
-    if (longitude != "") {
-      newData.longitude = parseFloat(longitude);
-    }
-    if (category != "") {
-      newData.category = category;
-    }
-    if (images != []) {
-      newData.images = images;
-    }
-    newData.features = features;
+      const placeStored = await Place.findById(id);
 
-    await Place.findByIdAndUpdate({ _id: id }, newData);
-
-    const placeStored = await Place.findById(id);
-
-    return placeStored;
+      return placeStored;
+    } catch (err) {
+      if (images.length != 0) {
+        images.forEach((img) => {
+          fs.unlink(`images/${img}`, function (err) {
+            try {
+              if (err) throw err;
+            } catch (err) {
+              console.log(err);
+            }
+          });
+        });
+      }
+      throw err;
+    }
   }
 
   async editRating(data) {
@@ -91,6 +121,18 @@ class PlaceRepository {
   }
 
   async deletePlace(id) {
+    const place = await Place.findById(id);
+    if (place.images.length != 0) {
+      place.images.forEach((img) => {
+        fs.unlink(`images/${img}`, function (err) {
+          try {
+            if (err) throw err;
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      });
+    }
     return await Place.deleteOne({ _id: id });
   }
 

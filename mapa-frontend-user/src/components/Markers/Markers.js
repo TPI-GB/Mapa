@@ -9,6 +9,8 @@ import {
   Select,
   Stack,
   TextField,
+  ImageList,
+  ImageListItem
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -114,9 +116,12 @@ function IconPlace(place) {
 }
 
 function InfoPlace(place) {
+  const places = JSON.parse(sessionStorage.getItem("places"));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  petitions.GetPlaces()
   return (
     <div>
       <Button onClick={handleOpen} color="primary">Ver info</Button>
@@ -131,11 +136,17 @@ function InfoPlace(place) {
             <CloseIcon color="primary" />
           </Button>
           <Stack>
-            <img
-              src={`http://localhost:8080/images/${place.image}`}
-              width="100%"
-              height="100%"
-            />
+              <ImageList sx={{ width: 700, height: 450 }} cols={3} rowHeight={164}>
+              {place.images.map((image) => (
+                <ImageListItem key={image}>
+                    <img
+                    src={`http://localhost:8080/images/${image}?w=164&h=164&fit=crop&auto=format`} 
+                    srcSet={`http://localhost:8080/images/${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={image.tittle}
+                    loading="lazy"/>
+                </ImageListItem>
+              ))}
+            </ImageList>
           </Stack>
           <Stack className="modal-title">
             <b>Nombre:</b>
