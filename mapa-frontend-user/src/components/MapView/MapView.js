@@ -186,8 +186,7 @@ export default function MapView() {
           <Button
             variant="contained"
             type="submit"
-            style={{ background: "#39A2DB" }}
-            style={{ margin: 15 }}
+            style={{ background: "#39A2DB", margin: 15 }}
           >
             <SearchIcon />
           </Button>
