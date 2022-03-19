@@ -1,4 +1,5 @@
 const Place = require("../models/places_model");
+const fs = require("fs");
 
 class PlaceRepository {
   async createPlace(data) {
@@ -36,8 +37,6 @@ class PlaceRepository {
       data;
 
     let newData = {};
-
-    const place = await Place.findById(id);
 
     if (name != "") {
       newData.name = name;
@@ -91,6 +90,18 @@ class PlaceRepository {
   }
 
   async deletePlace(id) {
+    const place = await Place.findById(id);
+    if (place.images.length != 0) {
+      place.images.forEach((img) => {
+        fs.unlink(`images/${img}`, function (err) {
+          try {
+            if (err) throw err;
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      });
+    }
     return await Place.deleteOne({ _id: id });
   }
 
