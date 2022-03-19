@@ -57,15 +57,16 @@ const Markers = () => {
 };
 
 const stylebox = {
-  position: "absolute",
+  position: "relative",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   height: "90%",
   width: 750,
   overflow: "auto",
-  bgcolor: "background.paper",
+  bgcolor: "#9e9e9e  ",
   border: "2px solid #000",
+  borderRadius:"1%",
   boxShadow: 24,
   p: 4,
 };
@@ -118,7 +119,7 @@ function InfoPlace(place) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <Button onClick={handleOpen}>Ver info</Button>
+      <Button onClick={handleOpen} color="primary">Ver info</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -184,7 +185,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "white" }}
+          style={{ background: "gray" }}
           {...register("name")}
           required
           label="Nombre"
@@ -193,7 +194,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "white" }}
+          style={{ background: "gray" }}
           {...register("text")}
           required
           label="Comentario"
