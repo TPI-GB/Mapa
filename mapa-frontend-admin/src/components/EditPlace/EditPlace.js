@@ -259,6 +259,7 @@ function FormEditPlace(id) {
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     getData();
@@ -294,13 +295,26 @@ function FormEditPlace(id) {
     setSelectedCategory(place.category ? place.category.trim() : "");
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    let fileName = await sendHandler();
+    data.images = fileName;
     data.categories = categories;
     data.features = feature;
     petitions.EditPlace(data, id);
   };
 
-  const inputFileRef = useRef();
+  const selectedHandler = (e) => {
+    setFiles(e.target.files);
+  };
+
+  const sendHandler = async () => {
+    let arrayImages = [];
+    for (var i = 0; i < files.length; i++) {
+      const response = await petitions.SaveImageAndGetName(files[i]);
+      arrayImages.push(response);
+    }
+    return arrayImages;
+  };
 
   return (
     <Stack direction="row" ml={2} mt={3}>
@@ -429,11 +443,11 @@ function FormEditPlace(id) {
                   </Typography>
 
                   <input
+                    id="fileinput"
+                    onChange={selectedHandler}
                     type="file"
-                    name="image"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                    className="form-control"
+                    multiple
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
