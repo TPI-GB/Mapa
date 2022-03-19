@@ -132,6 +132,7 @@ export default function MapView() {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
+          <div className="estilosDeSelect">
           <TextField
             className="nombre"
             label="Buscar por nombre"
@@ -139,19 +140,18 @@ export default function MapView() {
               onChange: handleChangeName,
             })}
             value={name}
-            sx={{ minWidth: "300px" }}
+            sx={{ width: 250 }}
             style={{ margin: 12 }}
           />
-          <FormControl sx={{ width: 300 }} style={{ margin: 12 }}>
+          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
-              Buscar Categoria
             </InputLabel>
             <Select
               {...register("category")}
               value={selectedCategory}
               onChange={handleChangeSelectedCategory}
             >
-              <MenuItem value={"Todas"}>Todas</MenuItem>
+              <MenuItem value={"Todas"}>Categorias</MenuItem>
               {categories.map(({ name, icon }) => (
                 <MenuItem value={name}>
                   {`${name}`}
@@ -160,9 +160,9 @@ export default function MapView() {
               ))}
             </Select>
           </FormControl>
-          <FormControl sx={{ width: 300 }} style={{ margin: 12 }}>
+          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
             <InputLabel id="feature-multiple-checkbox-label">
-              Buscar Caracteristicas
+               Caracteristicas
             </InputLabel>
             <Select
               {...register("features")}
@@ -190,6 +190,7 @@ export default function MapView() {
           >
             <SearchIcon />
           </Button>
+          </div>
         </Box>
       </form>
       <div className="Map">
@@ -202,6 +203,6 @@ export default function MapView() {
           <Markers />
         </MapContainer>
       </div>
-    </div>
+       </div>
   );
 }
