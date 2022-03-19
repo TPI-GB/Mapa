@@ -42,8 +42,16 @@ class PlaceRepository {
   }
 
   async editPlace(data) {
-    const { name, address, lactitude, longitude, category, features, id } =
-      data;
+    const {
+      name,
+      address,
+      lactitude,
+      longitude,
+      category,
+      features,
+      id,
+      images,
+    } = data;
     try {
       let newData = {};
 
