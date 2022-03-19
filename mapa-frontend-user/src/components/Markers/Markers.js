@@ -3,7 +3,6 @@ import { Marker, Popup } from "react-leaflet";
 import {
   Box,
   Button,
-  Menu,
   MenuItem,
   Modal,
   Select,
@@ -68,7 +67,7 @@ const stylebox = {
   overflow: "auto",
   bgcolor: "#9e9e9e  ",
   border: "2px solid #000",
-  borderRadius:"1%",
+  borderRadius: "1%",
   boxShadow: 24,
   p: 4,
 };
@@ -99,6 +98,7 @@ function IconPlace(place) {
   const [icon, setIcon] = useState([]);
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = async () => {
@@ -123,7 +123,9 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} color="primary">Ver info</Button>
+      <Button onClick={handleOpen} color="primary">
+        Ver info
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

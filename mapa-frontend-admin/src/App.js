@@ -13,7 +13,6 @@ import EditCategory from "./components/EditCategory";
 import ListCategories from "./components/ListCategories";
 import EditFeature from "./components/EditFeature/EditFeature";
 import ListFeatures from "./components/ListFeatures";
-import Header from "./components/Header";
 
 function App() {
   return (
