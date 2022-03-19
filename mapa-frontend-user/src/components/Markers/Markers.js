@@ -20,6 +20,7 @@ import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { renderToStaticMarkup } from "react-dom/server";
 import { divIcon } from "leaflet";
 import { useState, useEffect } from "react";
+import Carousel from 'react-material-ui-carousel'
 import petitions from "../Petitions";
 import "./Markers.scss";
 
@@ -134,18 +135,15 @@ function InfoPlace(place) {
           <Button onClick={handleClose}>
             <CloseIcon color="primary" />
           </Button>
+          <Stack className="modal-title">
+            <b>Imagenes:</b>
+          </Stack>
           <Stack>
-              <ImageList sx={{ width: 700, height: 450 }} cols={3} rowHeight={164}>
+            <Carousel sx={{ width: 750, height: 450 }}  class='slides_container'>
               {place.images.map((image) => (
-                <ImageListItem key={image}>
-                    <img
-                    src={`http://localhost:8080/images/${image}?w=164&h=164&fit=crop&auto=format`} 
-                    srcSet={`http://localhost:8080/images/${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={image.tittle}
-                    loading="lazy"/>
-                </ImageListItem>
+                <img class='slides_container' key={image} src={`http://localhost:8080/images/${image}`}/>
               ))}
-            </ImageList>
+            </Carousel>
           </Stack>
           <Stack className="modal-title">
             <b>Nombre:</b>
