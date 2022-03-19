@@ -11,12 +11,14 @@ mapa-backend: Contiene el back-end. Es un proyecto que usa express y la base de 
 Si no existe la base de datos, se crea una automáticamente. (Es necesario tener instalado y corriendo en nuestra máquina mongoDB)
 
 ## Creacion de usuario Administrador inicial:
-1. Dirigirse a mapa-backend\controllers\user_controller.js 
-2. Eliminar temporalmente "auth, " de la linea: 
->this.router.post("/", auth, (req, res) => this.registerUser(req, res));
-3. Desde la aplicación `Postman` abrir un "**New Tab**", elegir el método **POST** y en "Enter request URL" escribir: http://localhost:8080/users 
+
+1. Dirigirse a mapa-backend\controllers\user_controller.js
+2. Eliminar temporalmente "auth, " de la linea:
+   > this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+3. Desde la aplicación `Postman` abrir un "**New Tab**", elegir el método **POST** y en "Enter request URL" escribir: http://localhost:8080/users
 4. En "**Body**" seleccionar "**raw**" y hacer click en "**TEXT**", bajar y elegir "**JSON(application/json)**"
 5. Abajo, escribir el siguiente documento JSON con estos campos:
+
 ```javascript
 {
 	"first_name": "tu nombre" ,
@@ -27,10 +29,17 @@ Si no existe la base de datos, se crea una automáticamente. (Es necesario tener
 	"email": "tu email"
 }
 ```
+
 6. Luego hacer click en **SEND** para enviar la petición.
 7. Con esto ya podremos ingresar a la aplicación desde el frontend del administrador, usando el email y la contraseña antes escrita en Postman.
-8. Por último, no olvidar agregar el "auth, " para dejar como estaba originalmente la linea: 
->this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+8. Por último, no olvidar agregar el "auth, " para dejar como estaba originalmente la linea:
+   > this.router.post("/", auth, (req, res) => this.registerUser(req, res));
+
+# Mail de recupero de contraseña
+
+Usuario: mapaturismogb@gmail.com
+
+Contraseña: TurismoGB2311
 
 # Integrantes:
 
