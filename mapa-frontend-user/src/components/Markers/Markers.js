@@ -8,8 +8,6 @@ import {
   Select,
   Stack,
   TextField,
-  ImageList,
-  ImageListItem,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -19,7 +17,7 @@ import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { renderToStaticMarkup } from "react-dom/server";
 import { divIcon } from "leaflet";
 import { useState, useEffect } from "react";
-import Carousel from 'react-material-ui-carousel'
+import Carousel from "react-material-ui-carousel";
 import petitions from "../Petitions";
 import "./Markers.scss";
 
@@ -141,9 +139,14 @@ function InfoPlace(place) {
             <b>Imagenes:</b>
           </Stack>
           <Stack>
-            <Carousel sx={{ width: 750, height: 450 }}  class='slides_container'>
+            <Carousel sx={{ width: 750, height: 450 }} class="slides_container">
               {place.images.map((image) => (
-                <img class='slides_container' key={image} src={`http://localhost:8080/images/${image}`}/>
+                <img
+                  class="slides_container"
+                  key={image}
+                  alt="imagen"
+                  src={`http://localhost:8080/images/${image}`}
+                />
               ))}
             </Carousel>
           </Stack>

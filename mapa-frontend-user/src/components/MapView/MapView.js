@@ -113,7 +113,8 @@ export default function MapView() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       successCurrentLocation,
-      errorCurrentLocation
+      errorCurrentLocation,
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
     );
   } else {
     alert("Atencion, este navegador no soporta visualizar su ubicación actual");
@@ -123,6 +124,7 @@ export default function MapView() {
     var crd = pos.coords;
     sessionStorage.setItem("current latitude", crd.latitude);
     sessionStorage.setItem("current longitude", crd.longitude);
+    sessionStorage.setItem("accuracy", crd.accuracy);
   }
 
   function errorCurrentLocation(err) {
