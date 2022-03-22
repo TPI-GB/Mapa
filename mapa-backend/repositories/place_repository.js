@@ -65,7 +65,7 @@ class PlaceRepository {
       if (category != "") {
         newData.category = category;
       }
-      if (images != []) {
+      if (images.length != 0) {
         newData.images = images;
       }
       newData.features = features;
@@ -74,7 +74,9 @@ class PlaceRepository {
 
       const placeStored = await Place.findById(id);
 
-      oldImages.forEach((img) => this.deleteImage(img));
+      if (oldImages.length != 0) {
+        oldImages.forEach((img) => this.deleteImage(img));
+      }
 
       return placeStored;
     } catch (err) {
