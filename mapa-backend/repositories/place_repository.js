@@ -27,15 +27,7 @@ class PlaceRepository {
       return await place.save();
     } catch (err) {
       if (images.length != 0) {
-        images.forEach((img) => {
-          fs.unlink(`images/${img}`, function (err) {
-            try {
-              if (err) throw err;
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        });
+        images.forEach((img) => this.deleteImage(img));
       }
       throw err;
     }
@@ -54,6 +46,9 @@ class PlaceRepository {
     } = data;
     try {
       let newData = {};
+
+      const place = await Place.findById(id);
+      const oldImages = place.images;
 
       if (name != "") {
         newData.name = name;
@@ -79,18 +74,12 @@ class PlaceRepository {
 
       const placeStored = await Place.findById(id);
 
+      oldImages.forEach((img) => this.deleteImage(img));
+
       return placeStored;
     } catch (err) {
       if (images.length != 0) {
-        images.forEach((img) => {
-          fs.unlink(`images/${img}`, function (err) {
-            try {
-              if (err) throw err;
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        });
+        images.forEach((img) => this.deleteImage(img));
       }
       throw err;
     }
@@ -123,15 +112,7 @@ class PlaceRepository {
   async deletePlace(id) {
     const place = await Place.findById(id);
     if (place.images.length != 0) {
-      place.images.forEach((img) => {
-        fs.unlink(`images/${img}`, function (err) {
-          try {
-            if (err) throw err;
-          } catch (err) {
-            console.log(err);
-          }
-        });
-      });
+      place.images.forEach((img) => this.deleteImage(img));
     }
     return await Place.deleteOne({ _id: id });
   }
@@ -155,6 +136,16 @@ class PlaceRepository {
       $and: [nameFilter, categoryFliter, featuresFilter],
     });
     return placesFilter;
+  }
+
+  async deleteImage(img) {
+    fs.unlink(`images/${img}`, function (err) {
+      try {
+        if (err) throw err;
+      } catch (err) {
+        console.log(err);
+      }
+    });
   }
 }
 
