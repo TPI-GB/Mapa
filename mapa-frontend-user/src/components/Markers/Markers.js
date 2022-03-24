@@ -64,9 +64,9 @@ const stylebox = {
   height: "90%",
   width: 750,
   overflow: "auto",
-  bgcolor: "#9e9e9e  ",
-  border: "2px solid #000",
-  borderRadius: "1%",
+  background: "#dbd8e3",
+  border: "0px solid #000",
+  borderRadius:"0%",
   boxShadow: 24,
   p: 4,
 };
@@ -135,8 +135,8 @@ function InfoPlace(place) {
           <Button onClick={handleClose}>
             <CloseIcon color="primary" />
           </Button>
-          <Stack className="modal-title">
-            <b>Imagenes:</b>
+          <Stack textAlign={"center"} textTransform={"uppercase"}>
+            <h1>{place.name}</h1>
           </Stack>
           <Stack>
             <Carousel sx={{ width: 750, height: 450 }} class="slides_container">
@@ -150,20 +150,17 @@ function InfoPlace(place) {
               ))}
             </Carousel>
           </Stack>
-          <Stack className="modal-title">
-            <b>Nombre:</b>
-          </Stack>
-          <Stack>{place.name}</Stack>
-          <Stack className="modal-title">
-            <b>Categoría:</b>
+          
+          <Stack className="modal-title" textTransform={"uppercase"}>
+            <b>Categoría</b>
           </Stack>
           <Stack>{place.category}</Stack>
-          <Stack className="modal-title">
-            <b>Descripción:</b>
+          <Stack className="modal-title" textTransform={"uppercase"}>
+            <b>Descripción</b>
           </Stack>
           <Stack>{place.description}</Stack>
-          <Stack className="modal-title">
-            <b>Características:</b>
+          <Stack className="modal-title" textTransform={"uppercase"}>
+            <b>Características</b>
           </Stack>
           <Stack>
             {place.features.map((f) => (
@@ -198,7 +195,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "gray" }}
+          style={{ background: "#dbd8e3" }}
           {...register("name")}
           required
           label="Nombre"
@@ -207,7 +204,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "gray" }}
+          style={{ background: "#dbd8e3" }}
           {...register("text")}
           required
           label="Comentario"
@@ -218,7 +215,7 @@ function FormComment(place) {
         <Button
           variant="contained"
           type="submit"
-          style={{ background: "gray" }}
+          style={{ background: "#5c5470" }}
         >
           Dejar opinión
         </Button>
@@ -290,7 +287,7 @@ function FormRating(place) {
         <Button
           variant="contained"
           type="submit"
-          style={{ background: "gray" }}
+          style={{ background: "#5c5470" }}
         >
           Dejar puntaje
         </Button>
