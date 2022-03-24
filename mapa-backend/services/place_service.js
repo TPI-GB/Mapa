@@ -34,6 +34,11 @@ class PlaceService {
     const place = await this.placeRepository.getFilterPlace(data);
     return place;
   }
+
+  async deleteImageFromPlace(data) {
+    const place = await this.placeRepository.deleteImageFromPlace(data);
+    return place;
+  }
 }
 
 module.exports = PlaceService;

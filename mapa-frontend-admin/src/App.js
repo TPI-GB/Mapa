@@ -13,6 +13,7 @@ import EditCategory from "./components/EditCategory";
 import ListCategories from "./components/ListCategories";
 import EditFeature from "./components/EditFeature/EditFeature";
 import ListFeatures from "./components/ListFeatures";
+import ListImages from "./components/ListImages";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path="/listfeatures" exact={true}>
             <Authenticated component={<ListFeatures />} />
+          </Route>
+          <Route path="/listimages/:id" exact={true}>
+            <Authenticated component={<ListImages />} />
           </Route>
           <Route path="/reset" exact={true}>
             <Reset />

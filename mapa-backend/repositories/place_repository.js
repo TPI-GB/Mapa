@@ -44,12 +44,11 @@ class PlaceRepository {
       id,
       images,
     } = data;
+
+    const place = await Place.findById(id);
+    let newData = {};
+
     try {
-      let newData = {};
-
-      const place = await Place.findById(id);
-      const oldImages = place.images;
-
       if (name != "") {
         newData.name = name;
       }
@@ -66,7 +65,11 @@ class PlaceRepository {
         newData.category = category;
       }
       if (images.length != 0) {
-        newData.images = images;
+        let result = place.images;
+        for (var i = 0; i < images.length; i++) {
+          result.push(images[i]);
+        }
+        newData.images = result;
       }
       newData.features = features;
 
@@ -74,13 +77,11 @@ class PlaceRepository {
 
       const placeStored = await Place.findById(id);
 
-      if (oldImages.length != 0) {
-        oldImages.forEach((img) => this.deleteImage(img));
-      }
-
       return placeStored;
     } catch (err) {
       if (images.length != 0) {
+        newData.images = place.images;
+        await Place.findByIdAndUpdate({ _id: id }, newData);
         images.forEach((img) => this.deleteImage(img));
       }
       throw err;
@@ -120,7 +121,6 @@ class PlaceRepository {
   }
 
   async getFilterPlace(data) {
-    console.log(data);
     const { name, category, features } = data;
     let nameFilter = {};
     let categoryFliter = {};
@@ -138,6 +138,30 @@ class PlaceRepository {
       $and: [nameFilter, categoryFliter, featuresFilter],
     });
     return placesFilter;
+  }
+
+  async deleteImageFromPlace(data) {
+    const { id, img } = data;
+
+    try {
+      const place = await Place.findById(id);
+
+      const newImages = place.images.filter((i) => i != img);
+
+      let newData = {};
+
+      newData.images = newImages;
+
+      await Place.findByIdAndUpdate({ _id: id }, newData);
+
+      const placeUpdate = await Place.findById(id);
+
+      await this.deleteImage(img);
+
+      return placeUpdate;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async deleteImage(img) {

@@ -228,7 +228,6 @@ function FormNewPlace() {
 
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
-                    //onClick={sendHandler}
                     variant="contained"
                     type="submit"
                     style={{ background: "#39A2DB" }}
@@ -438,7 +437,7 @@ function FormEditPlace(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">
-                    {"Cambiar imagenes"}
+                    {"Agregar imagenes"}
                   </Typography>
 
                   <input
@@ -448,6 +447,14 @@ function FormEditPlace(id) {
                     className="form-control"
                     multiple
                   />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <Button
+                    style={{ color: "#AC0D0D" }}
+                    href={`/listimages/${id}`}
+                  >
+                    Borrar Imagenes
+                  </Button>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button

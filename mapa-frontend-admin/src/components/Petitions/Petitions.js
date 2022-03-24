@@ -649,6 +649,38 @@ async function SaveImageAndGetName(file) {
   return response;
 }
 
+async function DeleteImageFromPlace(data) {
+  const { id, img } = data;
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/deleteimg/${id}/${img}`,
+      method: "PUT",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
+      },
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "Se elimino la imagen correctamente",
+      icon: "success",
+      confirmButtonText: "Regresar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = `/listimages/${id}`;
+      }
+    });
+    return response;
+  } catch (error) {
+    Swal.fire({
+      title: "Error!",
+      text: "No se pudo borrar la imagen",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -676,6 +708,7 @@ const petitions = {
   EditFeature,
   DeleteFeature,
   SaveImageAndGetName,
+  DeleteImageFromPlace,
 };
 
 export default petitions;
