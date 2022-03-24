@@ -299,6 +299,7 @@ function FormEditCategory(id) {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = async () => {
@@ -543,7 +544,6 @@ function FormEditCategory(id) {
                   <Button
                     type="submit"
                     variant="contained"
-                    type="submit"
                     style={{ background: "#39A2DB" }}
                   >
                     <CheckCircleTwoToneIcon /> Guardar Cambios

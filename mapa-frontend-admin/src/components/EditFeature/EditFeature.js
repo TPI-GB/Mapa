@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 
 export default function EditFeature() {
   const { id } = useParams();
@@ -34,8 +34,12 @@ function FormNewFeature() {
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listfeatures">
-          <KeyboardBackspaceIcon />  Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listfeatures"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -54,8 +58,12 @@ function FormNewFeature() {
                 </Stack>
 
                 <Stack direction="row" ml={2} mt={6}>
-                  <Button variant="contained" type="submit" style={{ background: "#39A2DB" }}>
-                  <CheckCircleTwoToneIcon /> Guardar 
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar
                   </Button>
                 </Stack>
               </form>
@@ -87,8 +95,12 @@ function FormEditFeature(id) {
     <Stack direction="row" ml={2} mt={3}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Button variant="contained" style={{ background: "#053742" }} href="/listfeatures">
-          <KeyboardBackspaceIcon />  Volver
+          <Button
+            variant="contained"
+            style={{ background: "#053742" }}
+            href="/listfeatures"
+          >
+            <KeyboardBackspaceIcon /> Volver
           </Button>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -97,8 +109,8 @@ function FormEditFeature(id) {
               <h1>Editar Característica</h1>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack direction="row" ml={2} mt={4}>
-                  <TextField         
-                    sx={{ minWidth: 370 }}           
+                  <TextField
+                    sx={{ minWidth: 370 }}
                     style={{ background: "white" }}
                     {...register("name")}
                     label="Nueva descripción"
@@ -109,8 +121,12 @@ function FormEditFeature(id) {
                   />
                 </Stack>
                 <Stack direction="row" ml={2} mt={6}>
-                  <Button type="submit" variant="contained" type="submit" style={{ background: "#39A2DB" }} >
-                  <CheckCircleTwoToneIcon /> Guardar Cambios 
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    style={{ background: "#39A2DB" }}
+                  >
+                    <CheckCircleTwoToneIcon /> Guardar Cambios
                   </Button>
                 </Stack>
               </form>

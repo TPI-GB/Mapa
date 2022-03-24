@@ -1,7 +1,6 @@
 import * as React from "react";
 import "leaflet/dist/leaflet.css";
-
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import Markers from "../Markers";
 import "./MapView.scss";
 import { useState, useEffect } from "react";
@@ -41,6 +40,7 @@ export default function MapView() {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = async () => {
@@ -113,7 +113,8 @@ export default function MapView() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       successCurrentLocation,
-      errorCurrentLocation
+      errorCurrentLocation,
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
     );
   } else {
     alert("Atencion, este navegador no soporta visualizar su ubicación actual");
@@ -123,6 +124,7 @@ export default function MapView() {
     var crd = pos.coords;
     sessionStorage.setItem("current latitude", crd.latitude);
     sessionStorage.setItem("current longitude", crd.longitude);
+    sessionStorage.setItem("accuracy", crd.accuracy);
   }
 
   function errorCurrentLocation(err) {
@@ -133,63 +135,62 @@ export default function MapView() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
           <div className="estilosDeSelect">
-          <TextField
-            className="nombre"
-            label="Buscar por nombre"
-            {...register("name", {
-              onChange: handleChangeName,
-            })}
-            value={name}
-            sx={{ width: 250 }}
-            style={{ margin: 12 }}
-          />
-          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
-            <InputLabel id="feature-multiple-checkbox-label">
-            </InputLabel>
-            <Select
-              {...register("category")}
-              value={selectedCategory}
-              onChange={handleChangeSelectedCategory}
+            <TextField
+              className="nombre"
+              label="Buscar por nombre"
+              {...register("name", {
+                onChange: handleChangeName,
+              })}
+              value={name}
+              sx={{ width: 250 }}
+              style={{ margin: 12 }}
+            />
+            <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
+              <InputLabel id="feature-multiple-checkbox-label"></InputLabel>
+              <Select
+                {...register("category")}
+                value={selectedCategory}
+                onChange={handleChangeSelectedCategory}
+              >
+                <MenuItem value={"Todas"}>Categorias</MenuItem>
+                {categories.map(({ name, icon }) => (
+                  <MenuItem value={name}>
+                    {`${name}`}
+                    {<FontAwesomeIcon icon={icon} />}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
+              <InputLabel id="feature-multiple-checkbox-label">
+                Caracteristicas
+              </InputLabel>
+              <Select
+                {...register("features")}
+                labelId="feature-multiple-checkbox-label"
+                id="feature-multiple-checkbox"
+                multiple
+                value={feature}
+                onChange={handleChangeFeature}
+                input={<OutlinedInput label="Seleccionar caracteristicas" />}
+                renderValue={(selected) => selected.join(", ")}
+                MenuProps={MenuProps}
+              >
+                {features.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={feature.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              variant="contained"
+              type="submit"
+              style={{ background: "#39A2DB", margin: 15 }}
             >
-              <MenuItem value={"Todas"}>Categorias</MenuItem>
-              {categories.map(({ name, icon }) => (
-                <MenuItem value={name}>
-                  {`${name}`}
-                  {<FontAwesomeIcon icon={icon} />}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
-            <InputLabel id="feature-multiple-checkbox-label">
-               Caracteristicas
-            </InputLabel>
-            <Select
-              {...register("features")}
-              labelId="feature-multiple-checkbox-label"
-              id="feature-multiple-checkbox"
-              multiple
-              value={feature}
-              onChange={handleChangeFeature}
-              input={<OutlinedInput label="Seleccionar caracteristicas" />}
-              renderValue={(selected) => selected.join(", ")}
-              MenuProps={MenuProps}
-            >
-              {features.map((name) => (
-                <MenuItem key={name} value={name}>
-                  <Checkbox checked={feature.indexOf(name) > -1} />
-                  <ListItemText primary={name} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            type="submit"
-            style={{ background: "#39A2DB", margin: 15 }}
-          >
-            <SearchIcon />
-          </Button>
+              <SearchIcon />
+            </Button>
           </div>
         </Box>
       </form>
@@ -203,6 +204,6 @@ export default function MapView() {
           <Markers />
         </MapContainer>
       </div>
-       </div>
+    </div>
   );
 }
