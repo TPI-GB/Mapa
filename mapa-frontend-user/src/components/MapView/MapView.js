@@ -193,7 +193,7 @@ export default function MapView() {
             <Button
               variant="contained"
               type="submit"
-              style={{ background: "#39A2DB", margin: 15 }}
+              style={{ background: "#39A2DB", margin: 23 }}
             >
               <SearchIcon />
             </Button>
@@ -208,8 +208,7 @@ export default function MapView() {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers />
-        </MapContainer>
-        )
+        </MapContainer>        
       </div>
     </div>
   );
