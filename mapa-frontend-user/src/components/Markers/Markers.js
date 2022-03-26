@@ -66,7 +66,7 @@ const stylebox = {
   overflow: "auto",
   background: "#dbd8e3",
   border: "0px solid #000",
-  borderRadius:"0%",
+  borderRadius: "0%",
   boxShadow: 24,
   p: 4,
 };
@@ -150,7 +150,7 @@ function InfoPlace(place) {
               ))}
             </Carousel>
           </Stack>
-          
+
           <Stack className="modal-title" textTransform={"uppercase"}>
             <b>Categoría</b>
           </Stack>
@@ -160,7 +160,7 @@ function InfoPlace(place) {
           </Stack>
           <Stack>{place.description}</Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Características</b>
+            <b>Características De Accesibilidad</b>
           </Stack>
           <Stack>
             {place.features.map((f) => (

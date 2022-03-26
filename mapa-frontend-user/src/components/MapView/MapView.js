@@ -110,14 +110,20 @@ export default function MapView() {
     window.location = window.location.href;
   };
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      successCurrentLocation,
-      errorCurrentLocation,
-      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
-    );
-  } else {
-    alert("Atencion, este navegador no soporta visualizar su ubicación actual");
+  try {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        successCurrentLocation,
+        errorCurrentLocation,
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
+    } else {
+      alert(
+        "Atencion, este navegador no soporta visualizar su ubicación actual"
+      );
+    }
+  } catch (err) {
+    console.log(err);
   }
 
   function successCurrentLocation(pos) {
