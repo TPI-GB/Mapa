@@ -209,6 +209,7 @@ export default function MapView() {
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers />
         </MapContainer>
+        )
       </div>
     </div>
   );
