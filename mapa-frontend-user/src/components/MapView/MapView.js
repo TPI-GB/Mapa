@@ -111,11 +111,15 @@ export default function MapView() {
   };
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      successCurrentLocation,
-      errorCurrentLocation,
-      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
-    );
+    try {
+      navigator.geolocation.getCurrentPosition(
+        successCurrentLocation,
+        errorCurrentLocation,
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   } else {
     alert("Atencion, este navegador no soporta visualizar su ubicación actual");
   }
