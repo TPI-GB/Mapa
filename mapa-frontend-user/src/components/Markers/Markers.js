@@ -22,9 +22,9 @@ import petitions from "../Petitions";
 import "./Markers.scss";
 
 const Markers = () => {
-  const places = JSON.parse(sessionStorage.getItem("places"));
-  if (places === null) {
-    window.location = window.location.href;
+  let places = JSON.parse(sessionStorage.getItem("places"));
+  while (places === null) {
+    places = JSON.parse(sessionStorage.getItem("places"));
   }
   const current = (
     <Marker
@@ -144,7 +144,7 @@ function InfoPlace(place) {
                   class="slides_container"
                   key={image}
                   alt="imagen"
-                  src={`http://localhost:8080/images/${image}`}
+                  src={`https://drive.google.com/uc?id=${image}`}
                 />
               ))}
             </Carousel>
