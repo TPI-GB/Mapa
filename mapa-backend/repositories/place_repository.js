@@ -63,11 +63,9 @@ class PlaceRepository {
       id,
       images,
     } = data;
-
-    const place = await Place.findById(id);
-    let newData = {};
-
     try {
+      let newData = {};
+
       if (name != "") {
         newData.name = name;
       }
@@ -83,12 +81,8 @@ class PlaceRepository {
       if (category != "") {
         newData.category = category;
       }
-      if (images.length != 0) {
-        let result = place.images;
-        for (var i = 0; i < images.length; i++) {
-          result.push(images[i]);
-        }
-        newData.images = result;
+      if (images != []) {
+        newData.images = images;
       }
       newData.features = features;
 

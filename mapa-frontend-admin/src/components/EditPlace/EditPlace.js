@@ -441,7 +441,7 @@ function FormEditPlace(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">
-                    {"Agregar imagenes"}
+                    {"Cambiar imagenes"}
                   </Typography>
 
                   <input

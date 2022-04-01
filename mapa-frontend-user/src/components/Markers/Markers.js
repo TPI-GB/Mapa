@@ -8,6 +8,8 @@ import {
   Select,
   Stack,
   TextField,
+  ImageList,
+  ImageListItem,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -64,9 +66,9 @@ const stylebox = {
   height: "90%",
   width: 750,
   overflow: "auto",
-  background: "#dbd8e3",
-  border: "0px solid #000",
-  borderRadius: "0%",
+  bgcolor: "#9e9e9e  ",
+  border: "2px solid #000",
+  borderRadius:"1%",
   boxShadow: 24,
   p: 4,
 };
@@ -118,12 +120,11 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} color="primary">
-        Ver info
-      </Button>
+      <Button onClick={handleOpen} color="primary">Ver info</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -194,7 +195,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "#dbd8e3" }}
+          style={{ background: "gray" }}
           {...register("name")}
           required
           label="Nombre"
@@ -203,7 +204,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "#dbd8e3" }}
+          style={{ background: "gray" }}
           {...register("text")}
           required
           label="Comentario"

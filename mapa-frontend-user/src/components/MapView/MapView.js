@@ -141,62 +141,63 @@ export default function MapView() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
           <div className="estilosDeSelect">
-            <TextField
-              className="nombre"
-              label="Buscar por nombre"
-              {...register("name", {
-                onChange: handleChangeName,
-              })}
-              value={name}
-              sx={{ width: 250 }}
-              style={{ margin: 12 }}
-            />
-            <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
-              <InputLabel id="feature-multiple-checkbox-label"></InputLabel>
-              <Select
-                {...register("category")}
-                value={selectedCategory}
-                onChange={handleChangeSelectedCategory}
-              >
-                <MenuItem value={"Todas"}>Categorias</MenuItem>
-                {categories.map(({ name, icon }) => (
-                  <MenuItem value={name}>
-                    {`${name}`}
-                    {<FontAwesomeIcon icon={icon} />}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
-              <InputLabel id="feature-multiple-checkbox-label">
-                Caracteristicas
-              </InputLabel>
-              <Select
-                {...register("features")}
-                labelId="feature-multiple-checkbox-label"
-                id="feature-multiple-checkbox"
-                multiple
-                value={feature}
-                onChange={handleChangeFeature}
-                input={<OutlinedInput label="Seleccionar caracteristicas" />}
-                renderValue={(selected) => selected.join(", ")}
-                MenuProps={MenuProps}
-              >
-                {features.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={feature.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Button
-              variant="contained"
-              type="submit"
-              style={{ background: "#39A2DB", margin: 15 }}
+          <TextField
+            className="nombre"
+            label="Buscar por nombre"
+            {...register("name", {
+              onChange: handleChangeName,
+            })}
+            value={name}
+            sx={{ width: 250 }}
+            style={{ margin: 12 }}
+          />
+          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
+            <InputLabel id="feature-multiple-checkbox-label">
+            </InputLabel>
+            <Select
+              {...register("category")}
+              value={selectedCategory}
+              onChange={handleChangeSelectedCategory}
             >
-              <SearchIcon />
-            </Button>
+              <MenuItem value={"Todas"}>Categorias</MenuItem>
+              {categories.map(({ name, icon }) => (
+                <MenuItem value={name}>
+                  {`${name}`}
+                  {<FontAwesomeIcon icon={icon} />}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
+            <InputLabel id="feature-multiple-checkbox-label">
+               Caracteristicas
+            </InputLabel>
+            <Select
+              {...register("features")}
+              labelId="feature-multiple-checkbox-label"
+              id="feature-multiple-checkbox"
+              multiple
+              value={feature}
+              onChange={handleChangeFeature}
+              input={<OutlinedInput label="Seleccionar caracteristicas" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={MenuProps}
+            >
+              {features.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <Checkbox checked={feature.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ background: "#39A2DB", margin: 15 }}
+          >
+            <SearchIcon />
+          </Button>
           </div>
         </Box>
       </form>
@@ -208,9 +209,8 @@ export default function MapView() {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers />
-        </MapContainer>
-        )
+        </MapContainer>        
       </div>
-    </div>
+       </div>
   );
 }
