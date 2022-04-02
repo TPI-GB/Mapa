@@ -28,26 +28,11 @@ const Markers = () => {
   if (
     places === null ||
     current_longitude === null ||
-    current_longitude === "not found" ||
-    current_latitude === null ||
-    current_latitude === "not found"
+    current_latitude === null
   ) {
     window.location = window.location.href;
   }
-  const current = (
-    <Marker
-      position={[
-        sessionStorage.getItem("current latitude"),
-        sessionStorage.getItem("current longitude"),
-      ]}
-      icon={IconUser()}
-    >
-      <Popup>
-        <h3>Usted esta aqui</h3>
-      </Popup>
-    </Marker>
-  );
-  const markers = places.map((place, i) => (
+  let markers = places.map((place, i) => (
     <Marker
       key={i}
       position={[place.lactitude, place.longitude]}
@@ -60,7 +45,22 @@ const Markers = () => {
       </Popup>
     </Marker>
   ));
-  markers.push(current);
+  if (current_latitude !== "not found" && current_longitude !== "not found") {
+    const current = (
+      <Marker
+        position={[
+          sessionStorage.getItem("current latitude"),
+          sessionStorage.getItem("current longitude"),
+        ]}
+        icon={IconUser()}
+      >
+        <Popup>
+          <h3>Usted esta aqui</h3>
+        </Popup>
+      </Marker>
+    );
+    markers.push(current);
+  }
   return markers;
 };
 
