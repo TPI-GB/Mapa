@@ -8,8 +8,6 @@ import {
   Select,
   Stack,
   TextField,
-  ImageList,
-  ImageListItem,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -25,8 +23,16 @@ import "./Markers.scss";
 
 const Markers = () => {
   let places = JSON.parse(sessionStorage.getItem("places"));
-  while (places === null) {
-    places = JSON.parse(sessionStorage.getItem("places"));
+  let current_longitude = sessionStorage.getItem("current longitude");
+  let current_latitude = sessionStorage.getItem("current latitude");
+  if (
+    places === null ||
+    current_longitude === null ||
+    current_longitude === "not found" ||
+    current_latitude === null ||
+    current_latitude === "not found"
+  ) {
+    window.location = window.location.href;
   }
   const current = (
     <Marker
@@ -68,7 +74,7 @@ const stylebox = {
   overflow: "auto",
   bgcolor: "#9e9e9e  ",
   border: "2px solid #000",
-  borderRadius:"1%",
+  borderRadius: "1%",
   boxShadow: 24,
   p: 4,
 };
@@ -124,7 +130,9 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} color="primary">Ver info</Button>
+      <Button onClick={handleOpen} color="primary">
+        Ver info
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
