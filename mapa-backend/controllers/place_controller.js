@@ -10,7 +10,8 @@ class PlaceController {
     this.router.post("/img", upload, (req, res) => {
       return res.status(200).json(req.file.filename);
     }),
-      this.router.put("/:id", upload, (req, res) => this.editPlace(req, res)),
+      this.router.post("/imgdrive", (req, res) => this.uploadToDrive(req, res));
+    this.router.put("/:id", upload, (req, res) => this.editPlace(req, res)),
       this.router.get("/", (req, res) => this.getPlace(req, res));
     this.router.delete("/", (req, res) => this.deletePlace(req, res));
     this.router.put("/rating/:id", (req, res) => this.editRating(req, res));
@@ -96,6 +97,21 @@ class PlaceController {
     placePromise
       .then((place) => {
         res.json(place);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  }
+
+  uploadToDrive(req, res) {
+    const data = req.body;
+    const { img } = data;
+    data.img = img;
+    const idPromise = this.placeService.uploadToDrive(data);
+    idPromise
+      .then((id) => {
+        res.json(id);
       })
       .catch((err) => {
         res.status(400).json(err);

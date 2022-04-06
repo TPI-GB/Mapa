@@ -1,5 +1,23 @@
 const Place = require("../models/places_model");
 const fs = require("fs");
+const path = require("path");
+const { google } = require("googleapis");
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+const redirectUri = process.env.REDIRECT_URI;
+const refreshToken = process.env.REFRESH_TOKEN;
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+
+const oauthclient2 = new google.auth.OAuth2(
+  clientId,
+  clientSecret,
+  redirectUri,
+  refreshToken
+);
+
+oauthclient2.setCredentials({ refresh_token: refreshToken });
+
+var drive = google.drive({ version: "v3", auth: oauthclient2 });
 
 class PlaceRepository {
   async createPlace(data) {
@@ -13,6 +31,7 @@ class PlaceRepository {
       description,
       images,
     } = data;
+
     try {
       const place = await Place.create({
         name,
@@ -27,15 +46,7 @@ class PlaceRepository {
       return await place.save();
     } catch (err) {
       if (images.length != 0) {
-        images.forEach((img) => {
-          fs.unlink(`images/${img}`, function (err) {
-            try {
-              if (err) throw err;
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        });
+        images.forEach((img) => this.deleteImageFromBackend(img));
       }
       throw err;
     }
@@ -82,16 +93,33 @@ class PlaceRepository {
       return placeStored;
     } catch (err) {
       if (images.length != 0) {
-        images.forEach((img) => {
-          fs.unlink(`images/${img}`, function (err) {
-            try {
-              if (err) throw err;
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        });
+        newData.images = place.images;
+        await Place.findByIdAndUpdate({ _id: id }, newData);
+        images.forEach((img) => this.deleteImageFromBackend(img));
       }
+      throw err;
+    }
+  }
+
+  async uploadToDrive(data) {
+    const { img } = data;
+    const filename = `../images/${img}`;
+    const filepath = path.join(__dirname, filename);
+    try {
+      const response = await drive.files.create({
+        requestBody: {
+          name: filename,
+          mimeType: "image/jpg",
+        },
+        media: {
+          mimeType: "image/jpg",
+          body: fs.createReadStream(filepath),
+        },
+      });
+      await this.deleteImageFromBackend(img);
+      return response.data.id;
+    } catch (err) {
+      console.log(err);
       throw err;
     }
   }
@@ -123,7 +151,7 @@ class PlaceRepository {
   async deletePlace(id) {
     const place = await Place.findById(id);
     if (place.images.length != 0) {
-      place.images.forEach((img) => this.deleteImage(img));
+      place.images.forEach((img) => this.deleteImageFromDrive(img));
     }
     return await Place.deleteOne({ _id: id });
   }
@@ -164,15 +192,16 @@ class PlaceRepository {
 
       const placeUpdate = await Place.findById(id);
 
-      await this.deleteImage(img);
+      await this.deleteImageFromDrive(img);
 
       return placeUpdate;
     } catch (err) {
       console.log(err);
+      throw err;
     }
   }
 
-  async deleteImage(img) {
+  async deleteImageFromBackend(img) {
     fs.unlink(`images/${img}`, function (err) {
       try {
         if (err) throw err;
@@ -180,6 +209,18 @@ class PlaceRepository {
         console.log(err);
       }
     });
+  }
+
+  async deleteImageFromDrive(img) {
+    try {
+      const response = await drive.files.delete({
+        fileId: img,
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   }
 }
 

@@ -649,6 +649,22 @@ async function SaveImageAndGetName(file) {
   return response;
 }
 
+async function UploadFileToDrive(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/places/imgdrive`,
+      method: "POST",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user login token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function DeleteImageFromPlace(data) {
   const { id, img } = data;
   try {
@@ -708,6 +724,7 @@ const petitions = {
   EditFeature,
   DeleteFeature,
   SaveImageAndGetName,
+  UploadFileToDrive,
   DeleteImageFromPlace,
 };
 
