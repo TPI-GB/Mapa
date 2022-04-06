@@ -103,7 +103,11 @@ function FormNewPlace() {
     let arrayImages = [];
     for (var i = 0; i < files.length; i++) {
       const response = await petitions.SaveImageAndGetName(files[i]);
-      arrayImages.push(response);
+      let dataToDrive = {};
+      dataToDrive.img = response;
+      console.log(dataToDrive);
+      const responseDrive = await petitions.UploadFileToDrive(dataToDrive);
+      arrayImages.push(responseDrive);
     }
     return arrayImages;
   };
@@ -437,7 +441,7 @@ function FormEditPlace(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Typography align="inherit" mt={0.3} variant="button">
-                    {"Agregar imagenes"}
+                    {"Cambiar imagenes"}
                   </Typography>
 
                   <input

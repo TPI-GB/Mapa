@@ -1,7 +1,6 @@
 import * as React from "react";
-import "leaflet/dist/leaflet.css";
 import "./Home.scss";
-import MapView from "../MapView/MapView";
+import MapView from "../MapView";
 
 export default function Home() {
   return (

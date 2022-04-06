@@ -23,24 +23,16 @@ import "./Markers.scss";
 
 const Markers = () => {
   let places = JSON.parse(sessionStorage.getItem("places"));
-  while (places === null) {
-    places = JSON.parse(sessionStorage.getItem("places"));
+  let current_longitude = sessionStorage.getItem("current longitude");
+  let current_latitude = sessionStorage.getItem("current latitude");
+  if (
+    places === null ||
+    current_longitude === null ||
+    current_latitude === null
+  ) {
+    window.location = window.location.href;
   }
-  console.log(places)
-  const current = (
-    <Marker
-      position={[
-        sessionStorage.getItem("current latitude"),
-        sessionStorage.getItem("current longitude"),
-      ]}
-      icon={IconUser()}
-    >
-      <Popup>
-        <h3>Usted esta aqui</h3>
-      </Popup>
-    </Marker>
-  );
-  const markers = places.map((place, i) => (
+  let markers = places.map((place, i) => (
     <Marker
       key={i}
       position={[place.lactitude, place.longitude]}
@@ -53,7 +45,22 @@ const Markers = () => {
       </Popup>
     </Marker>
   ));
-  markers.push(current);
+  if (current_latitude !== "not found" && current_longitude !== "not found") {
+    const current = (
+      <Marker
+        position={[
+          sessionStorage.getItem("current latitude"),
+          sessionStorage.getItem("current longitude"),
+        ]}
+        icon={IconUser()}
+      >
+        <Popup>
+          <h3>Usted esta aqui</h3>
+        </Popup>
+      </Marker>
+    );
+    markers.push(current);
+  }
   return markers;
 };
 
@@ -65,9 +72,9 @@ const stylebox = {
   height: "90%",
   width: 750,
   overflow: "auto",
-  background: "#dbd8e3",
-  border: "0px solid #000",
-  borderRadius: "0%",
+  bgcolor: "#9e9e9e  ",
+  border: "2px solid #000",
+  borderRadius: "1%",
   boxShadow: 24,
   p: 4,
 };
@@ -119,6 +126,7 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   petitions.GetPlaces();
   return (
     <div>
@@ -145,7 +153,7 @@ function InfoPlace(place) {
                   class="slides_container"
                   key={image}
                   alt="imagen"
-                  src={`http://localhost:8080/images/${image}`}
+                  src={`https://drive.google.com/uc?id=${image}`}
                 />
               ))}
             </Carousel>
@@ -195,7 +203,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "#dbd8e3" }}
+          style={{ background: "gray" }}
           {...register("name")}
           required
           label="Nombre"
@@ -204,7 +212,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "#dbd8e3" }}
+          style={{ background: "gray" }}
           {...register("text")}
           required
           label="Comentario"

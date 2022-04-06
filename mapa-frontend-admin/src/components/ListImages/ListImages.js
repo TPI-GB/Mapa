@@ -67,14 +67,17 @@ export default function ListImages() {
                   <img
                     class="slides_container"
                     alt="imagen"
-                    src={`http://localhost:8080/images/${img}`}
-                    width={"50%"}
-                    height={"50%"}
+                    src={`https://drive.google.com/uc?id=${img}`}
+                    width={"70%"}
+                    height={"70%"}
                   />
                   <Button
                     type="submit"
                     variant="contained"
-                    style={{ background: "#AC0D0D", marginLeft: "100px" }}
+                    style={{
+                      background: "#AC0D0D",
+                      marginLeft: "20px",
+                    }}
                     onClick={() => deleteImage(id, img)}
                   >
                     BORRAR

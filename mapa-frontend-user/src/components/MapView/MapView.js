@@ -121,6 +121,8 @@ export default function MapView() {
       alert(
         "Atencion, este navegador no soporta visualizar su ubicación actual"
       );
+      sessionStorage.setItem("current latitude", "not found");
+      sessionStorage.setItem("current longitude", "not found");
     }
   } catch (err) {
     console.log(err);
@@ -130,7 +132,6 @@ export default function MapView() {
     var crd = pos.coords;
     sessionStorage.setItem("current latitude", crd.latitude);
     sessionStorage.setItem("current longitude", crd.longitude);
-    sessionStorage.setItem("accuracy", crd.accuracy);
   }
 
   function errorCurrentLocation(err) {
@@ -209,7 +210,10 @@ export default function MapView() {
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers />
         </MapContainer>
+<<<<<<< HEAD
         
+=======
+>>>>>>> 57f4d74f2b319c85ecb6ace6d9bb69dd88f9c6f3
       </div>
     </div>
   );
