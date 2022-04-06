@@ -22,10 +22,11 @@ import petitions from "../Petitions";
 import "./Markers.scss";
 
 const Markers = () => {
-  const places = JSON.parse(sessionStorage.getItem("places"));
-  if (places === null) {
-    window.location = window.location.href;
+  let places = JSON.parse(sessionStorage.getItem("places"));
+  while (places === null) {
+    places = JSON.parse(sessionStorage.getItem("places"));
   }
+  console.log(places)
   const current = (
     <Marker
       position={[
