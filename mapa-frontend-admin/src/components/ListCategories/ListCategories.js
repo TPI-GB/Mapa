@@ -29,6 +29,7 @@ export default function ListCategories() {
   const getData = async () => {
     const response = await petitions.GetCategories();
     setcategories(response);
+    sessionStorage.setItem("categories page", 1);
   };
 
   categories.sort(function (a, b) {
