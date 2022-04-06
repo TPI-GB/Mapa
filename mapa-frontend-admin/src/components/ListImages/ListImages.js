@@ -2,7 +2,7 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { Stack, Button } from "@mui/material";
+import { Grid, Stack, Button } from "@mui/material";
 import { List } from "antd";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Swal from "sweetalert2";
@@ -44,6 +44,7 @@ export default function ListImages() {
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
           <List.Item>
+            <Grid item xs={2}>
             <Button
               variant="contained"
               style={{ background: "#053742" }}
@@ -51,7 +52,9 @@ export default function ListImages() {
             >
               <KeyboardBackspaceIcon /> Volver
             </Button>
+            </Grid>
           </List.Item>
+         
         )}
       />
       <List

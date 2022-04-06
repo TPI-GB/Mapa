@@ -116,11 +116,17 @@ class PlaceRepository {
           body: fs.createReadStream(filepath),
         },
       });
+      drive.permissions.create({
+        fileId: response.data.id,
+        requestBody: {
+          role: "reader",
+          type: "anyone",
+        },
+      });
       await this.deleteImageFromBackend(img);
       return response.data.id;
     } catch (err) {
       console.log(err);
-      throw err;
     }
   }
 
