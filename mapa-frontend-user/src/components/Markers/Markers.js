@@ -193,6 +193,7 @@ function FormComment(place) {
     dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;
     const response = await petitions.AddCommentToPlace(dataCommentToPlace);
+    console.log(response);
     setState(response.data);
   };
 
