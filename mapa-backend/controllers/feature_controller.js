@@ -13,13 +13,7 @@ class FeatureController {
 
   createFeature(req, res) {
     const data = req.body;
-    if (
-      !(
-        (
-          data.name                  
-        )
-      )
-    ) {
+    if (!data.name) {
       return res.status(400).send("The field is required");
     }
     const featurePromise = this.featureService.createFeature(data);
@@ -62,7 +56,6 @@ class FeatureController {
 
   deleteFeature(req, res) {
     const data = req.body;
-    console.log(data);
     const { id } = data;
     const featurePromise = this.featureService.deleteFeature(id);
     featurePromise

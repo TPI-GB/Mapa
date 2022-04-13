@@ -46,7 +46,11 @@ export default function Header() {
             </Button>
           </Typography>
           <Button color="inherit">
+<<<<<<< HEAD
             <AccountMenu />
+=======
+            <AccountMenu />           
+>>>>>>> 89f3eaa4674c83ad2901fc897c1dde3ea6fb55c2
           </Button>
         </Toolbar>
       </AppBar>
@@ -77,12 +81,17 @@ function AccountMenu() {
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
+<<<<<<< HEAD
           <IconButton
             onClick={handleClick}
             size="small"
             sx={{ ml: 1, color: "#fafafa" }}
           >
             <AccountCircleIcon />
+=======
+          <IconButton color="primary" onClick={handleClick} size="small" sx={{ ml: 1 }}>
+            <AccountCircleIcon sx={{ width: 32, height: 32 }} />
+>>>>>>> 89f3eaa4674c83ad2901fc897c1dde3ea6fb55c2
             <b>
               {localStorage.getItem("user login first_name") +
                 " " +

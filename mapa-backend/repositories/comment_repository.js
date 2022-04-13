@@ -13,7 +13,6 @@ class CommentRepository {
   }
 
   async deleteComment(data) {
-    console.log(data);
     try {
       const { id, place } = data;
       let newComments = {};

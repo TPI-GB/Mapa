@@ -20,7 +20,6 @@ import { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import petitions from "../Petitions";
 import "./Markers.scss";
-import { red } from "@mui/material/colors";
 
 const Markers = () => {
   let places = JSON.parse(sessionStorage.getItem("places"));
@@ -55,7 +54,7 @@ const Markers = () => {
         ]}
         icon={IconUser()}
       >
-        <Popup>
+        <Popup className="popup">
           <h3>Usted esta aqui</h3>
         </Popup>
       </Marker>
@@ -131,10 +130,12 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained"
-      style={{ background: "#64b5f6 " , marginLeft:"35px"}}>
+      <Box textAlign='center'>
+        <Button onClick={handleOpen} variant="contained"
+          style={{ background: "#64b5f6" }}>
         Ver info
       </Button>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -162,7 +163,7 @@ function InfoPlace(place) {
           </Stack>
 
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Categoría: {place.category}</b> 
+            <b>Categoría: {place.category}</b>
           </Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
             <b>Descripción: </b>
@@ -235,11 +236,7 @@ function FormComment(place) {
       <Stack mt={2}>
         {state.comments.map((c) => (
           <Stack mt={1}>
-            <div
-              style={{
-                backgroundColor: "#c5cae9",
-              }}
-            >
+            <div style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}>
               <b>{c.name}</b>
               <p>{c.text}</p>
             </div>

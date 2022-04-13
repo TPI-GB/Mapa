@@ -98,7 +98,6 @@ export default function ListComments() {
 }
 
 function deleteComment(data) {
-  console.log(data);
   return Swal.fire({
     title: "Atencion!",
     text: "¿Desea eliminar este comentario?",

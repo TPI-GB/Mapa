@@ -40,7 +40,6 @@ function FormNewCategory() {
   library.add(...iconList);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     petitions.CreateCategory(data);
   };
 
@@ -306,7 +305,6 @@ function FormEditCategory(id) {
   };
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     petitions.EditCategory(data, id);
   };
 

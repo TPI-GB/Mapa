@@ -53,7 +53,7 @@ export default function Features() {
         direction="row"
         ml={5}
         mr={5}
-        mb={4}
+        mb={2}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
@@ -66,7 +66,6 @@ export default function Features() {
           </Link>
         }
       </Stack>
-      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"
@@ -102,7 +101,8 @@ export default function Features() {
             <List.Item.Meta title={buttonDelete(feature)}></List.Item.Meta>
           </List.Item>
         )}
-      />
+      />      
+      <Pagination page={page} total={total} onChange={handleChange} />
     </div>
   );
 }
