@@ -120,7 +120,7 @@ export default function ListUsers() {
         )}                
       />      
       <List
-        style={{ background: "#a2dbfa" }}
+        style={{ background: "#c2dbfa" }}
         itemLayout="horizontal"
         dataSource={users}
         renderItem={(user) => (

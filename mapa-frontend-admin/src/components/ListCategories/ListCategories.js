@@ -90,7 +90,7 @@ export default function ListCategories() {
         )}
       />
       <List
-        style={{ background: "#a2dbfa" }}
+        style={{ background: "#c2dbfa" }}
         itemLayout="horizontal"
         dataSource={categories}
         renderItem={(category) => (
