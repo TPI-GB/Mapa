@@ -307,7 +307,6 @@ async function GetPlaces() {
         Authorization: `Bearer ${localStorage.getItem("user login token")}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -697,6 +696,35 @@ async function DeleteImageFromPlace(data) {
   }
 }
 
+async function DeleteComment(data) {
+  try {
+    const response = await axios({
+      url: `${baseUrl}/comment`,
+      method: "DELETE",
+      data: data,
+    });
+    Swal.fire({
+      title: "Hecho!",
+      text: "Se elimino el comentario",
+      icon: "success",
+      confirmButtonText: "Cerrar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = window.location.href;
+      }
+    });
+    return response;
+  } catch (err) {
+    Swal.fire({
+      title: "Error!",
+      text: "Hubo un problema al borrar este comentario",
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+    console.log(err);
+  }
+}
+
 const petitions = {
   RegisterUser,
   GetUsers,
@@ -726,6 +754,7 @@ const petitions = {
   SaveImageAndGetName,
   UploadFileToDrive,
   DeleteImageFromPlace,
+  DeleteComment,
 };
 
 export default petitions;

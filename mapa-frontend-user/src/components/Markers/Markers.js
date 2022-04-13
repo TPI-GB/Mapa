@@ -188,7 +188,7 @@ function FormComment(place) {
   const [state, setState] = useState(place);
 
   const onSubmit = async (data) => {
-    const newComment = await petitions.CreateComment(data);
+    const newComment = { name: data.name, text: data.text };
     let dataCommentToPlace = {};
     dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;

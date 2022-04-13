@@ -2,7 +2,7 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import { List } from "antd";
+import { List, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
 import "antd/dist/antd.css";
@@ -14,6 +14,9 @@ import LabelImportantTwoToneIcon from "@mui/icons-material/LabelImportantTwoTone
 
 export default function Places() {
   const [places, setPlaces] = useState([]);
+  const [allPlaces, setAllPlaces] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getData();
@@ -21,16 +24,28 @@ export default function Places() {
 
   const getData = async () => {
     const response = await petitions.GetPlaces();
-    setPlaces(response);
+    setTotal(response.lenght);
+    setAllPlaces(
+      response.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    );
+    setPlaces(response.slice(0, 9));
   };
 
-  places.sort(function (a, b) {
-    if (a.name > b.name) {
-      return 1;
+  const handleChange = (event) => {
+    if (event !== 1) {
+      setPage(event);
+      setPlaces(allPlaces.slice((event - 1) * 10, (event - 1) * 10 + 11));
     } else {
-      return -1;
+      setPage(1);
+      setPlaces(allPlaces.slice(0, 9));
     }
-  });
+  };
 
   return (
     <div className="PlaceList">
@@ -52,6 +67,7 @@ export default function Places() {
           </Link>
         }
       </Stack>
+      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"

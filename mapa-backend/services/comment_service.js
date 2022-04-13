@@ -5,13 +5,13 @@ class CommentService {
     this.commentRepository = new CommentRepository();
   }
 
-  async createComment(data) {
-    const comment = await this.commentRepository.createComment(data);
+  async addCommentToPlace(data) {
+    const comment = await this.commentRepository.addCommentToPlace(data);
     return comment;
   }
 
-  async addCommentToPlace(data) {
-    const comment = await this.commentRepository.addCommentToPlace(data);
+  async deleteComment(data) {
+    const comment = await this.commentRepository.deleteComment(data);
     return comment;
   }
 }

@@ -14,6 +14,7 @@ import ListCategories from "./components/ListCategories";
 import EditFeature from "./components/EditFeature/EditFeature";
 import ListFeatures from "./components/ListFeatures";
 import ListImages from "./components/ListImages";
+import ListComments from "./components/ListComments";
 
 function App() {
   return (
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/listimages/:id" exact={true}>
             <Authenticated component={<ListImages />} />
+          </Route>
+          <Route path="/listcomments/:id" exact={true}>
+            <Authenticated component={<ListComments />} />
           </Route>
           <Route path="/reset" exact={true}>
             <Reset />
