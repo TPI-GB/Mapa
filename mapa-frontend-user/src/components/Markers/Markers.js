@@ -235,9 +235,7 @@ function FormComment(place) {
         {state.comments.map((c) => (
           <Stack mt={1}>
             <div
-              style={{
-                backgroundColor: "#c5cae9",
-              }}
+              style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}
             >
               <b>{c.name}</b>
               <p>{c.text}</p>
