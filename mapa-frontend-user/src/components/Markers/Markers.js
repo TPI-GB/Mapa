@@ -38,11 +38,11 @@ const Markers = () => {
       position={[place.lactitude, place.longitude]}
       icon={IconPlace(place)}
     >
-        <Popup className="popup">
+      <Popup className="popup">
         <h3>{place.name}</h3>
         <p>{place.description}</p>
-          <p>{InfoPlace(place)}</p>
-        </Popup>
+        <p>{InfoPlace(place)}</p>
+      </Popup>
     </Marker>
   ));
   if (current_latitude !== "not found" && current_longitude !== "not found") {
@@ -130,11 +130,14 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Box textAlign='center'>
-        <Button onClick={handleOpen} variant="contained"
-          style={{ background: "#64b5f6" }}>
-        Ver info
-      </Button>
+      <Box textAlign="center">
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          style={{ background: "#64b5f6" }}
+        >
+          Ver info
+        </Button>
       </Box>
       <Modal
         open={open}
