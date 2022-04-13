@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "antd";
+import { List, Pagination } from "antd";
 import { Stack, Button } from "@mui/material";
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -10,6 +10,9 @@ import "antd/dist/antd.css";
 
 export default function ListUsers() {
   const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getData();
@@ -17,29 +20,42 @@ export default function ListUsers() {
 
   const getData = async () => {
     const response = await petitions.GetUsers();
-    setUsers(response);
+    setTotal(response.lenght);
+    setAllUsers(
+      response.sort(function (a, b) {
+        if (a.first_name === b.first_name && a.last_name === b.last_name) {
+          if (a.nick > b.nick) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        if (a.first_name === b.first_name) {
+          if (a.last_name > b.last_name) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        if (a.first_name > b.first_name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    );
+    setUsers(response.slice(0, 9));
   };
-  users.sort(function (a, b) {
-    if (a.first_name === b.first_name && a.last_name === b.last_name) {
-      if (a.nick > b.nick) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-    if (a.first_name === b.first_name) {
-      if (a.last_name > b.last_name) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-    if (a.first_name > b.first_name) {
-      return 1;
+
+  const handleChange = (event) => {
+    if (event !== 1) {
+      setPage(event);
+      setUsers(allUsers.slice((event - 1) * 10, (event - 1) * 10 + 11));
     } else {
-      return -1;
+      setPage(1);
+      setUsers(allUsers.slice(0, 9));
     }
-  });
+  };
 
   const ButtonEditUser = (id) => {
     if (localStorage.getItem("user login rol") === "Administrador") {
@@ -88,6 +104,7 @@ export default function ListUsers() {
       >
         {ButtonCreateUser()}
       </Stack>
+      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"

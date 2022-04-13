@@ -5,24 +5,8 @@ class CommentController {
   constructor() {
     this.commentService = new CommentService();
     this.router = express.Router();
-    this.router.post("/", (req, res) => this.createComment(req, res));
     this.router.put("/", (req, res) => this.addCommentToPlace(req, res));
-  }
-
-  createComment(req, res) {
-    const data = req.body;
-    if (!data.name || !data.text) {
-      return res.status(400).send("All fields are required");
-    }
-    const commentPromise = this.commentService.createComment(data);
-    commentPromise
-      .then((comment) => {
-        res.json(comment);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+    this.router.delete("/", (req, res) => this.deleteComment(req, res));
   }
 
   addCommentToPlace(req, res) {
@@ -38,6 +22,19 @@ class CommentController {
       .catch((err) => {
         console.log(err);
         res.status(400).json(err);
+      });
+  }
+
+  deleteComment(req, res) {
+    const data = req.body;
+    const commentPromise = this.commentService.deleteComment(data);
+    commentPromise
+      .then((comment) => {
+        res.json(comment);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
       });
   }
 }

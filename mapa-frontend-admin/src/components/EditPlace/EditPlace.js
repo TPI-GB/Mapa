@@ -462,6 +462,14 @@ function FormEditPlace(id) {
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
+                    style={{ color: "#AC0D0D" }}
+                    href={`/listcomments/${id}`}
+                  >
+                    Borrar Comentarios
+                  </Button>
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <Button
                     type="submit"
                     variant="contained"
                     style={{ background: "#39A2DB" }}

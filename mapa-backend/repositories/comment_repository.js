@@ -1,26 +1,29 @@
-const Comment = require("../models/comment_model");
 const Place = require("../models/places_model");
+const { v4: uuidv4 } = require("uuid");
 
 class CommentRepository {
-  async createComment(data) {
-    const { name, text } = data;
-
-    const comment = await Comment.create({
-      name,
-      text,
-    });
-
-    return await comment.save();
-  }
-
   async addCommentToPlace(data) {
     const { place, comment } = data;
+    comment.id = uuidv4();
     let newComments = {};
     newComments.comments = place.comments.concat(comment);
     await Place.findByIdAndUpdate({ _id: place._id }, newComments);
     const placeStored = await Place.findById(place._id);
-
     return placeStored;
+  }
+
+  async deleteComment(data) {
+    console.log(data);
+    try {
+      const { id, place } = data;
+      let newComments = {};
+      newComments.comments = place.comments.filter((c) => c.id !== id);
+      await Place.findByIdAndUpdate({ _id: place._id }, newComments);
+      const placeStored = await Place.findById(place._id);
+      return placeStored;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

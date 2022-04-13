@@ -26,7 +26,8 @@
     "multer-google-drive": "^1.0.3",
     "nodemailer": "^6.7.0",
     "path": "^0.12.7",
-    "react-google-api": "^1.0.1"
+    "react-google-api": "^1.0.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "multer-google-drive-teams-storage": "^1.1.0",
