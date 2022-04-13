@@ -79,7 +79,7 @@ export default function Features() {
         )}
       />
       <List
-        style={{ background: "#a2dbfa" }}
+        style={{ background: "#c2dbfa" }}
         itemLayout="horizontal"
         dataSource={features}
         renderItem={(feature) => (
