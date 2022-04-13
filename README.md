@@ -21,12 +21,12 @@ Si no existe la base de datos, se crea una automáticamente. (Es necesario tener
 
 ```javascript
 {
-	"first_name": "tu nombre" ,
-	"last_name": "tu apellido" ,
-	"nick": "un nick" ,
+	"first_name": "tu_nombre" ,
+	"last_name": "tu_apellido" ,
+	"nick": "un_nick" ,
 	"rol": "Administrador" ,
-	"password": "tu contraseña" ,
-	"email": "tu email"
+	"password": "tu_contraseña" ,
+	"email": "tu_email"
 }
 ```
 
