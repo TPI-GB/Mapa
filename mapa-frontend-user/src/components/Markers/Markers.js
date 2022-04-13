@@ -192,7 +192,6 @@ function FormComment(place) {
     dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;
     const response = await petitions.AddCommentToPlace(dataCommentToPlace);
-    response;
     setState(response.data);
   };
 
@@ -234,9 +233,7 @@ function FormComment(place) {
       <Stack mt={2}>
         {state.comments.map((c) => (
           <Stack mt={1}>
-            <div
-              style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}
-            >
+            <div style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}>
               <b>{c.name}</b>
               <p>{c.text}</p>
             </div>
