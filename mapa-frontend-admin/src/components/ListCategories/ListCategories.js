@@ -63,7 +63,7 @@ export default function ListCategories() {
         direction="row"
         ml={5}
         mr={5}
-        mb={4}
+        mb={2}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
@@ -76,7 +76,6 @@ export default function ListCategories() {
           </Link>
         }
       </Stack>
-      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"
@@ -91,7 +90,7 @@ export default function ListCategories() {
         )}
       />
       <List
-        style={{ background: "#a2dbfa" }}
+        style={{ background: "#c2dbfa" }}
         itemLayout="horizontal"
         dataSource={categories}
         renderItem={(category) => (
@@ -116,7 +115,8 @@ export default function ListCategories() {
             <List.Item.Meta title={buttonDelete(category)}></List.Item.Meta>
           </List.Item>
         )}
-      />
+      />      
+      <Pagination page={page} total={total} onChange={handleChange} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ function App() {
       </Router>
       <Footer />
     </div>
-  );
-}
+    );
+  }
 
 export default App;

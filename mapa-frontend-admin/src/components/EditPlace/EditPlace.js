@@ -105,7 +105,6 @@ function FormNewPlace() {
       const response = await petitions.SaveImageAndGetName(files[i]);
       let dataToDrive = {};
       dataToDrive.img = response;
-      console.log(dataToDrive);
       const responseDrive = await petitions.UploadFileToDrive(dataToDrive);
       arrayImages.push(responseDrive);
     }

@@ -97,14 +97,13 @@ export default function ListUsers() {
         direction="row"
         ml={5}
         mr={5}
-        mb={4}
+        mb={2}
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={8}
       >
         {ButtonCreateUser()}
-      </Stack>
-      <Pagination page={page} total={total} onChange={handleChange} />
+      </Stack>      
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"
@@ -117,11 +116,11 @@ export default function ListUsers() {
             <List.Item.Meta title={<h5>Rol</h5>}></List.Item.Meta>
             <List.Item.Meta title={<h5>Estado</h5>}></List.Item.Meta>
             <List.Item.Meta title={""}></List.Item.Meta>
-          </List.Item>
-        )}
-      />
+          </List.Item>          
+        )}                
+      />      
       <List
-        style={{ background: "#a2dbfa" }}
+        style={{ background: "#c2dbfa" }}
         itemLayout="horizontal"
         dataSource={users}
         renderItem={(user) => (
@@ -135,6 +134,7 @@ export default function ListUsers() {
           </List.Item>
         )}
       />
+      <Pagination page={page} total={total} onChange={handleChange} />
     </div>
   );
 }

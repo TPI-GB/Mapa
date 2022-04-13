@@ -38,7 +38,7 @@ const Markers = () => {
       position={[place.lactitude, place.longitude]}
       icon={IconPlace(place)}
     >
-      <Popup>
+      <Popup className="popup">
         <h3>{place.name}</h3>
         <p>{place.description}</p>
         <p>{InfoPlace(place)}</p>
@@ -54,7 +54,7 @@ const Markers = () => {
         ]}
         icon={IconUser()}
       >
-        <Popup>
+        <Popup className="popup">
           <h3>Usted esta aqui</h3>
         </Popup>
       </Marker>
@@ -130,9 +130,15 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} color="primary">
-        Ver info
-      </Button>
+      <Box textAlign="center">
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          style={{ background: "#64b5f6" }}
+        >
+          Ver info
+        </Button>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -160,7 +166,7 @@ function InfoPlace(place) {
           </Stack>
 
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Categoría: {place.category}</b> 
+            <b>Categoría: {place.category}</b>
           </Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
             <b>Descripción: </b>
@@ -233,11 +239,7 @@ function FormComment(place) {
       <Stack mt={2}>
         {state.comments.map((c) => (
           <Stack mt={1}>
-            <div
-              style={{
-                backgroundColor: "#c5cae9",
-              }}
-            >
+            <div style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}>
               <b>{c.name}</b>
               <p>{c.text}</p>
             </div>
