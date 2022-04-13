@@ -160,7 +160,7 @@ function InfoPlace(place) {
           </Stack>
 
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Categoría: {place.category}</b> 
+            <b>Categoría: {place.category}</b>
           </Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
             <b>Descripción: </b>
@@ -192,7 +192,7 @@ function FormComment(place) {
     dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;
     const response = await petitions.AddCommentToPlace(dataCommentToPlace);
-    console.log(response);
+    response;
     setState(response.data);
   };
 

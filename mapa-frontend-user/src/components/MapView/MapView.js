@@ -60,10 +60,10 @@ export default function MapView() {
       sessionStorage.setItem("name", "");
     }
     setName(sessionStorage.getItem("name"));
-    if (category != null) {
+    if (category !== null) {
       setSelectedCategory(category ? category.trim() : "");
     } else {
-      setSelectedCategory("Todas" ? "Todas".trim() : "");
+      setSelectedCategory("" ? "".trim() : "");
     }
     if (features === null) {
       sessionStorage.setItem("features", JSON.stringify([]));
@@ -85,7 +85,6 @@ export default function MapView() {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-    console.log(feature);
   };
 
   const handleChangeSelectedCategory = (event) => {
@@ -154,12 +153,15 @@ export default function MapView() {
             />
             <FormControl sx={{ width: 250 }} style={{ margin: 12 }}>
               <InputLabel id="feature-multiple-checkbox-label"></InputLabel>
+              <InputLabel id="Categoria-label">Categoria</InputLabel>
               <Select
                 {...register("category")}
-                value={selectedCategory}
                 onChange={handleChangeSelectedCategory}
+                labelId="Categoria-label"
+                label="Categoria"
+                value={selectedCategory}
               >
-                <MenuItem value={"Todas"}>Categorias</MenuItem>
+                <MenuItem value={"Todas"}>Todas</MenuItem>
                 {categories.map(({ name, icon }) => (
                   <MenuItem value={name}>
                     {`${name}`}
