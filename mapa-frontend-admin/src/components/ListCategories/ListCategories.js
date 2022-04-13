@@ -5,7 +5,7 @@ import { Stack, Button } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { List } from "antd";
+import { List, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,22 +22,39 @@ export default function ListCategories() {
   library.add(...iconList);
 
   const [categories, setcategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
     const response = await petitions.GetCategories();
-    setcategories(response);
+    setTotal(response.length);
+    setAllCategories(
+      response.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    );
+    setcategories(response.slice(0, 9));
   };
 
-  categories.sort(function (a, b) {
-    if (a.name > b.name) {
-      return 1;
+  const handleChange = (event) => {
+    if (event !== 1) {
+      setPage(event);
+      setcategories(
+        allCategories.slice((event - 1) * 10, (event - 1) * 10 + 11)
+      );
     } else {
-      return -1;
+      setPage(1);
+      setcategories(allCategories.slice(0, 9));
     }
-  });
+  };
 
   return (
     <div className="ListCategories">
@@ -59,6 +76,7 @@ export default function ListCategories() {
           </Link>
         }
       </Stack>
+      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"

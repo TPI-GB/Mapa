@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { List } from "antd";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { List, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import Swal from "sweetalert2";
@@ -13,6 +13,9 @@ import "./ListFeatures.scss";
 
 export default function Features() {
   const [features, setFeatures] = useState([]);
+  const [allFeatures, setAllFeatures] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getData();
@@ -20,7 +23,27 @@ export default function Features() {
 
   const getData = async () => {
     const response = await petitions.GetFeatures();
-    setFeatures(response);
+    setTotal(response.lenght);
+    setAllFeatures(
+      response.sort(function (a, b) {
+        if (a.name && b.name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    );
+    setFeatures(response.slice(0, 9));
+  };
+
+  const handleChange = (event) => {
+    if (event !== 1) {
+      setPage(event);
+      setFeatures(allFeatures.slice((event - 1) * 10, (event - 1) * 10 + 11));
+    } else {
+      setPage(1);
+      setFeatures(allFeatures.slice(0, 9));
+    }
   };
 
   return (
@@ -43,19 +66,20 @@ export default function Features() {
           </Link>
         }
       </Stack>
+      <Pagination page={page} total={total} onChange={handleChange} />
       <List
         style={{ background: "white" }}
         itemLayout="horizontal"
         dataSource={["this data is to show a single column"]}
         renderItem={() => (
-          <List.Item >
+          <List.Item>
             <List.Item.Meta title={<h4>Descripición</h4>}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
             <List.Item.Meta title={" "}></List.Item.Meta>
           </List.Item>
         )}
       />
-      <List      
+      <List
         style={{ background: "#a2dbfa" }}
         itemLayout="horizontal"
         dataSource={features}
@@ -89,7 +113,7 @@ function buttonDelete(feature) {
       type="delete"
       size="small"
       variant="contained"
-      style={{ background: "#AC0D0D"}}
+      style={{ background: "#AC0D0D" }}
       onClick={() => deleteFeature(feature._id)}
     >
       <DeleteForeverOutlinedIcon /> Borrar

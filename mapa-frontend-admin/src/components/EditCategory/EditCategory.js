@@ -266,9 +266,6 @@ function FormNewCategory() {
                     <MenuItem value="umbrella-beach">
                       <FontAwesomeIcon icon="umbrella-beach" />
                     </MenuItem>
-                    <MenuItem value="guitar">
-                      <FontAwesomeIcon icon="guitar" />
-                    </MenuItem>
                   </Select>
                 </Stack>
                 <Stack direction="row" ml={2} mt={6}>
@@ -534,9 +531,6 @@ function FormEditCategory(id) {
                     </MenuItem>
                     <MenuItem value="umbrella-beach">
                       <FontAwesomeIcon icon="umbrella-beach" />
-                    </MenuItem>
-                    <MenuItem value="guitar">
-                      <FontAwesomeIcon icon="guitar" />
                     </MenuItem>
                   </Select>
                 </Stack>

@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import petitions from "../Petitions";
 import "./Markers.scss";
+import { red } from "@mui/material/colors";
 
 const Markers = () => {
   let places = JSON.parse(sessionStorage.getItem("places"));
@@ -38,11 +39,11 @@ const Markers = () => {
       position={[place.lactitude, place.longitude]}
       icon={IconPlace(place)}
     >
-      <Popup>
+        <Popup className="popup">
         <h3>{place.name}</h3>
         <p>{place.description}</p>
-        <p>{InfoPlace(place)}</p>
-      </Popup>
+          <p>{InfoPlace(place)}</p>
+        </Popup>
     </Marker>
   ));
   if (current_latitude !== "not found" && current_longitude !== "not found") {
@@ -72,7 +73,7 @@ const stylebox = {
   height: "90%",
   width: 750,
   overflow: "auto",
-  bgcolor: "#9e9e9e  ",
+  bgcolor: "#b39ddb",
   border: "2px solid #000",
   borderRadius: "1%",
   boxShadow: 24,
@@ -130,7 +131,8 @@ function InfoPlace(place) {
   petitions.GetPlaces();
   return (
     <div>
-      <Button onClick={handleOpen} color="primary">
+      <Button onClick={handleOpen} variant="contained"
+      style={{ background: "#64b5f6 " , marginLeft:"35px"}}>
         Ver info
       </Button>
       <Modal
@@ -160,11 +162,10 @@ function InfoPlace(place) {
           </Stack>
 
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Categoría</b>
+            <b>Categoría: {place.category}</b> 
           </Stack>
-          <Stack>{place.category}</Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Descripción</b>
+            <b>Descripción: </b>
           </Stack>
           <Stack>{place.description}</Stack>
           <Stack className="modal-title" textTransform={"uppercase"}>
@@ -188,7 +189,7 @@ function FormComment(place) {
   const [state, setState] = useState(place);
 
   const onSubmit = async (data) => {
-    const newComment = await petitions.CreateComment(data);
+    const newComment = { name: data.name, text: data.text };
     let dataCommentToPlace = {};
     dataCommentToPlace.place = state;
     dataCommentToPlace.comment = newComment;
@@ -203,7 +204,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "gray" }}
+          style={{ background: "#c5cae9" }}
           {...register("name")}
           required
           label="Nombre"
@@ -212,7 +213,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "gray" }}
+          style={{ background: "#c5cae9" }}
           {...register("text")}
           required
           label="Comentario"
@@ -236,7 +237,7 @@ function FormComment(place) {
           <Stack mt={1}>
             <div
               style={{
-                backgroundColor: "lightblue",
+                backgroundColor: "#c5cae9",
               }}
             >
               <b>{c.name}</b>
