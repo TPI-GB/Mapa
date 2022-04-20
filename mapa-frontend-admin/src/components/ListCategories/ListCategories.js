@@ -2,6 +2,8 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -57,7 +59,10 @@ export default function ListCategories() {
   };
 
   return (
-    <div className="ListCategories">
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="xl">
+      <div className="ListCategories">
       <h2>CATEGORÍAS</h2>
       <Stack
         direction="row"
@@ -118,6 +123,8 @@ export default function ListCategories() {
       />      
       <Pagination page={page} total={total} onChange={handleChange} />
     </div>
+      </Container>
+    </React.Fragment>    
   );
 }
 

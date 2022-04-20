@@ -2,6 +2,8 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 import { List, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
@@ -48,7 +50,10 @@ export default function Places() {
   };
 
   return (
-    <div className="PlaceList">
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="xl">
+      <div className="PlaceList">
       <h2>LUGARES</h2>
       <Stack
         direction="row"
@@ -132,6 +137,8 @@ export default function Places() {
       />      
       <Pagination page={page} total={total} onChange={handleChange} />
     </div>
+      </Container>
+    </React.Fragment>    
   );
 }
 
