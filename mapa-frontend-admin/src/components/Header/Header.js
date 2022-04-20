@@ -46,7 +46,7 @@ export default function Header() {
             </Button>
           </Typography>
           <Button color="inherit">
-            <AccountMenu />           
+            <AccountMenu />
           </Button>
         </Toolbar>
       </AppBar>
@@ -77,7 +77,12 @@ function AccountMenu() {
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
-          <IconButton color="primary" onClick={handleClick} size="small" sx={{ ml: 1 }}>
+          <IconButton
+            color="primary"
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 1 }}
+          >
             <AccountCircleIcon sx={{ width: 32, height: 32 }} />
             <b>
               {localStorage.getItem("user login first_name") +

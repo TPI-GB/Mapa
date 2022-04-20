@@ -8,7 +8,7 @@ async function initApp(appConfig, dbConfig) {
     console.log(dbConfig);
     await connectDb(dbConfig);
     app.listen(appConfig.port, () =>
-      console.log(`listen on ${appConfig.port}`)
+      console.log(`Listen on ${appConfig.port}`)
     );
   } catch (e) {
     console.error(e);

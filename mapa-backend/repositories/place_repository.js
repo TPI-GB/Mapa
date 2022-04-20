@@ -1,23 +1,5 @@
 const Place = require("../models/places_model");
 const fs = require("fs");
-const path = require("path");
-const { google } = require("googleapis");
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const redirectUri = process.env.REDIRECT_URI;
-const refreshToken = process.env.REFRESH_TOKEN;
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
-
-const oauthclient2 = new google.auth.OAuth2(
-  clientId,
-  clientSecret,
-  redirectUri,
-  refreshToken
-);
-
-oauthclient2.setCredentials({ refresh_token: refreshToken });
-
-var drive = google.drive({ version: "v3", auth: oauthclient2 });
 
 class PlaceRepository {
   async createPlace(data) {
@@ -101,35 +83,6 @@ class PlaceRepository {
     }
   }
 
-  async uploadToDrive(data) {
-    const { img } = data;
-    const filename = `../images/${img}`;
-    const filepath = path.join(__dirname, filename);
-    try {
-      const response = await drive.files.create({
-        requestBody: {
-          name: filename,
-          mimeType: "image/jpg",
-        },
-        media: {
-          mimeType: "image/jpg",
-          body: fs.createReadStream(filepath),
-        },
-      });
-      drive.permissions.create({
-        fileId: response.data.id,
-        requestBody: {
-          role: "reader",
-          type: "anyone",
-        },
-      });
-      await this.deleteImageFromBackend(img);
-      return response.data.id;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   async editRating(data) {
     const { place, rating, id } = data;
     let newVotesCount = place.votes_count.concat(parseInt(rating));
@@ -198,7 +151,7 @@ class PlaceRepository {
 
       const placeUpdate = await Place.findById(id);
 
-      await this.deleteImageFromDrive(img);
+      await this.deleteImageFromBackend(img);
 
       return placeUpdate;
     } catch (err) {
@@ -216,18 +169,5 @@ class PlaceRepository {
       }
     });
   }
-
-  async deleteImageFromDrive(img) {
-    try {
-      const response = await drive.files.delete({
-        fileId: img,
-      });
-      return response;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  }
 }
-
 module.exports = PlaceRepository;
