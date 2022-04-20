@@ -33,7 +33,7 @@ const Markers = () => {
   ) {
     setTimeout(() => {
       window.location = window.location.href;
-    }, 300);
+    }, 1000);
   }
   let markers = places.map((place, i) => (
     <Marker
@@ -154,7 +154,7 @@ function InfoPlace(place) {
             <h1>{place.name}</h1>
           </Stack>
           <Stack>
-            <Carousel class="slides_container">
+            <Carousel sx={{ width: 750, height: 450 }} class="slides_container">
               {place.images.map((image) => (
                 <img
                   class="slides_container"
