@@ -231,7 +231,10 @@ function FormComment(place) {
         <Button
           variant="contained"
           type="submit"
-          style={{ background: "#5c5470", borderRadius: "8% 8% 8% 8%" }}
+          style={{
+            background: "#5c5470",
+            borderRadius: "8% 8% 8% 8%",
+          }}
         >
           Dejar opinión
         </Button>
@@ -242,7 +245,13 @@ function FormComment(place) {
       <Stack mt={2}>
         {state.comments.map((c) => (
           <Stack mt={1}>
-            <div style={{ backgroundColor: "#c5cae9", paddingLeft: 8 }}>
+            <div
+              className="comments"
+              style={{
+                backgroundColor: "#c5cae9",
+                paddingLeft: 8,
+              }}
+            >
               <b>{c.name}</b>
               <p>{c.text}</p>
             </div>
