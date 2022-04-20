@@ -110,7 +110,7 @@ class PlaceRepository {
   async deletePlace(id) {
     const place = await Place.findById(id);
     if (place.images.length != 0) {
-      place.images.forEach((img) => this.deleteImageFromDrive(img));
+      place.images.forEach((img) => this.deleteImageFromBackend(img));
     }
     return await Place.deleteOne({ _id: id });
   }
