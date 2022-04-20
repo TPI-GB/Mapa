@@ -33,7 +33,7 @@ const Markers = () => {
   ) {
     setTimeout(() => {
       window.location = window.location.href;
-    }, 1000);
+    }, 300);
   }
   let markers = places.map((place, i) => (
     <Marker
