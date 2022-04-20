@@ -9,7 +9,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useForm } from "react-hook-form";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -147,10 +147,15 @@ function InfoPlace(place) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={stylebox}>
-          <Button onClick={handleClose}>
-            <CloseIcon color="primary" />
+          <Button
+            onClick={handleClose}
+            variant="contained"
+            style={{ background: "#7E57C2" }}
+          >
+            <ArrowBackIcon />
+            &nbsp;Regresar
           </Button>
-          <Stack textAlign={"center"} textTransform={"uppercase"}>
+          <Stack textAlign={"center"}>
             <h1>{place.name}</h1>
           </Stack>
           <Stack>
