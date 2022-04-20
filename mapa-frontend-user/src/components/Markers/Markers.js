@@ -165,14 +165,16 @@ function InfoPlace(place) {
             </Carousel>
           </Stack>
 
-          <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Categoría: {place.category}</b>
+          <Stack className="modal-title" >
+            <b>Categoría </b>
+            <Stack>{place.category}</Stack>
           </Stack>
-          <Stack className="modal-title" textTransform={"uppercase"}>
-            <b>Descripción: </b>
+          
+          <Stack className="modal-title" >
+            <b>Descripción </b>
           </Stack>
           <Stack>{place.description}</Stack>
-          <Stack className="modal-title" textTransform={"uppercase"}>
+          <Stack className="modal-title" >
             <b>Características De Accesibilidad</b>
           </Stack>
           <Stack>
@@ -208,7 +210,7 @@ function FormComment(place) {
       </Stack>
       <Stack direction="row">
         <TextField
-          style={{ background: "#c5cae9" }}
+          style={{ background: "#c5cae9",  borderRadius: "8% 8% 8% 8%"}}
           {...register("name")}
           required
           label="Nombre"
@@ -217,7 +219,7 @@ function FormComment(place) {
       </Stack>
       <Stack mt="3px">
         <TextField
-          style={{ background: "#c5cae9" }}
+          style={{ background: "#c5cae9",  borderRadius: "8% 8% 8% 8%"}}
           {...register("text")}
           required
           label="Comentario"
@@ -228,7 +230,7 @@ function FormComment(place) {
         <Button
           variant="contained"
           type="submit"
-          style={{ background: "#5c5470" }}
+          style={{ background: "#5c5470",  borderRadius: "8% 8% 8% 8%"}}
         >
           Dejar opinión
         </Button>
