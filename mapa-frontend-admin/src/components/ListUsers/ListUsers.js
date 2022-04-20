@@ -1,6 +1,8 @@
 import React from "react";
 import { List, Pagination } from "antd";
 import { Stack, Button } from "@mui/material";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import petitions from "../Petitions";
@@ -91,7 +93,10 @@ export default function ListUsers() {
   };
 
   return (
-    <div className="ListUsers">
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="xl">
+      <div className="ListUsers">
       <h2>USUARIOS</h2>
       <Stack
         direction="row"
@@ -135,7 +140,9 @@ export default function ListUsers() {
         )}
       />
       <Pagination page={page} total={total} onChange={handleChange} />
-    </div>
+    </div>        
+      </Container>
+    </React.Fragment>       
   );
 }
 

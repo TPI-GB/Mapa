@@ -8,6 +8,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Swal from "sweetalert2";
 import "./ListImages.scss";
 import "antd/dist/antd.css";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export default function ListImages() {
   const { id } = useParams();
@@ -45,16 +46,15 @@ export default function ListImages() {
         renderItem={() => (
           <List.Item>
             <Grid item xs={2}>
-            <Button
-              variant="contained"
-              style={{ background: "#053742" }}
-              onClick={() => (window.location = `/editplace/${id}`)}
-            >
-              <KeyboardBackspaceIcon /> Volver
-            </Button>
+              <Button
+                variant="contained"
+                style={{ background: "#053742" }}
+                onClick={() => (window.location = `/editplace/${id}`)}
+              >
+                <KeyboardBackspaceIcon /> Volver
+              </Button>
             </Grid>
           </List.Item>
-         
         )}
       />
       <List
@@ -70,7 +70,7 @@ export default function ListImages() {
                   <img
                     class="slides_container"
                     alt="imagen"
-                    src={`https://drive.google.com/uc?id=${img}`}
+                    src={`${baseUrl}/images/${img}`}
                     width={"70%"}
                     height={"70%"}
                   />

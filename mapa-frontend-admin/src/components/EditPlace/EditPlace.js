@@ -103,10 +103,7 @@ function FormNewPlace() {
     let arrayImages = [];
     for (var i = 0; i < files.length; i++) {
       const response = await petitions.SaveImageAndGetName(files[i]);
-      let dataToDrive = {};
-      dataToDrive.img = response;
-      const responseDrive = await petitions.UploadFileToDrive(dataToDrive);
-      arrayImages.push(responseDrive);
+      arrayImages.push(response);
     }
     return arrayImages;
   };

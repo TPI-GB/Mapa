@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import petitions from "../Petitions";
 import "./Markers.scss";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Markers = () => {
   let places = JSON.parse(sessionStorage.getItem("places"));
@@ -30,7 +31,9 @@ const Markers = () => {
     current_longitude === null ||
     current_latitude === null
   ) {
-    window.location = window.location.href;
+    setTimeout(() => {
+      window.location = window.location.href;
+    }, 1000);
   }
   let markers = places.map((place, i) => (
     <Marker
@@ -126,8 +129,6 @@ function InfoPlace(place) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  petitions.GetPlaces();
   return (
     <div>
       <Box textAlign="center">
@@ -159,7 +160,7 @@ function InfoPlace(place) {
                   class="slides_container"
                   key={image}
                   alt="imagen"
-                  src={`https://drive.google.com/uc?id=${image}`}
+                  src={`${baseUrl}/images/${image}`}
                 />
               ))}
             </Carousel>

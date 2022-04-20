@@ -137,13 +137,13 @@ export default function MapView() {
     console.log("ERROR(" + err.code + "): " + err.message);
   }
   return (
-    <div>
+    <div>      
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
-          <div className="estilosDeSelect">
+          <div className="estilosDeSelect">            
             <TextField
               className="nombre"
-              label="Buscar por nombre"
+              label="Buscar lugar por nombre"
               {...register("name", {
                 onChange: handleChangeName,
               })}
