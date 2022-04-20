@@ -35,11 +35,6 @@ class PlaceService {
     return place;
   }
 
-  async uploadToDrive(data) {
-    const id = await this.placeRepository.uploadToDrive(data);
-    return id;
-  }
-
   async deleteImageFromPlace(data) {
     const place = await this.placeRepository.deleteImageFromPlace(data);
     return place;
