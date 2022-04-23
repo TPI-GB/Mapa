@@ -48,6 +48,8 @@ class PlaceRepository {
     try {
       let newData = {};
 
+      const place = await Place.findById({ _id: id });
+
       if (name != "") {
         newData.name = name;
       }
@@ -64,7 +66,11 @@ class PlaceRepository {
         newData.category = category;
       }
       if (images != []) {
-        newData.images = images;
+        let newImages = place.images;
+        for (let i = 0; i < images.length; i++) {
+          newImages.push(images[i]);
+        }
+        newData.images = newImages;
       }
       newData.features = features;
 
@@ -75,6 +81,8 @@ class PlaceRepository {
       return placeStored;
     } catch (err) {
       if (images.length != 0) {
+        let newData = {};
+        const place = await Place.findById({ _id: id });
         newData.images = place.images;
         await Place.findByIdAndUpdate({ _id: id }, newData);
         images.forEach((img) => this.deleteImageFromBackend(img));

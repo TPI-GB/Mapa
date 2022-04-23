@@ -161,12 +161,14 @@ function InfoPlace(place) {
           <Stack>
             <Carousel sx={{ width: 750, height: 450 }} class="slides_container">
               {place.images.map((image) => (
-                <img
-                  class="slides_container"
-                  key={image}
-                  alt="imagen"
-                  src={`${baseUrl}/images/${image}`}
-                />
+                <Stack sx={{ width: 750, height: 450 }}>
+                  <img
+                    class="slides_container"
+                    key={image}
+                    alt="imagen"
+                    src={`${baseUrl}/images/${image}`}
+                  />
+                </Stack>
               ))}
             </Carousel>
           </Stack>
