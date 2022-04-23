@@ -159,7 +159,7 @@ function InfoPlace(place) {
             <h1>{place.name}</h1>
           </Stack>
           <Stack>
-            <Carousel sx={{ width: 750, height: 450 }} class="slides_container">
+            <Carousel sx={{ flexGrow: 1 }} class="slides_container">
               {place.images.map((image) => (
                 <Stack sx={{ width: 750, height: 450 }}>
                   <img

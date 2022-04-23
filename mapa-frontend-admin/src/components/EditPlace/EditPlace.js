@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import "./EditPlace.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -224,6 +225,15 @@ function FormNewPlace() {
                     className="form-control"
                     multiple
                   />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <p>
+                    {" "}
+                    <WarningAmberIcon />
+                    Las imagenes se veran en una resolución de 750x450. Por
+                    favor, seleccione imagenes de dimension similar para evitar
+                    problemas de visualización.
+                  </p>
                 </Stack>
 
                 <Stack direction="row" ml={2} mt={2}>
@@ -447,6 +457,15 @@ function FormEditPlace(id) {
                     className="form-control"
                     multiple
                   />
+                </Stack>
+                <Stack direction="row" ml={2} mt={2}>
+                  <p>
+                    {" "}
+                    <WarningAmberIcon />
+                    Las imagenes se veran en una resolución de 750x450. Por
+                    favor, seleccione imagenes de dimension similar para evitar
+                    problemas de visualización.
+                  </p>
                 </Stack>
                 <Stack direction="row" ml={2} mt={2}>
                   <Button
