@@ -31,9 +31,9 @@ const MenuProps = {
 };
 
 export default function MapView() {
-  let places = sessionStorage.getItem("places");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [name, setName] = useState("");
+  const [places, setPlaces] = useState([]);
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState([]);
@@ -44,10 +44,13 @@ export default function MapView() {
   }, []);
 
   const getData = async () => {
-    if (places === null) {
+    const data = JSON.parse(sessionStorage.getItem("data"));
+    if (data === null) {
       const res = await petitions.GetPlaces();
-      sessionStorage.setItem("places", JSON.stringify(res));
-      places = sessionStorage.getItem("places");
+      setPlaces(res);
+    } else {
+      const res = await petitions.GetPlacesFilter(data);
+      setPlaces(res);
     }
     const categoriesValues = await petitions.GetCategories();
     const featureValues = await petitions.GetFeatures();
@@ -104,8 +107,7 @@ export default function MapView() {
     sessionStorage.setItem("category", data.category);
     sessionStorage.setItem("name", name);
     sessionStorage.setItem("features", JSON.stringify(data.features));
-    const newPlaces = await petitions.GetPlacesFilter(data);
-    sessionStorage.setItem("places", JSON.stringify(newPlaces));
+    sessionStorage.setItem("data", JSON.stringify(data));
     window.location = window.location.href;
   };
 
@@ -120,27 +122,33 @@ export default function MapView() {
       alert(
         "Atencion, este navegador no soporta visualizar su ubicación actual"
       );
-      sessionStorage.setItem("current latitude", "not found");
-      sessionStorage.setItem("current longitude", "not found");
     }
   } catch (err) {
     console.log(err);
+    sessionStorage.setItem("current latitude", "-35.768021379446026");
+    sessionStorage.setItem("current longitude", "-58.49708847640829");
+    sessionStorage.setItem("current response", "fail");
   }
 
   function successCurrentLocation(pos) {
     var crd = pos.coords;
     sessionStorage.setItem("current latitude", crd.latitude);
     sessionStorage.setItem("current longitude", crd.longitude);
+    sessionStorage.setItem("current response", "sucess");
   }
 
   function errorCurrentLocation(err) {
     console.log("ERROR(" + err.code + "): " + err.message);
+    sessionStorage.setItem("current latitude", "-35.768021379446026");
+    sessionStorage.setItem("current longitude", "-58.49708847640829");
+    sessionStorage.setItem("current response", "fail");
   }
+
   return (
-    <div>      
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
-          <div className="estilosDeSelect">            
+          <div className="estilosDeSelect">
             <TextField
               className="nombre"
               label="Buscar lugar por nombre"
@@ -206,11 +214,14 @@ export default function MapView() {
       <div className="Map">
         <MapContainer
           className="Map-container"
-          center={{ lat: "-35.768021379446026", lng: "-58.49708847640829" }}
+          center={{
+            lat: sessionStorage.getItem("current latitude"),
+            lng: sessionStorage.getItem("current longitude"),
+          }}
           zoom={15}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
-          <Markers />
+          <Markers places={places} />
         </MapContainer>
       </div>
     </div>

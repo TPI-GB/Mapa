@@ -22,10 +22,11 @@ import petitions from "../Petitions";
 import "./Markers.scss";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const Markers = () => {
-  let places = JSON.parse(sessionStorage.getItem("places"));
+const Markers = (props) => {
+  const places = props.places;
   let current_longitude = sessionStorage.getItem("current longitude");
   let current_latitude = sessionStorage.getItem("current latitude");
+  let current_response = sessionStorage.getItem("current response");
   if (
     places === null ||
     current_longitude === null ||
@@ -48,7 +49,7 @@ const Markers = () => {
       </Popup>
     </Marker>
   ));
-  if (current_latitude !== "not found" && current_longitude !== "not found") {
+  if (current_response === "sucess") {
     const current = (
       <Marker
         position={[
