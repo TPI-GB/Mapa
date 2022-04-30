@@ -9,13 +9,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-        <Routes>
           <Route
             path="/:nameFilter/:categoryFilter/:featuresFilter"
             element={<Home />}
           />
+          <Route path="/:any/:any" element={<b>La url no es correcta</b>} />
+          <Route path="/:any" element={<b>La url no es correcta</b>} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </Router>
       <Footer />
