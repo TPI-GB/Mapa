@@ -18,6 +18,7 @@ import Checkbox from "@mui/material/Checkbox";
 import petitions from "../Petitions";
 import { useForm } from "react-hook-form";
 import SearchIcon from "@mui/icons-material/Search";
+import { useParams } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,6 +32,9 @@ const MenuProps = {
 };
 
 export default function MapView() {
+  let { nameFilter } = useParams();
+  let { categoryFilter } = useParams();
+  let { featuresFilter } = useParams();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [name, setName] = useState("");
   const [places, setPlaces] = useState([]);
@@ -44,34 +48,40 @@ export default function MapView() {
   }, []);
 
   const getData = async () => {
-    const data = JSON.parse(sessionStorage.getItem("data"));
-    if (data === null) {
-      const res = await petitions.GetPlaces();
-      setPlaces(res);
-    } else {
-      const res = await petitions.GetPlacesFilter(data);
-      setPlaces(res);
+    if (nameFilter === undefined) {
+      nameFilter = "all";
     }
+    if (categoryFilter === undefined) {
+      categoryFilter = "all";
+    }
+    if (featuresFilter === undefined) {
+      featuresFilter = "all";
+    }
+    let data = {};
+    data.name = nameFilter;
+    data.category = categoryFilter;
+    data.features = featuresFilter.split(",");
+    const res = await petitions.GetPlacesFilter(data);
+    setPlaces(res);
     const categoriesValues = await petitions.GetCategories();
     const featureValues = await petitions.GetFeatures();
     setFeatures(featureValues.map((x) => x.name));
     setCategories(categoriesValues);
-    const category = sessionStorage.getItem("category");
-    const name = sessionStorage.getItem("name");
-    const features = sessionStorage.getItem("features");
-    if (name === null) {
-      sessionStorage.setItem("name", "");
-    }
-    setName(sessionStorage.getItem("name"));
-    if (category !== null) {
-      setSelectedCategory(category ? category.trim() : "");
+    if (nameFilter !== "all") {
+      setName(nameFilter);
     } else {
-      setSelectedCategory("" ? "".trim() : "");
+      setName("");
     }
-    if (features === null) {
-      sessionStorage.setItem("features", JSON.stringify([]));
+    if (categoryFilter !== "all") {
+      setSelectedCategory(categoryFilter ? categoryFilter.trim() : "");
+    } else {
+      setSelectedCategory("Todas" ? "Todas".trim() : "");
     }
-    setFeature(JSON.parse(sessionStorage.getItem("features")));
+    if (featuresFilter !== "all") {
+      setFeature(JSON.parse(JSON.stringify(featuresFilter.split(","))));
+    } else {
+      setFeature(JSON.parse(JSON.stringify([])));
+    }
   };
 
   const { register, handleSubmit } = useForm();
@@ -98,18 +108,26 @@ export default function MapView() {
   };
 
   const onSubmit = async (data) => {
-    if (data.category === "") {
-      data.category = "Todas";
+    let nameUrl = "all";
+    let categoryUrl = "all";
+    let featuresUrl = "all";
+    if (name !== "") {
+      nameUrl = name;
     }
-    if (data.features === "") {
-      data.features = [];
+    if (data.category !== "") {
+      categoryUrl = data.category;
     }
-    sessionStorage.setItem("category", data.category);
-    sessionStorage.setItem("name", name);
-    sessionStorage.setItem("features", JSON.stringify(data.features));
-    sessionStorage.setItem("data", JSON.stringify(data));
-    window.location = window.location.href;
+    if (feature.length !== 0) {
+      featuresUrl = feature;
+    }
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host;
+    window.location = `${baseUrl}/${nameUrl}/${categoryUrl}/${featuresUrl}`;
   };
+
+  let current_latitude = "-35.768021379446026";
+  let current_longitude = "-58.49708847640829";
+  let current_response = "sucess";
 
   try {
     if (navigator.geolocation) {
@@ -125,23 +143,18 @@ export default function MapView() {
     }
   } catch (err) {
     console.log(err);
-    sessionStorage.setItem("current latitude", "-35.768021379446026");
-    sessionStorage.setItem("current longitude", "-58.49708847640829");
-    sessionStorage.setItem("current response", "fail");
+    current_response = "fail";
   }
 
   function successCurrentLocation(pos) {
     var crd = pos.coords;
-    sessionStorage.setItem("current latitude", crd.latitude);
-    sessionStorage.setItem("current longitude", crd.longitude);
-    sessionStorage.setItem("current response", "sucess");
+    current_latitude = crd.latitude;
+    current_longitude = crd.longitude;
   }
 
   function errorCurrentLocation(err) {
     console.log("ERROR(" + err.code + "): " + err.message);
-    sessionStorage.setItem("current latitude", "-35.768021379446026");
-    sessionStorage.setItem("current longitude", "-58.49708847640829");
-    sessionStorage.setItem("current response", "fail");
+    current_response = "fail";
   }
 
   return (
@@ -152,9 +165,7 @@ export default function MapView() {
             <TextField
               className="nombre"
               label="Buscar lugar por nombre"
-              {...register("name", {
-                onChange: handleChangeName,
-              })}
+              onChange={handleChangeName}
               value={name}
               sx={{ width: 250 }}
               style={{ margin: 12 }}
@@ -183,7 +194,6 @@ export default function MapView() {
                 Caracteristicas
               </InputLabel>
               <Select
-                {...register("features")}
                 labelId="feature-multiple-checkbox-label"
                 id="feature-multiple-checkbox"
                 multiple
@@ -215,13 +225,18 @@ export default function MapView() {
         <MapContainer
           className="Map-container"
           center={{
-            lat: sessionStorage.getItem("current latitude"),
-            lng: sessionStorage.getItem("current longitude"),
+            lat: current_latitude,
+            lng: current_longitude,
           }}
           zoom={15}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
-          <Markers places={places} />
+          <Markers
+            places={places}
+            current_latitude={current_latitude}
+            current_longitude={current_longitude}
+            current_response={current_response}
+          />
         </MapContainer>
       </div>
     </div>

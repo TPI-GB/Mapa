@@ -11,6 +11,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
+        <Routes>
+          <Route
+            path="/:nameFilter/:categoryFilter/:featuresFilter"
+            element={<Home />}
+          />
+        </Routes>
       </Router>
       <Footer />
     </div>

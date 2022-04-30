@@ -24,14 +24,10 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Markers = (props) => {
   const places = props.places;
-  let current_longitude = sessionStorage.getItem("current longitude");
-  let current_latitude = sessionStorage.getItem("current latitude");
-  let current_response = sessionStorage.getItem("current response");
-  if (
-    places === null ||
-    current_longitude === null ||
-    current_latitude === null
-  ) {
+  const current_latitude = props.current_latitude;
+  const current_longitude = props.current_longitude;
+  const current_response = props.current_response;
+  if (places === null) {
     setTimeout(() => {
       window.location = window.location.href;
     }, 300);
@@ -52,10 +48,7 @@ const Markers = (props) => {
   if (current_response === "sucess") {
     const current = (
       <Marker
-        position={[
-          sessionStorage.getItem("current latitude"),
-          sessionStorage.getItem("current longitude"),
-        ]}
+        position={[current_latitude, current_longitude]}
         icon={IconUser()}
       >
         <Popup className="popup">

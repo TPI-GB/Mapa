@@ -128,13 +128,13 @@ class PlaceRepository {
     let nameFilter = {};
     let categoryFliter = {};
     let featuresFilter = {};
-    if (name != "Todas") {
+    if (name !== "all") {
       nameFilter = { name: { $regex: name } };
     }
-    if (category != "Todas") {
+    if (category !== "all") {
       categoryFliter = { category: category };
     }
-    if (features.length != 0) {
+    if (!features.includes("all")) {
       featuresFilter = { features: { $all: features } };
     }
     const placesFilter = Place.find({
