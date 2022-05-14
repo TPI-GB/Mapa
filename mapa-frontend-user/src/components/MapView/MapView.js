@@ -120,8 +120,7 @@ export default function MapView() {
     if (feature.length !== 0) {
       featuresUrl = feature;
     }
-    var getUrl = window.location;
-    var baseUrl = getUrl.protocol + "//" + getUrl.host;
+    const baseUrl = process.env.REACT_APP_BASE_URL;
     window.location = `${baseUrl}/${nameUrl}/${categoryUrl}/${featuresUrl}`;
   };
 

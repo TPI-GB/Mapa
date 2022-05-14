@@ -2,8 +2,8 @@ import * as React from "react";
 import petitions from "../Petitions";
 import { useState, useEffect } from "react";
 import { Stack, Button } from "@mui/material";
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import { List, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import "./Places.scss";
@@ -53,92 +53,94 @@ export default function Places() {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="xl">
-      <div className="PlaceList">
-      <h2>LUGARES</h2>
-      <Stack
-        direction="row"
-        ml={5}
-        mr={5}
-        mb={2}
-        justifyContent="space-between"
-        alignItems="flex-start"
-        spacing={8}
-      >
-        {
-          <Link to={`/editplace/new`}>
-            <Button variant="contained" style={{ background: "#053742" }}>
-              Cargar Lugar <AddLocationAltTwoToneIcon />
-            </Button>
-          </Link>
-        }
-      </Stack>
-      <List
-        style={{ background: "white" }}
-        itemLayout="horizontal"
-        dataSource={["this data is to show a single column"]}
-        renderItem={() => (
-          <List.Item>
-            <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Dirección</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Latitud</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Longitud</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Categoría</h5>}></List.Item.Meta>
-            <List.Item.Meta title={<h5>Características</h5>}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
-            <List.Item.Meta title={" "}></List.Item.Meta>
-          </List.Item>
-        )}
-      />
-      <List
-        style={{ background: "#c2dbfa" }}
-        itemLayout="horizontal"
-        dataSource={places}
-        renderItem={(place) => (
-          <List.Item>
-            <List.Item.Meta title={place.name}></List.Item.Meta>
-            <List.Item.Meta title={place.address}></List.Item.Meta>
-            <List.Item.Meta title={place.lactitude}></List.Item.Meta>
-            <List.Item.Meta title={place.longitude}></List.Item.Meta>
-            <List.Item.Meta
-              title={
-                <p>
-                  {<LabelImportantTwoToneIcon />}
-                  {`${place.category}`}
-                </p>
-              }
-            ></List.Item.Meta>
+        <div className="PlaceList">
+          <h2>LUGARES</h2>
+          <Stack
+            direction="row"
+            ml={5}
+            mr={5}
+            mb={2}
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={8}
+          >
             {
-              <List.Item.Meta
-                title={place.features.map((f) => (
-                  <p>
-                    {<LabelImportantTwoToneIcon />}
-                    {`${f}`}
-                  </p>
-                ))}
-              ></List.Item.Meta>
+              <Link to={`/editplace/new`}>
+                <Button variant="contained" style={{ background: "#053742" }}>
+                  Cargar Lugar <AddLocationAltTwoToneIcon />
+                </Button>
+              </Link>
             }
+          </Stack>
+          <List
+            style={{ background: "white" }}
+            itemLayout="horizontal"
+            dataSource={["this data is to show a single column"]}
+            renderItem={() => (
+              <List.Item>
+                <List.Item.Meta title={<h5>Nombre</h5>}></List.Item.Meta>
+                <List.Item.Meta title={<h5>Dirección</h5>}></List.Item.Meta>
+                <List.Item.Meta title={<h5>Latitud</h5>}></List.Item.Meta>
+                <List.Item.Meta title={<h5>Longitud</h5>}></List.Item.Meta>
+                <List.Item.Meta title={<h5>Categoría</h5>}></List.Item.Meta>
+                <List.Item.Meta
+                  title={<h5>Características</h5>}
+                ></List.Item.Meta>
+                <List.Item.Meta title={" "}></List.Item.Meta>
+                <List.Item.Meta title={" "}></List.Item.Meta>
+              </List.Item>
+            )}
+          />
+          <List
+            style={{ background: "#c2dbfa" }}
+            itemLayout="horizontal"
+            dataSource={places}
+            renderItem={(place) => (
+              <List.Item>
+                <List.Item.Meta title={place.name}></List.Item.Meta>
+                <List.Item.Meta title={place.address}></List.Item.Meta>
+                <List.Item.Meta title={place.lactitude}></List.Item.Meta>
+                <List.Item.Meta title={place.longitude}></List.Item.Meta>
+                <List.Item.Meta
+                  title={
+                    <p>
+                      {<LabelImportantTwoToneIcon />}
+                      {`${place.category}`}
+                    </p>
+                  }
+                ></List.Item.Meta>
+                {
+                  <List.Item.Meta
+                    title={place.features.map((f) => (
+                      <p>
+                        {<LabelImportantTwoToneIcon />}
+                        {`${f}`}
+                      </p>
+                    ))}
+                  ></List.Item.Meta>
+                }
 
-            <List.Item.Meta
-              title={
-                <Link to={`/editplace/${place._id}`}>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    style={{ background: "#39A2DB" }}
-                  >
-                    <ModeEditOutlineOutlinedIcon /> Editar Lugar
-                  </Button>
-                </Link>
-              }
-            ></List.Item.Meta>
-            <List.Item.Meta title={buttonDelete(place)}></List.Item.Meta>
-          </List.Item>
-        )}
-      />      
-      <Pagination page={page} total={total} onChange={handleChange} />
-    </div>
+                <List.Item.Meta
+                  title={
+                    <Link to={`/editplace/${place._id}`}>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        style={{ background: "#39A2DB" }}
+                      >
+                        <ModeEditOutlineOutlinedIcon /> Editar Lugar
+                      </Button>
+                    </Link>
+                  }
+                ></List.Item.Meta>
+                <List.Item.Meta title={buttonDelete(place)}></List.Item.Meta>
+              </List.Item>
+            )}
+          />
+          <Pagination page={page} total={total} onChange={handleChange} />
+        </div>
       </Container>
-    </React.Fragment>    
+    </React.Fragment>
   );
 }
 
