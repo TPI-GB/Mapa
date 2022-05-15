@@ -151,8 +151,7 @@ export default function MapView() {
     if (feature.length !== 0) {
       featuresUrl = feature;
     }
-    const baseUrl = process.env.REACT_APP_BASE_URL;
-    window.location = `${baseUrl}/${nameUrl}/${categoryUrl}/${featuresUrl}`;
+    window.location = `/${nameUrl}/${categoryUrl}/${featuresUrl}`;
   };
 
   return (
