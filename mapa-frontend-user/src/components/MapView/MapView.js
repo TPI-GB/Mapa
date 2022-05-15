@@ -41,6 +41,9 @@ export default function MapView() {
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState([]);
+  const [latitude, setLatitude] = useState("-35.768021379446026");
+  const [longitude, setLongitude] = useState("-58.49708847640829");
+  const [currentResponse, setCurrentResponse] = useState("sucess");
 
   useEffect(() => {
     getData();
@@ -81,6 +84,34 @@ export default function MapView() {
       setFeature(JSON.parse(JSON.stringify(featuresFilter.split(","))));
     } else {
       setFeature(JSON.parse(JSON.stringify([])));
+    }
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          successCurrentLocation,
+          errorCurrentLocation,
+          { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+        );
+      } else {
+        alert(
+          "Atencion, este navegador no soporta visualizar su ubicación actual"
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      setCurrentResponse("fail");
+    }
+
+    function successCurrentLocation(pos) {
+      var crd = pos.coords;
+      console.log(pos.coords);
+      setLatitude(crd.latitude);
+      setLongitude(crd.longitude);
+    }
+
+    function errorCurrentLocation(err) {
+      console.log("ERROR(" + err.code + "): " + err.message);
+      setCurrentResponse("fail");
     }
   };
 
@@ -123,38 +154,6 @@ export default function MapView() {
     const baseUrl = process.env.REACT_APP_BASE_URL;
     window.location = `${baseUrl}/${nameUrl}/${categoryUrl}/${featuresUrl}`;
   };
-
-  let current_latitude = "-35.768021379446026";
-  let current_longitude = "-58.49708847640829";
-  let current_response = "sucess";
-
-  try {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        successCurrentLocation,
-        errorCurrentLocation,
-        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
-      );
-    } else {
-      alert(
-        "Atencion, este navegador no soporta visualizar su ubicación actual"
-      );
-    }
-  } catch (err) {
-    console.log(err);
-    current_response = "fail";
-  }
-
-  function successCurrentLocation(pos) {
-    var crd = pos.coords;
-    current_latitude = crd.latitude;
-    current_longitude = crd.longitude;
-  }
-
-  function errorCurrentLocation(err) {
-    console.log("ERROR(" + err.code + "): " + err.message);
-    current_response = "fail";
-  }
 
   return (
     <div>
@@ -224,17 +223,17 @@ export default function MapView() {
         <MapContainer
           className="Map-container"
           center={{
-            lat: current_latitude,
-            lng: current_longitude,
+            lat: latitude,
+            lng: longitude,
           }}
           zoom={15}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" />
           <Markers
             places={places}
-            current_latitude={current_latitude}
-            current_longitude={current_longitude}
-            current_response={current_response}
+            current_latitude={latitude}
+            current_longitude={longitude}
+            current_response={currentResponse}
           />
         </MapContainer>
       </div>
