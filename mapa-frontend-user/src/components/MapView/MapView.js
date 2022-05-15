@@ -99,18 +99,21 @@ export default function MapView() {
       }
     } catch (err) {
       console.log(err);
+      setLatitude("-35.768021379446026");
+      setLongitude("-58.49708847640829");
       setCurrentResponse("fail");
     }
 
     function successCurrentLocation(pos) {
       var crd = pos.coords;
-      console.log(pos.coords);
       setLatitude(crd.latitude);
       setLongitude(crd.longitude);
     }
 
     function errorCurrentLocation(err) {
       console.log("ERROR(" + err.code + "): " + err.message);
+      setLatitude("-35.768021379446026");
+      setLongitude("-58.49708847640829");
       setCurrentResponse("fail");
     }
   };
